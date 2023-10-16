@@ -165,6 +165,7 @@ module top;
 	
 				result_rdy = 1'b1;
 				result_parity = ^result;
+				state = IDLE;
 			end
 
 			default :
