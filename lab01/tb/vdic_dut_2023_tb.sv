@@ -241,7 +241,7 @@ module top;
 					result_parity_expected,
 					arg_parity_error_expected);
 				end
-		
+			endcase // case (op_set)
 			end : tester_main_blk
 			$finish;
 		end : tester
