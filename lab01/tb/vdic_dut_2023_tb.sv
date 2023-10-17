@@ -17,7 +17,6 @@ module top;
 		COLOR_DEFAULT
 	} print_color_t;
 
-
 	typedef enum bit[2:0] {
 		RST_OP       = 3'b000,
 		CORR_INPUT   = 3'b001,
@@ -119,7 +118,6 @@ module top;
 		endcase // case (op_choice)
 	endfunction : get_op
 
-
 //---------------------------------
 // Parity calculation task with parameter to return correct or incorrect parity
 //---------------------------------
@@ -210,88 +208,109 @@ module top;
 
 			@(negedge clk);
 
-			op_set = get_op();
+			op_set = CORR_INPUT;
+			arg_a  = get_data();
+			get_parity(arg_a, 1'b0, arg_a_parity);
+			arg_b  = get_data();
+			get_parity(arg_b, 1'b0, arg_b_parity);
+			req = 1'b1;
 
-			case (op_set)
-				
-				RST_OP :
-				begin
-					reset_mult();
-				end
-				
-				CORR_INPUT : 
-				begin  
-					arg_a  = get_data();
-					get_parity(arg_a, 1'b0, arg_a_parity);
-					arg_b  = get_data();
-					get_parity(arg_b, 1'b0, arg_b_parity);
-					req    = 1'b1;
-				end
-				
-				INCORR_INPUT : 
-				begin  
-					arg_a  = get_data();
-					get_parity(arg_a, 1'b1, arg_a_parity);
-					arg_b  = get_data();
-					get_parity(arg_b, 1'b0, arg_b_parity);
-					req    = 1'b1;
+			if (op_set == RST_OP) reset_mult();
 
-				get_expected(arg_a, arg_b, INCORR_INPUT,
+			else
+
+			begin
+				get_expected(arg_a, arg_b, op_set,
 					result_expected,
 					result_parity_expected,
 					arg_parity_error_expected);
+				
+				wait(ack);
+
+				@(negedge clk);
+
+				req = 1'b0;
+
+				wait(result_rdy);
+
+				//------------------------------------------------------------------------------
+				// temporary data check - scoreboard will do the job later
+				begin
+					
+					#1
+					
+					if ((result 		  == result_expected) 				&&
+						(result_parity    == result_parity_expected) 		&&
+						(arg_parity_error == arg_parity_error_expected))
+
+					begin
+						`ifdef DEBUG
+						$display("Test passed for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity,
+							arg_b, arg_b_parity);
+						`endif
+					end
+
+					else
+
+					begin
+						$display("Test FAILED for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity, arg_b, arg_b_parity);
+						$display("Expected: result=%d  result_parity=%d arg_parity_error=%d, \ received: result=%d  result_parity=%d arg_parity_error=%d",
+							result_expected, result_parity_expected, arg_parity_error_expected, result, result_parity, arg_parity_error);
+						test_result = TEST_FAILED;
+					end
 				end
-			endcase // case (op_set)
-			end : tester_main_blk
-			$finish;
-		end : tester
+			end
+
+		end : tester_main_blk
+		$finish;
+	end : tester
 
 //------------------------------------------------------------------------------
 // Temporary. The scoreboard will be later used for checking the data
-		final begin : finish_of_the_test
-			print_test_result(test_result);
-		end
+	final begin : finish_of_the_test
+		print_test_result(test_result);
+	end
 
 //------------------------------------------------------------------------------
 // Other functions
 //------------------------------------------------------------------------------
 
 // used to modify the color of the text printed on the terminal
-		function void set_print_color ( print_color_t c );
-			string ctl;
-			case(c)
-				COLOR_BOLD_BLACK_ON_GREEN : ctl  = "\033\[1;30m\033\[102m";
-				COLOR_BOLD_BLACK_ON_RED : ctl    = "\033\[1;30m\033\[101m";
-				COLOR_BOLD_BLACK_ON_YELLOW : ctl = "\033\[1;30m\033\[103m";
-				COLOR_BOLD_BLUE_ON_WHITE : ctl   = "\033\[1;34m\033\[107m";
-				COLOR_BLUE_ON_WHITE : ctl        = "\033\[0;34m\033\[107m";
-				COLOR_DEFAULT : ctl              = "\033\[0m\n";
-				default : begin
-					$error("set_print_color: bad argument");
-					ctl                          = "";
-				end
-			endcase
-			$write(ctl);
-		endfunction
+	function void set_print_color ( print_color_t c );
+		string ctl;
+		case(c)
+			COLOR_BOLD_BLACK_ON_GREEN : ctl  = "\033\[1;30m\033\[102m";
+			COLOR_BOLD_BLACK_ON_RED : ctl    = "\033\[1;30m\033\[101m";
+			COLOR_BOLD_BLACK_ON_YELLOW : ctl = "\033\[1;30m\033\[103m";
+			COLOR_BOLD_BLUE_ON_WHITE : ctl   = "\033\[1;34m\033\[107m";
+			COLOR_BLUE_ON_WHITE : ctl        = "\033\[0;34m\033\[107m";
+			COLOR_DEFAULT : ctl              = "\033\[0m\n";
+			default : begin
+				$error("set_print_color: bad argument");
+				ctl                          = "";
+			end
+		endcase
+		$write(ctl);
+	endfunction
 
-		function void print_test_result (test_result_t r);
-			if(r == TEST_PASSED) begin
-				set_print_color(COLOR_BOLD_BLACK_ON_GREEN);
-				$write ("-----------------------------------\n");
-				$write ("----------- Test PASSED -----------\n");
-				$write ("-----------------------------------");
-				set_print_color(COLOR_DEFAULT);
-				$write ("\n");
-			end
-			else begin
-				set_print_color(COLOR_BOLD_BLACK_ON_RED);
-				$write ("-----------------------------------\n");
-				$write ("----------- Test FAILED -----------\n");
-				$write ("-----------------------------------");
-				set_print_color(COLOR_DEFAULT);
-				$write ("\n");
-			end
-		endfunction
+	function void print_test_result (test_result_t r);
+		if(r == TEST_PASSED) begin
+			set_print_color(COLOR_BOLD_BLACK_ON_GREEN);
+			$write ("-----------------------------------\n");
+			$write ("----------- Test PASSED -----------\n");
+			$write ("-----------------------------------");
+			set_print_color(COLOR_DEFAULT);
+			$write ("\n");
+		end
+		else begin
+			set_print_color(COLOR_BOLD_BLACK_ON_RED);
+			$write ("-----------------------------------\n");
+			$write ("----------- Test FAILED -----------\n");
+			$write ("-----------------------------------");
+			set_print_color(COLOR_DEFAULT);
+			$write ("\n");
+		end
+	endfunction
 
 
 endmodule : top
