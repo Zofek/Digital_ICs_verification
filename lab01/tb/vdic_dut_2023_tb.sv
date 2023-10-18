@@ -18,9 +18,11 @@ module top;
 	} print_color_t;
 
 	typedef enum bit[2:0] {
-		RST_OP       = 3'b000,
-		CORR_INPUT   = 3'b001,
-		INCORR_INPUT = 3'b010
+		RST_OP        = 3'b000,
+		CORR_INPUT    = 3'b001,
+		INCORRECT_A	  = 3'b010,
+		INCORRECT_B	  = 3'b011,
+		INCORRECT_A_B = 3'b100
 	} operation_t;
 
 //------------------------------------------------------------------------------
@@ -97,9 +99,9 @@ module top;
 
 		zero_ones = 2'($random);
 
-		if (zero_ones == 2'b00)
+		if (zero_ones == 2'b00)      //B1
 			return 16'h0000;
-		else if (zero_ones == 2'b11)
+		else if (zero_ones == 2'b11) //B2
 			return 16'hFF;
 		else
 			return 16'($random);
@@ -111,10 +113,12 @@ module top;
 		bit [2:0] op_choice;
 		op_choice = 3'($random);
 		case (op_choice)
-			3'b000 : return RST_OP;
-			3'b001 : return CORR_INPUT;
-			3'b010 : return INCORR_INPUT;
-			3'b011 : return RST_OP;
+			3'b000  : return RST_OP;
+			3'b001  : return CORR_INPUT;
+			3'b010  : return INCORRECT_A;
+			3'b011  : return INCORRECT_A;
+			3'b100  : return INCORRECT_A_B;
+			default : return RST_OP;
 		endcase // case (op_choice)
 	endfunction : get_op
 
@@ -171,28 +175,32 @@ module top;
 		$display("%0t DEBUG: get_expected(%0d,%0d)",$time, arg_a, arg_b);
 		`endif
 
-		case(op_set)
+		if (op_set == CORR_INPUT)
+		begin
+			result           = arg_a * arg_b;
+			arg_parity_error = 1'b0;
+			result_parity    = ^result;
+		end
 
-			CORR_INPUT :
-			begin
-				result           = arg_a * arg_b;
-				arg_parity_error = 1'b0;
-				result_parity    = ^result;
-			end
-
-			INCORR_INPUT :
-			begin
-				result           = 32'b0;;
-				arg_parity_error = 1'b1;
-				result_parity    = ^result;
-			end
-
-			default: begin
-				$display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %s", $time, op_set);
-				test_result = TEST_FAILED;
-			end
-		endcase
-
+		else if (op_set == INCORRECT_A | op_set == INCORRECT_B  | op_set == INCORRECT_A_B)
+		begin
+			result           = 32'b0;
+			arg_parity_error = 1'b1;
+			result_parity    = ^result;
+		end
+		
+		else if (op_set == RST_OP)
+		begin
+			result           = 32'b0;
+			arg_parity_error = 1'b0;
+			result_parity    = 1'b0;
+		end
+		
+		else  
+		begin
+			$display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %s", $time, op_set);
+			test_result = TEST_FAILED;
+		end
 	endtask : get_expected
 
 //------------------------
@@ -208,59 +216,87 @@ module top;
 
 			@(negedge clk);
 
-			op_set = CORR_INPUT;
+			op_set = get_op();
 			arg_a  = get_data();
-			get_parity(arg_a, 1'b0, arg_a_parity);
 			arg_b  = get_data();
-			get_parity(arg_b, 1'b0, arg_b_parity);
-			req = 1'b1;
 
-			if (op_set == RST_OP) reset_mult();
-
-			else
-
+			if (op_set == CORR_INPUT) //A1
 			begin
-				get_expected(arg_a, arg_b, op_set,
-					result_expected,
-					result_parity_expected,
-					arg_parity_error_expected);
-				
-				wait(ack);
-
-				@(negedge clk);
-
-				req = 1'b0;
-
-				wait(result_rdy);
-
-				//------------------------------------------------------------------------------
-				// temporary data check - scoreboard will do the job later
-				begin
-					
-					#1
-					
-					if ((result 		  == result_expected) 				&&
-						(result_parity    == result_parity_expected) 		&&
-						(arg_parity_error == arg_parity_error_expected))
-
-					begin
-						`ifdef DEBUG
-						$display("Test passed for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity,
-							arg_b, arg_b_parity);
-						`endif
-					end
-
-					else
-
-					begin
-						$display("Test FAILED for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity, arg_b, arg_b_parity);
-						$display("Expected: result=%d  result_parity=%d arg_parity_error=%d, \ received: result=%d  result_parity=%d arg_parity_error=%d",
-							result_expected, result_parity_expected, arg_parity_error_expected, result, result_parity, arg_parity_error);
-						test_result = TEST_FAILED;
-					end
-				end
+				get_parity(arg_a, 1'b0, arg_a_parity);
+				get_parity(arg_b, 1'b0, arg_b_parity);
 			end
 
+			else if (op_set == INCORRECT_A) //A3
+			begin
+				get_parity(arg_a, 1'b1, arg_a_parity);
+				get_parity(arg_b, 1'b0, arg_b_parity);
+			end
+			
+			else if (op_set == INCORRECT_B) //A2
+			begin
+				get_parity(arg_a, 1'b0, arg_a_parity);
+				get_parity(arg_b, 1'b1, arg_b_parity);
+			end
+
+			else if (op_set == INCORRECT_A_B) //A4
+			begin
+				get_parity(arg_a, 1'b1, arg_a_parity);
+				get_parity(arg_b, 1'b1, arg_b_parity);
+			end
+
+			req = 1'b1;
+
+			case (op_set)
+
+				RST_OP :
+				begin : case_rst_block
+					reset_mult();
+				end : case_rst_block
+
+				default :
+				begin : case_default_blk
+					get_expected(arg_a, arg_b, op_set,
+						result_expected,
+						result_parity_expected,
+						arg_parity_error_expected);
+
+					wait(ack); //A5
+
+					@(negedge clk);
+
+					req = 1'b0;
+
+					wait(result_rdy); //A6
+
+					//------------------------------------------------------------------------------
+					// temporary data check - scoreboard will do the job later
+					begin
+
+						#1 
+						//A7
+						if     ((result           == result_expected)               &&
+								(result_parity    == result_parity_expected)        &&
+								(arg_parity_error == arg_parity_error_expected))
+
+						begin
+						`ifdef DEBUG
+							$display("Test passed for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity,
+								arg_b, arg_b_parity);
+						`endif
+						end
+
+						else
+
+						begin
+							$display("Test FAILED for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity, arg_b, arg_b_parity);
+							$display("Expected: result=%d  result_parity=%d arg_parity_error=%d, \ received: result=%d  result_parity=%d arg_parity_error=%d",
+								result_expected, result_parity_expected, arg_parity_error_expected, result, result_parity, arg_parity_error);
+							test_result = TEST_FAILED;
+						end
+					end
+				end : case_default_blk
+
+			endcase // case (op_set)
 		end : tester_main_blk
 		$finish;
 	end : tester
