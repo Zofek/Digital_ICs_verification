@@ -49,11 +49,7 @@ module top;
 	bit                  result_parity_expected;
 	bit                  arg_parity_error_expected;
 
-	bit            [2:0] op;
-
 	operation_t          op_set;
-	assign op = op_set;
-
 
 //------------------------------------------------------------------------------
 // DUT instantiation
@@ -62,7 +58,7 @@ module top;
 		.ack, .result, .result_parity, .result_rdy, .arg_parity_error);
 
 //------------------------------------------------------------------------------
-// Clock generator
+// Clock generatorack
 //------------------------------------------------------------------------------
 
 	initial begin : clk_gen_blk
@@ -95,16 +91,16 @@ module top;
 
 	function shortint get_data();
 
-		bit     [1:0] zero_ones;
+		bit     [2:0] zero_ones;
 
-		zero_ones = 2'($random);
+		zero_ones = 3'($random);
 
-		if (zero_ones == 2'b00)      //B1
-			return 16'h0000;
-		else if (zero_ones == 2'b11) //B2
-			return 16'hFF;
-		else
-			return 16'($random);
+		if (zero_ones == 3'b00)      return 16'h0000; //zero
+		else if (zero_ones == 3'b001) return 16'h7FFF; //MAX
+		else if (zero_ones == 3'b010) return 16'h8000; //MIN
+		else if (zero_ones == 3'b011) return 16'hFFFF; //-1
+		else if (zero_ones == 3'b100) return 16'h0001; //1
+		else return 16'($random);
 
 	endfunction : get_data
 
@@ -220,30 +216,33 @@ module top;
 			arg_a  = get_data();
 			arg_b  = get_data();
 
-			if (op_set == CORR_INPUT) //A1
+			case(op_set)
+				
+			CORR_INPUT : //A1
 			begin
 				get_parity(arg_a, 1'b0, arg_a_parity);
 				get_parity(arg_b, 1'b0, arg_b_parity);
 			end
 
-			else if (op_set == INCORRECT_A) //A3
+			INCORRECT_A :
 			begin
 				get_parity(arg_a, 1'b1, arg_a_parity);
 				get_parity(arg_b, 1'b0, arg_b_parity);
 			end
 			
-			else if (op_set == INCORRECT_B) //A2
+			INCORRECT_B :
 			begin
 				get_parity(arg_a, 1'b0, arg_a_parity);
 				get_parity(arg_b, 1'b1, arg_b_parity);
 			end
 
-			else if (op_set == INCORRECT_A_B) //A4
+			INCORRECT_A_B :
 			begin
 				get_parity(arg_a, 1'b1, arg_a_parity);
 				get_parity(arg_b, 1'b1, arg_b_parity);
 			end
-
+			endcase // case (op_set)
+			
 			req = 1'b1;
 
 			case (op_set)
@@ -267,12 +266,13 @@ module top;
 					req = 1'b0;
 
 					wait(result_rdy); //A6
-
+					
+					@(negedge clk);
+					//while(!a && !b) @nedgedge clk);
 					//------------------------------------------------------------------------------
 					// temporary data check - scoreboard will do the job later
 					begin
 
-						#1 
 						//A7
 						if     ((result           == result_expected)               &&
 								(result_parity    == result_parity_expected)        &&
