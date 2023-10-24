@@ -62,10 +62,176 @@ module top;
 // Coverage block
 //------------------------------------------------------------------------------
 
-// Covergroup checking the op codes and theri sequences
-//covergroup op_cov;
-//
-//endgroup
+	 // Covergroup checking the op codes and theri sequences
+	 covergroup op_cov;
+
+	 option.name = "cg_op_cov";
+
+	 coverpoint op_set {
+	 // #A1 Check the result when data and parity values are valid for both inputs.
+	 bins A1_correct_inputs   = CORR_INPUT;
+
+	 // #A2 Check the result when input parity value is valid for A input and invalid for B input.
+	 bins A2_incorrect_B      = INCORRECT_B;
+
+	 // #A3 Check the result when input parity value is valid for B input and invalid for A input.
+	 bins A3_incorrect_A      = INCORRECT_A;
+
+	 // #A4 Check the result when input parity is invalid for both inputs.
+	 bins A4_incorrect_AB     = INCORRECT_A_B;
+
+	 // #A5 Check if result_ready is set when MULT data is returned.
+	 //bins A5_mul_sngl[]     = (mul_op => [add_op:xor_op], no_op);
+
+	 // #A6 Check if MULT data is ready for one clock cycle.
+	 //bins A6_twoops[]       = ([add_op:mul_op] [* 2]);
+
+	 // bins manymult = (mul_op [* 3:5]);
+	 }
+
+	 endgroup
+
+// Covergroup checking for specific data corners on arguments of the ALU
+	covergroup zeros_plus_and_minus_one_max_min_on_ops;
+
+		option.name = "cg_zeros_plus_and_minus_one_max_or_min_on_ops";
+
+		all_ops : coverpoint op_set {
+			ignore_bins null_ops = {RST_OP};
+		}
+
+		a_leg: coverpoint arg_a {
+			bins zeros     = {'h0000};
+			bins max       = {'h7FFF};
+			bins min       = {'h8000};
+			bins minus_one = {'hFFFF};
+			bins plus_one  = {'h0001};
+			bins others    = {['h0002:'h7FFE],['h8001:'hFFFE]};
+		}
+
+		b_leg: coverpoint arg_b {
+			bins zeros     = {'h0000};
+			bins max       = {'h7FFF};
+			bins min       = {'h8000};
+			bins minus_one = {'hFFFF};
+			bins plus_one  = {'h0001};
+			bins others    = {['h0002:'h7FFE],['h8001:'hFFFE]};
+		}
+
+		B_op_data_corners: cross a_leg, b_leg, all_ops {
+
+			// #B1 Simulate all zeros on an input.
+
+			bins B1_correct_zeros      = binsof (all_ops) intersect {CORR_INPUT}    &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B1_incorrect_a_zeros  = binsof (all_ops) intersect {INCORRECT_A}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B1_incorrect_b_zeros  = binsof (all_ops) intersect {INCORRECT_B}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B1_incorrect_ab_zeros = binsof (all_ops) intersect {INCORRECT_A_B} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			// #B2 Simulate value -1 on an input.
+
+			bins B2_correct_minusone      = binsof (all_ops) intersect {CORR_INPUT}    &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B2_incorrect_a_minusone  = binsof (all_ops) intersect {INCORRECT_A}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B2_incorrect_b_minusone  = binsof (all_ops) intersect {INCORRECT_B}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B2_incorrect_ab_minusone = binsof (all_ops) intersect {INCORRECT_A_B} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			// #B3 Simulate value 1 on an input.
+
+			bins B3_correct_one      = binsof (all_ops) intersect {CORR_INPUT}    &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B3_incorrect_a_one  = binsof (all_ops) intersect {INCORRECT_A}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B3_incorrect_b_one  = binsof (all_ops) intersect {INCORRECT_B}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B3_incorrect_ab_one = binsof (all_ops) intersect {INCORRECT_A_B} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			// #B4 Simulate max value on an input.
+
+			bins B4_correct_max      = binsof (all_ops) intersect {CORR_INPUT}    &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B4_incorrect_a_max  = binsof (all_ops) intersect {INCORRECT_A}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B4_incorrect_b_max  = binsof (all_ops) intersect {INCORRECT_B}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B4_incorrect_ab_max = binsof (all_ops) intersect {INCORRECT_A_B} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			// #B5 Simulate min value on an input.
+
+			bins B5_correct_min      = binsof (all_ops) intersect {CORR_INPUT}    &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B5_incorrect_a_min  = binsof (all_ops) intersect {INCORRECT_A}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B5_incorrect_b_min  = binsof (all_ops) intersect {INCORRECT_B}   &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			bins B5_incorrect_ab_min = binsof (all_ops) intersect {INCORRECT_A_B} &&
+			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+
+			ignore_bins others_only =
+			binsof(a_leg.others) && binsof(b_leg.others);
+		}
+
+	endgroup
+
+    op_cov                      oc;
+	zeros_plus_and_minus_one_max_min_on_ops        c_00_FF;
+
+	initial
+
+	begin : coverage
+
+		oc      = new();
+		c_00_FF = new();
+
+		forever
+
+		begin : sample_cov
+
+			@(posedge clk);
+
+			if(req || !rst_n)
+
+			begin
+				oc.sample();
+				c_00_FF.sample();
+
+				/* #1step delay is necessary before checking for the coverage
+				 * as the .sample methods run in parallel threads
+				 */
+				#1step;
+
+				if($get_coverage() == 100) break; //disable, if needed
+
+			// you can print the coverage after each sample
+			//$strobe("%0t coverage: %.4g\%",$time, $get_coverage());
+			end
+
+		end
+
+	end : coverage
 
 //------------------------------------------------------------------------------
 // Clock generator
@@ -92,12 +258,12 @@ module top;
 
 		zero_ones = 3'($random);
 
-		if (zero_ones == 3'b00)      return 16'h0000; //zero
+		if      (zero_ones == 3'b00)  return 16'h0000; //zero
 		else if (zero_ones == 3'b001) return 16'h7FFF; //MAX
 		else if (zero_ones == 3'b010) return 16'h8000; //MIN
 		else if (zero_ones == 3'b011) return 16'hFFFF; //-1
 		else if (zero_ones == 3'b100) return 16'h0001; //1
-		else return 16'($random);
+		else                          return 16'($random);
 
 	endfunction : get_data
 
@@ -385,7 +551,6 @@ module top;
 		req_prev = req;
 	end
 
-
 	always @(negedge clk)
 
 	begin : scoreboard_be_blk
@@ -399,8 +564,8 @@ module top;
 			dp = sb_data_q.pop_back();
 
 			CHK_RESULT: if  ((result          == dp.result)          &&
-				     		(result_parity    == dp.result_parity)   &&
-							(arg_parity_error == dp.arg_parity_error))
+					(result_parity    == dp.result_parity)   		 &&
+					(arg_parity_error == dp.arg_parity_error))
 
 
 			begin
@@ -414,8 +579,8 @@ module top;
 
 			begin
 				test_result = TEST_FAILED;
-            	$error("%0t Test FAILED for A=%0d, B=%0d, expected: result=%0d  result_parity=%0d arg_parity_error=%0d,", 
-	            	$time, dp.arg_a, dp.arg_b,result, result_parity, arg_parity_error);
+				$error("%0t Test FAILED for A=%0d, B=%0d, expected: result=%0d  result_parity=%0d arg_parity_error=%0d,",
+					$time, dp.arg_a, dp.arg_b,result, result_parity, arg_parity_error);
 			end;
 
 		end
