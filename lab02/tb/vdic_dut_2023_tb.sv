@@ -45,10 +45,6 @@ module top;
 	wire                 result_rdy;
 	wire                 arg_parity_error;
 
-	int                  result_expected ;
-	bit                  result_parity_expected;
-	bit                  arg_parity_error_expected;
-
 	operation_t          op_set;
 
 //------------------------------------------------------------------------------
@@ -62,45 +58,40 @@ module top;
 // Coverage block
 //------------------------------------------------------------------------------
 
-	 // Covergroup checking the op codes and theri sequences
-	 covergroup op_cov;
+	// Covergroup checking the op codes and their sequences
+	covergroup op_cov;
 
-	 option.name = "cg_op_cov";
+		option.name = "cg_op_cov";
 
-	 coverpoint op_set {
-	 // #A1 Check the result when data and parity values are valid for both inputs.
-	 bins A1_correct_inputs   = CORR_INPUT;
+		coverpoint op_set 
+		{
+			// #A1 Check the result when data and parity values are valid for both inputs.
+			bins A1_correct_inputs   = CORR_INPUT;
 
-	 // #A2 Check the result when input parity value is valid for A input and invalid for B input.
-	 bins A2_incorrect_B      = INCORRECT_B;
+			// #A2 Check the result when input parity value is valid for A input and invalid for B input.
+			bins A2_incorrect_B      = INCORRECT_B;
 
-	 // #A3 Check the result when input parity value is valid for B input and invalid for A input.
-	 bins A3_incorrect_A      = INCORRECT_A;
+			// #A3 Check the result when input parity value is valid for B input and invalid for A input.
+			bins A3_incorrect_A      = INCORRECT_A;
 
-	 // #A4 Check the result when input parity is invalid for both inputs.
-	 bins A4_incorrect_AB     = INCORRECT_A_B;
+			// #A4 Check the result when input parity is invalid for both inputs.
+			bins A4_incorrect_AB     = INCORRECT_A_B;
+		}
 
-	 // #A5 Check if result_ready is set when MULT data is returned.
-	 //bins A5_mul_sngl[]     = (mul_op => [add_op:xor_op], no_op);
-
-	 // #A6 Check if MULT data is ready for one clock cycle.
-	 //bins A6_twoops[]       = ([add_op:mul_op] [* 2]);
-
-	 // bins manymult = (mul_op [* 3:5]);
-	 }
-
-	 endgroup
+	endgroup
 
 // Covergroup checking for specific data corners on arguments of the ALU
 	covergroup zeros_plus_and_minus_one_max_min_on_ops;
 
 		option.name = "cg_zeros_plus_and_minus_one_max_or_min_on_ops";
 
-		all_ops : coverpoint op_set {
+		all_ops : coverpoint op_set 
+		{
 			ignore_bins null_ops = {RST_OP};
 		}
 
-		a_leg: coverpoint arg_a {
+		a_leg: coverpoint arg_a 
+		{
 			bins zeros     = {'h0000};
 			bins max       = {'h7FFF};
 			bins min       = {'h8000};
@@ -109,7 +100,8 @@ module top;
 			bins others    = {['h0002:'h7FFE],['h8001:'hFFFE]};
 		}
 
-		b_leg: coverpoint arg_b {
+		b_leg: coverpoint arg_b 
+		{
 			bins zeros     = {'h0000};
 			bins max       = {'h7FFF};
 			bins min       = {'h8000};
@@ -118,7 +110,8 @@ module top;
 			bins others    = {['h0002:'h7FFE],['h8001:'hFFFE]};
 		}
 
-		B_op_data_corners: cross a_leg, b_leg, all_ops {
+		B_op_data_corners: cross a_leg, b_leg, all_ops 
+		{
 
 			// #B1 Simulate all zeros on an input.
 
@@ -137,58 +130,58 @@ module top;
 			// #B2 Simulate value -1 on an input.
 
 			bins B2_correct_minusone      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
 			bins B2_incorrect_a_minusone  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
 			bins B2_incorrect_b_minusone  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
 			bins B2_incorrect_ab_minusone = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
 			// #B3 Simulate value 1 on an input.
 
 			bins B3_correct_one      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
 			bins B3_incorrect_a_one  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
 			bins B3_incorrect_b_one  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
 			bins B3_incorrect_ab_one = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
 			// #B4 Simulate max value on an input.
 
 			bins B4_correct_max      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			bins B4_incorrect_a_max  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			bins B4_incorrect_b_max  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			bins B4_incorrect_ab_max = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			// #B5 Simulate min value on an input.
 
 			bins B5_correct_min      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			bins B5_incorrect_a_min  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			bins B5_incorrect_b_min  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			bins B5_incorrect_ab_min = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			(binsof (a_leg.max) || binsof (b_leg.max));
 
 			ignore_bins others_only =
 			binsof(a_leg.others) && binsof(b_leg.others);
@@ -196,8 +189,8 @@ module top;
 
 	endgroup
 
-    op_cov                      oc;
-	zeros_plus_and_minus_one_max_min_on_ops        c_00_FF;
+	op_cov oc;
+	zeros_plus_and_minus_one_max_min_on_ops c_00_FF;
 
 	initial
 
@@ -334,32 +327,40 @@ module top;
 		$display("%0t DEBUG: get_expected(%0d,%0d)",$time, arg_a, arg_b);
 		`endif
 
-		if (op_set == CORR_INPUT)
+		case(op_set)
+		
+		CORR_INPUT :
+		
 		begin
 			result           = arg_a * arg_b;
 			arg_parity_error = 1'b0;
 			result_parity    = ^result;
 		end
 
-		else if (op_set == INCORRECT_A | op_set == INCORRECT_B  | op_set == INCORRECT_A_B)
+		INCORRECT_A, INCORRECT_B, INCORRECT_A_B:
+		
 		begin
 			result           = 32'b0;
 			arg_parity_error = 1'b1;
 			result_parity    = ^result;
 		end
 
-		else if (op_set == RST_OP)
+		RST_OP :
+		
 		begin
 			result           = 32'b0;
 			arg_parity_error = 1'b0;
 			result_parity    = 1'b0;
 		end
 
-		else
+		default
 		begin
 			$display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %s", $time, op_set);
 			test_result = TEST_FAILED;
 		end
+		
+		endcase
+		
 	endtask : get_expected
 
 //------------------------
@@ -381,7 +382,13 @@ module top;
 
 			case(op_set)
 
-				CORR_INPUT : //A1
+				RST_OP :
+				begin
+					reset_mult();
+					continue;
+				end
+
+				CORR_INPUT :
 				begin
 					get_parity(arg_a, 1'b0, arg_a_parity);
 					get_parity(arg_b, 1'b0, arg_b_parity);
@@ -408,58 +415,16 @@ module top;
 
 			req = 1'b1;
 
-			case (op_set)
+			wait(ack);
 
-				RST_OP :
-				begin : case_rst_block
-					reset_mult();
-				end : case_rst_block
+			@(negedge clk);
 
-					default :
-				begin : case_default_blk
-					get_expected(arg_a, arg_b, op_set,
-						result_expected,
-						result_parity_expected,
-						arg_parity_error_expected);
+			req = 1'b0;
 
-					wait(ack); //A5
+			wait(result_rdy);
 
-					@(negedge clk);
-
-					req = 1'b0;
-
-					wait(result_rdy);
-
-					@(negedge clk);
-					//while(!a && !b) @nedgedge clk);
-					//------------------------------------------------------------------------------
-					// temporary data check - scoreboard will do the job later
-					begin
-
-						if     ((result           == result_expected)               &&
-								(result_parity    == result_parity_expected)        &&
-								(arg_parity_error == arg_parity_error_expected))
-
-						begin
-						`ifdef DEBUG
-							$display("Test passed for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity,
-								arg_b, arg_b_parity);
-						`endif
-						end
-
-						else
-
-						begin
-							$display("Test FAILED for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", arg_a, arg_a_parity, arg_b, arg_b_parity);
-							$display("Expected: result=%d  result_parity=%d arg_parity_error=%d, \ received: result=%d  result_parity=%d arg_parity_error=%d",
-								result_expected, result_parity_expected, arg_parity_error_expected, result, result_parity, arg_parity_error);
-							test_result = TEST_FAILED;
-						end
-					end
-				end : case_default_blk
-
-			endcase // case (op_set)
 		end : tester_main_blk
+
 		$finish;
 	end : tester
 
@@ -563,8 +528,8 @@ module top;
 
 			dp = sb_data_q.pop_back();
 
-			CHK_RESULT: if  ((result          == dp.result)          &&
-					(result_parity    == dp.result_parity)   		 &&
+			CHK_RESULT: if  ((result  == dp.result)          &&
+					(result_parity    == dp.result_parity)   &&
 					(arg_parity_error == dp.arg_parity_error))
 
 
