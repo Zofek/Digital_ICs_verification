@@ -92,22 +92,22 @@ module top;
 
 		a_leg: coverpoint arg_a 
 		{
-			bins zeros     = {'h0000};
-			bins max       = {'h7FFF};
-			bins min       = {'h8000};
-			bins minus_one = {'hFFFF};
-			bins plus_one  = {'h0001};
-			bins others    = {['h0002:'h7FFE],['h8001:'hFFFE]};
+			bins zeros     = {16'sh0000};
+			bins max       = {16'sh7FFF};
+			bins min       = {16'sh8000};
+			bins minus_one = {16'shFFFF};
+			bins plus_one  = {16'sh0001};
+			bins others    = {[16'sh0002:16'sh7FFE],[16'sh8001:16'shFFFE]};
 		}
 
 		b_leg: coverpoint arg_b 
 		{
-			bins zeros     = {'h0000};
-			bins max       = {'h7FFF};
-			bins min       = {'h8000};
-			bins minus_one = {'hFFFF};
-			bins plus_one  = {'h0001};
-			bins others    = {['h0002:'h7FFE],['h8001:'hFFFE]};
+			bins zeros     = {16'sh0000};
+			bins max       = {16'sh7FFF};
+			bins min       = {16'sh8000};
+			bins minus_one = {16'shFFFF};
+			bins plus_one  = {16'sh0001};
+			bins others    = {[16'sh0002:16'sh7FFE],[16'sh8001:16'shFFFE]};
 		}
 
 		B_op_data_corners: cross a_leg, b_leg, all_ops 
@@ -172,16 +172,16 @@ module top;
 			// #B5 Simulate min value on an input.
 
 			bins B5_correct_min      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			(binsof (a_leg.min) || binsof (b_leg.min));
 
 			bins B5_incorrect_a_min  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			(binsof (a_leg.min) || binsof (b_leg.min));
 
 			bins B5_incorrect_b_min  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			(binsof (a_leg.min) || binsof (b_leg.min));
 
 			bins B5_incorrect_ab_min = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			(binsof (a_leg.min) || binsof (b_leg.min));
 
 			ignore_bins others_only =
 			binsof(a_leg.others) && binsof(b_leg.others);
@@ -251,11 +251,11 @@ module top;
 
 		zero_ones = 3'($random);
 
-		if      (zero_ones == 3'b00)  return 16'h0000; //zero
-		else if (zero_ones == 3'b001) return 16'h7FFF; //MAX
-		else if (zero_ones == 3'b010) return 16'h8000; //MIN
-		else if (zero_ones == 3'b011) return 16'hFFFF; //-1
-		else if (zero_ones == 3'b100) return 16'h0001; //1
+		if      (zero_ones == 3'b000)  return 16'sh0000; //zero
+		else if (zero_ones == 3'b001) return 16'sh7FFF; //MAX
+		else if (zero_ones == 3'b010) return 16'sh8000; //MIN
+		else if (zero_ones == 3'b011) return 16'shFFFF; //-1
+		else if (zero_ones == 3'b100) return 16'sh0001; //1
 		else                          return 16'($random);
 
 	endfunction : get_data
@@ -268,7 +268,7 @@ module top;
 			3'b000  : return RST_OP;
 			3'b001  : return CORR_INPUT;
 			3'b010  : return INCORRECT_A;
-			3'b011  : return INCORRECT_A;
+			3'b011  : return INCORRECT_B;
 			3'b100  : return INCORRECT_A_B;
 			default : return RST_OP;
 		endcase // case (op_choice)
