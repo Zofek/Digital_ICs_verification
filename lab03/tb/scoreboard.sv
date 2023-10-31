@@ -109,13 +109,13 @@ module scoreboard(mult_bfm bfm);
 				CORR_INPUT, INCORRECT_A, INCORRECT_B, INCORRECT_A_B :
 				begin
 					get_expected(bfm.arg_a, bfm.arg_b, bfm.op_set,
-						result_scoreboard,
-						result_parity_scoreboard,
-						arg_parity_error_scoreboard);
+						result_scoreboard, result_parity_scoreboard, arg_parity_error_scoreboard);
+					
 					sb_data_q.push_front(data_packet_t'({bfm.arg_a,bfm.arg_b,bfm.op_set,
-								result_scoreboard,result_parity_scoreboard,arg_parity_error_scoreboard}));
+								result_scoreboard, result_parity_scoreboard, arg_parity_error_scoreboard}));
 					
 					while(!bfm.result_rdy)@(negedge bfm.clk);
+					
 				end
 			endcase
 		end
