@@ -1,4 +1,3 @@
-
 interface mult_bfm;
 
 	import mult_pkg::*;
@@ -16,11 +15,9 @@ interface mult_bfm;
 	wire                 result_parity;
 	wire                 result_rdy;
 	wire                 arg_parity_error;
-	wire           [2:0] op;
 
 	operation_t          op_set;
 
-	assign op = op_set;
 
 	modport tlm (import reset_mult, send_op);
 
@@ -54,6 +51,22 @@ interface mult_bfm;
 
 	endtask : reset_mult
 
+//---------------------------------
+// Parity calculation task with parameter to return correct or incorrect parity
+//---------------------------------
+
+	task get_parity(
+
+			input shortint  data,
+			input bit       ret_incorrect_parity,
+			output bit      parity);
+
+		parity = ^data;
+
+		if (ret_incorrect_parity)
+			parity = !parity;
+
+	endtask : get_parity
 
 //------------------------------------------------------------------------------
 // send_op
@@ -62,33 +75,52 @@ interface mult_bfm;
 	task send_op(
 
 			input shortint iarg_a,
-			input bit iarg_a_parity,
 			input shortint iarg_b,
-			input bit iarg_b_parity,
-			input bit req,
 			input operation_t iop,
-
-			output bit iack,
-			output bit iresult_rdy,
-			output bit iarg_parity_error,
-			output int iresult,
-			output bit iresult_parity);
+			
+			output bit oarg_a_parity,
+			output bit oarg_b_parity,
+			output bit oarg_parity_error,
+			output int oresult,
+			output bit oresult_parity);
 
 		op_set = iop;
 		arg_a  = iarg_a;
-		arg_a_parity = iarg_a_parity;
+		arg_a_parity = oarg_a_parity;
 		arg_b  = iarg_b;
-		arg_b_parity = iarg_b_parity;
+		arg_b_parity = oarg_b_parity;
 
-		req = 1'b1;
+		case(op_set)
 
-		wait(ack);
+			RST_OP :
+			begin
+				reset_mult();
+			end
 
-		@(negedge clk);
+			CORR_INPUT :
+			begin
+				get_parity(arg_a, 1'b0, arg_a_parity);
+				get_parity(arg_b, 1'b0, arg_b_parity);
+			end
 
-		req = 1'b0;
+			INCORRECT_A :
+			begin
+				get_parity(arg_a, 1'b1, arg_a_parity);
+				get_parity(arg_b, 1'b0, arg_b_parity);
+			end
 
-		wait(result_rdy);
+			INCORRECT_B :
+			begin
+				get_parity(arg_a, 1'b0, arg_a_parity);
+				get_parity(arg_b, 1'b1, arg_b_parity);
+			end
+
+			INCORRECT_A_B :
+			begin
+				get_parity(arg_a, 1'b1, arg_a_parity);
+				get_parity(arg_b, 1'b1, arg_b_parity);
+			end
+		endcase // case (op_set)
 
 	endtask : send_op
 

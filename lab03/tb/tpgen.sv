@@ -1,7 +1,6 @@
 module tpgen(mult_bfm bfm);
-    
-import mult_pkg::*;
 
+	import mult_pkg::*;
 
 //---------------------------------
 	function operation_t get_op();
@@ -36,36 +35,16 @@ import mult_pkg::*;
 
 	endfunction : get_data
 
-
-//---------------------------------
-// Parity calculation task with parameter to return correct or incorrect parity
-//---------------------------------
-
-	task get_parity(
-
-			input shortint  data,
-			input bit       ret_incorrect_parity,
-			output bit      parity);
-
-		parity = ^data;
-
-		if (ret_incorrect_parity)
-			parity = !parity;
-
-	endtask : get_parity
-
 //---------------------------------
 	initial begin
 
 		shortint arg_a;
-		bit arg_a_parity;
 		shortint arg_b;
-		bit arg_b_parity;
-		bit req;
-		operation_t op_set;
 
-		bit ack;
-		bit result_rdy;
+		operation_t op_set;
+		
+		bit arg_a_parity;
+		bit arg_b_parity;
 		bit arg_parity_error;
 		int result;
 		bit result_parity;
@@ -76,47 +55,19 @@ import mult_pkg::*;
 
 		begin : random_loop
 
-			@(negedge bfm.clk);
-
 			op_set = get_op();
 			arg_a  = get_data();
 			arg_b  = get_data();
 
-			case(op_set)
+			bfm.send_op(arg_a, arg_b, op_set, arg_a_parity, arg_b_parity, arg_parity_error, result, result_parity);
 
-				RST_OP :
-				begin
-					bfm.reset_mult();
-					continue;
-				end
+			bfm.req = 1'b1;
 
-				CORR_INPUT :
-				begin
-					get_parity(arg_a, 1'b0, arg_a_parity);
-					get_parity(arg_b, 1'b0, arg_b_parity);
-				end
+			while(!bfm.ack) @(negedge bfm.clk);
 
-				INCORRECT_A :
-				begin
-					get_parity(arg_a, 1'b1, arg_a_parity);
-					get_parity(arg_b, 1'b0, arg_b_parity);
-				end
+			bfm.req = 1'b0;
 
-				INCORRECT_B :
-				begin
-					get_parity(arg_a, 1'b0, arg_a_parity);
-					get_parity(arg_b, 1'b1, arg_b_parity);
-				end
-
-				INCORRECT_A_B :
-				begin
-					get_parity(arg_a, 1'b1, arg_a_parity);
-					get_parity(arg_b, 1'b1, arg_b_parity);
-				end
-			endcase // case (op_set)
-
-			bfm.send_op(arg_a, arg_a_parity, arg_b, arg_b_parity, req, op_set, ack, 
-				result_rdy, arg_parity_error, result, result_parity);
+			while(!bfm.result_rdy) @(negedge bfm.clk);
 
 		end : random_loop
 		$finish;

@@ -70,8 +70,10 @@ module tester(mult_bfm bfm);
 
 	endtask : get_parity
 
-//---------------------------------
-	initial begin
+//------------------------
+// Tester main
+
+	initial begin : tester
 
 		shortint arg_a;
 		bit arg_a_parity;
@@ -86,11 +88,12 @@ module tester(mult_bfm bfm);
 		int result;
 		bit result_parity;
 
+
 		reset_mult();
 
 		repeat (1000)
 
-		begin : random_loop
+		begin : tester_main_blk
 
 			@(negedge bfm.clk);
 
@@ -131,15 +134,20 @@ module tester(mult_bfm bfm);
 				end
 			endcase // case (op_set)
 
-			send_op(iarg_a(iarg_a),iarg_a_parity(arg_a_parity),iarg_b(arg_b),iarg_b_parity(arg_b_parity),
-				ireq(req),iop(op_set),
-				iack(ack),iresult_rdy(result_rdy),
-				iarg_parity_error(arg_parity_error),iresult(result),iresult_parity(result_parity));
+			req = 1'b1;
 
-		end : random_loop
+			wait(ack);
+
+			@(negedge bfm.clk);
+
+			req = 1'b0;
+
+			wait(result_rdy);
+
+		end : tester_main_blk
+
 		$finish;
-
-	end // initial begin
+	end : tester
 
 
 endmodule : tester

@@ -114,6 +114,8 @@ module scoreboard(mult_bfm bfm);
 						arg_parity_error_scoreboard);
 					sb_data_q.push_front(data_packet_t'({bfm.arg_a,bfm.arg_b,bfm.op_set,
 								result_scoreboard,result_parity_scoreboard,arg_parity_error_scoreboard}));
+					
+					while(!bfm.result_rdy)@(negedge bfm.clk);
 				end
 			endcase
 		end
@@ -131,11 +133,12 @@ module scoreboard(mult_bfm bfm);
 			data_packet_t dp;
 
 			dp = sb_data_q.pop_back();
-
+			
+			if (dp.op_set !== RST_OP) 
+			begin
 			CHK_RESULT: if  ((bfm.result  == dp.result)          &&
 					(bfm.result_parity    == dp.result_parity)   &&
 					(bfm.arg_parity_error == dp.arg_parity_error))
-
 
 			begin
 		   `ifdef DEBUG
@@ -149,9 +152,10 @@ module scoreboard(mult_bfm bfm);
 			begin
 				tr = TEST_FAILED;
 				$error("%0t Test FAILED for A=%0d, B=%0d, expected: result=%0d  result_parity=%0d arg_parity_error=%0d,",
-					$time, dp.arg_a, dp.arg_b, dp.result, dp.result_parity, dp.arg_parity_error);
+					$time, dp.arg_a, dp.arg_b, result_scoreboard, result_parity_scoreboard, arg_parity_error_scoreboard);
 			end;
 
+			end
 		end
 	end : scoreboard_be_blk
 
