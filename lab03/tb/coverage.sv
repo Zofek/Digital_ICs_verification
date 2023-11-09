@@ -40,7 +40,10 @@ operation_t           op_set;
 
 		all_ops : coverpoint op_set 
 		{
-			ignore_bins null_ops = {RST_OP};
+			bins correct_inputs   = CORR_INPUT;
+			bins incorrect_B      = INCORRECT_B;
+			bins incorrect_A      = INCORRECT_A;
+			bins incorrect_AB     = INCORRECT_A_B;
 		}
 
 		a_leg: coverpoint arg_a 
@@ -68,73 +71,53 @@ operation_t           op_set;
 
 			// #B1 Simulate all zeros on an input.
 
-			bins B1_correct_zeros      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			bins B1_correct_zeros      = binsof (all_ops.correct_inputs) && (binsof (a_leg.zeros) || binsof (b_leg.zeros));
 
-			bins B1_incorrect_a_zeros  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			bins B1_incorrect_b_zeros  = binsof (all_ops.incorrect_B) && (binsof (a_leg.zeros) || binsof (b_leg.zeros));
 
-			bins B1_incorrect_b_zeros  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			bins B1_incorrect_a_zeros  = binsof (all_ops.incorrect_A) && (binsof (a_leg.zeros) || binsof (b_leg.zeros));
 
-			bins B1_incorrect_ab_zeros = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.zeros) || binsof (b_leg.zeros));
+			bins B1_incorrect_ab_zeros = binsof (all_ops.incorrect_AB) && (binsof (a_leg.zeros) || binsof (b_leg.zeros));
 
 			// #B2 Simulate value -1 on an input.
 
-			bins B2_correct_minusone      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
+			bins B2_correct_minusone      = binsof (all_ops.correct_inputs) && (binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
-			bins B2_incorrect_a_minusone  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
+			bins B2_incorrect_b_minusone  = binsof (all_ops.incorrect_B) && (binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
-			bins B2_incorrect_b_minusone  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
+			bins B2_incorrect_a_minusone  = binsof (all_ops.incorrect_A) && (binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
-			bins B2_incorrect_ab_minusone = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
+			bins B2_incorrect_ab_minusone = binsof (all_ops.incorrect_AB) && (binsof (a_leg.minus_one) || binsof (b_leg.minus_one));
 
 			// #B3 Simulate value 1 on an input.
 
-			bins B3_correct_one      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
+			bins B3_correct_one      = binsof (all_ops.correct_inputs) && (binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
-			bins B3_incorrect_a_one  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
+			bins B3_incorrect_b_one  = binsof (all_ops.incorrect_B) && (binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
-			bins B3_incorrect_b_one  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
+			bins B3_incorrect_a_one  = binsof (all_ops.incorrect_A) && (binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
-			bins B3_incorrect_ab_one = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
+			bins B3_incorrect_ab_one = binsof (all_ops.incorrect_AB) && (binsof (a_leg.plus_one) || binsof (b_leg.plus_one));
 
 			// #B4 Simulate max value on an input.
 
-			bins B4_correct_max      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			bins B4_correct_max      = binsof (all_ops.correct_inputs) && (binsof (a_leg.max) || binsof (b_leg.max));
 
-			bins B4_incorrect_a_max  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			bins B4_incorrect_b_max  = binsof (all_ops.incorrect_B) && (binsof (a_leg.max) || binsof (b_leg.max));
 
-			bins B4_incorrect_b_max  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			bins B4_incorrect_a_max  = binsof (all_ops.incorrect_A) && (binsof (a_leg.max) || binsof (b_leg.max));
 
-			bins B4_incorrect_ab_max = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.max) || binsof (b_leg.max));
+			bins B4_incorrect_ab_max = binsof (all_ops.incorrect_AB) && (binsof (a_leg.max) || binsof (b_leg.max));
 
 			// #B5 Simulate min value on an input.
 
-			bins B5_correct_min      = binsof (all_ops) intersect {CORR_INPUT}    &&
-			(binsof (a_leg.min) || binsof (b_leg.min));
+			bins B5_correct_min      = binsof (all_ops.correct_inputs) && (binsof (a_leg.min) || binsof (b_leg.min));
 
-			bins B5_incorrect_a_min  = binsof (all_ops) intersect {INCORRECT_A}   &&
-			(binsof (a_leg.min) || binsof (b_leg.min));
+			bins B5_incorrect_b_min  = binsof (all_ops.incorrect_B) && (binsof (a_leg.min) || binsof (b_leg.min));
 
-			bins B5_incorrect_b_min  = binsof (all_ops) intersect {INCORRECT_B}   &&
-			(binsof (a_leg.min) || binsof (b_leg.min));
+			bins B5_incorrect_a_min  = binsof (all_ops.incorrect_A) && (binsof (a_leg.min) || binsof (b_leg.min));
 
-			bins B5_incorrect_ab_min = binsof (all_ops) intersect {INCORRECT_A_B} &&
-			(binsof (a_leg.min) || binsof (b_leg.min));
+			bins B5_incorrect_ab_min = binsof (all_ops.incorrect_AB) && (binsof (a_leg.min) || binsof (b_leg.min));
 
 			ignore_bins others_only =
 			binsof(a_leg.others) && binsof(b_leg.others);

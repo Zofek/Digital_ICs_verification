@@ -2,7 +2,7 @@ module top;
 	
 mult_bfm bfm();
 tpgen tpgen_i (bfm);
-//coverage coverage_i (bfm);
+coverage coverage_i (bfm);
 scoreboard scoreboard_i(bfm);
 
 vdic_dut_2023 DUT (.clk(bfm.clk), .rst_n(bfm.rst_n), .arg_a(bfm.arg_a), .arg_a_parity(bfm.arg_a_parity),
