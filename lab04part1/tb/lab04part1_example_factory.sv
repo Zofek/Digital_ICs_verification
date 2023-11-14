@@ -34,7 +34,8 @@ virtual class shape_c;
 	function string print();
 		$display("----------------------------------------------------------------------------------------");
 		$display("This is: %s",name);
-		foreach (points[i]) $display("%0.2f",points[i]);
+		foreach (points[i])
+			$display("%0.2f %0.2f",points[i].x, points[i].y);
 
 	endfunction : print
 
@@ -70,10 +71,10 @@ class rectangle_c extends shape_c;
 		real side1 = 0.0;
 		real side2 = 0.0;
 
-		r_coords1 = points.pop_back();
-		r_coords2 = points.pop_back();
-		r_coords3 = points.pop_back();
-		r_coords4 = points.pop_back();
+		r_coords1 = points.pop_front();
+		r_coords2 = points.pop_front();
+		r_coords3 = points.pop_front();
+		r_coords4 = points.pop_front();
 
 		side1 = get_distance(r_coords1,r_coords2);
 		side2 = get_distance(r_coords2,r_coords3);
@@ -104,7 +105,7 @@ class circle_c extends rectangle_c;
 		real radius = 0.0;
 
 		points_copy = points;
-		coords1 = points_copy.pop_back();
+		coords1 = points_copy.pop_front();
 		radius = get_distance(coords1, coords2);
 
 		return radius;
@@ -121,8 +122,8 @@ class circle_c extends rectangle_c;
 		real radius   = 0.0;
 
 		points_copy = points;
-		circle_coords1 = points_copy.pop_back();
-		circle_coords2 = points_copy.pop_back();
+		circle_coords1 = points_copy.pop_front();
+		circle_coords2 = points_copy.pop_front();
 
 		radius = get_radius();
 		area = 3.14 * radius**2;
@@ -151,9 +152,9 @@ class triangle_c extends shape_c;
 		coordinates_struct t_coords3;
 		real area   = 0.0;
 
-		t_coords1 = points.pop_back();
-		t_coords2 = points.pop_back();
-		t_coords3 = points.pop_back();
+		t_coords1 = points.pop_front();
+		t_coords2 = points.pop_front();
+		t_coords3 = points.pop_front();
 
 		area = 0.5 * ((t_coords2.x - t_coords1.x)*(t_coords3.y - t_coords1.y) - (t_coords2.y - t_coords1.y)*(t_coords3.x - t_coords1.x));
 
@@ -205,10 +206,10 @@ class shape_factory;
 
 		foreach(points_q[i]) ctr_local++;
 
-		point1 = points_q_copy.pop_back();
-		point2 = points_q_copy.pop_back();
-		point3 = points_q_copy.pop_back();
-		point4 = points_q_copy.pop_back();
+		point1 = points_q_copy.pop_front();
+		point2 = points_q_copy.pop_front();
+		point3 = points_q_copy.pop_front();
+		point4 = points_q_copy.pop_front();
 
 		diameter1 = ((point1.x - point3.x)**2 + (point1.y - point3.y)**2)**0.5;
 		diameter2 = ((point2.x - point4.x)**2 + (point2.y - point4.y)**2)**0.5;
@@ -259,7 +260,7 @@ class shape_reporter #(type T = shape_c);
 	//-------------------------
 	static function void shapes_storage(T l);
 
-		storage.push_front(l);
+		storage.push_back(l);
 
 	endfunction : shapes_storage
 
@@ -268,28 +269,29 @@ class shape_reporter #(type T = shape_c);
 
 		foreach (storage[i])
 		begin
-			T::print();
-
-			case (storage[i])
-
-				"polygon":
-				begin
-					$display("can not be calculated for generic polygon");
-				end
-
-				"circle", "triangle", "rectangle":
-				begin
-					$display("Area is:",T::get_area());
-					//if (storage[i] == "circle") $display("radius: %0.2f", T.get_radius());
-				end
-
-				default
-				begin
-					$display("No such shape");
-				end
-			endcase
+			$display(storage[i]);
 		end
+	/*
+	 case (storage[i])
 
+	 "polygon":
+	 begin
+	 $display("can not be calculated for generic polygon");
+	 end
+
+	 "circle", "triangle", "rectangle":
+	 begin
+	 $display("Area is:",storage[i].get_area());
+	 //if (storage[i] == "circle") $display("radius: %0.2f", T.get_radius());
+	 end
+
+	 default
+	 begin
+	 $display("No such shape");
+	 end
+	 endcase
+	 end
+	 */
 	endfunction : report_shapes
 
 //if (name == "circle") $display("radius: %0.2f",circle_c.get_radius());
@@ -342,31 +344,46 @@ module top;
 			begin
 
 				j = 0;
+				coordinates_q.delete();
+				
 				foreach (line[n])
 				begin
-
+					$display("%s",line[n]);
+					
 					if (line[n] != " " && line[n] != 10)
 					begin
+						
 						temp_string = {temp_string,line[n]};
+						
 					end
 
 					else if (line[n] == " " || line[n] == 10)
 					begin
-						if (j % 2 == 0) x_y_pos.x = temp_string.atoreal();
-						else            x_y_pos.y = temp_string.atoreal();
-						coordinates_q.push_front(x_y_pos);
+						
+						if (j % 2 == 0)
+						begin
+							x_y_pos.x = temp_string.atoreal();
+						end
+
+						else
+						begin
+							x_y_pos.y = temp_string.atoreal();
+							coordinates_q.push_back(x_y_pos);
+						end
 						j++;
 						temp_string = "";
+						
 					end
 				end
 
 			end
 
 			/* - call the make_shape() function for each line of the file;*/
-			shape_o = shape_factory::make_shape(coordinates_q);
+			//shape_o = shape_factory::make_shape(coordinates_q);
 
 			/* - call the report_shapes() function for each object type.*/
-			shape_reporter#(shape_c)::report_shapes();
+			//shape_reporter#(shape_c)::report_shapes();
+			foreach (coordinates_q[i]) $display("file line no: %d (x,y) = %0.2f %0.2f",ctr,coordinates_q[i].x,coordinates_q[i].y);
 			ctr++;
 		end
 
