@@ -32,12 +32,10 @@ virtual class shape_c;
 
 	//-------------------------
 	function string print();
-		
+		$display("----------------------------------------------------------------------------------------");
 		$display("This is: %s",name);
-		foreach (points[i]) $display(points[i]);
-		
-		//if (name == "circle") $display("radius: %0.2f",circle_c.get_radius());
-		//if (area == 0.0) 		$display("can not be calculated for generic polygon");	
+		foreach (points[i]) $display("%0.2f",points[i]);
+
 	endfunction : print
 
 endclass : shape_c
@@ -99,12 +97,12 @@ class circle_c extends rectangle_c;
 
 	//-------------------------
 	function real get_radius();
-		
+
 		coordinates_struct points_copy[$];
 		coordinates_struct coords1;
 		coordinates_struct coords2;
 		real radius = 0.0;
-		
+
 		points_copy = points;
 		coords1 = points_copy.pop_back();
 		radius = get_distance(coords1, coords2);
@@ -121,7 +119,7 @@ class circle_c extends rectangle_c;
 		coordinates_struct points_copy[$];
 		real area   = 0.0;
 		real radius   = 0.0;
-		
+
 		points_copy = points;
 		circle_coords1 = points_copy.pop_back();
 		circle_coords2 = points_copy.pop_back();
@@ -190,24 +188,38 @@ endclass : polygon_c
 class shape_factory;
 
 	static function shape_c make_shape(coordinates_struct points[$]);
-		
+
 		circle_c circle_o;
 		triangle_c triangle_o;
 		rectangle_c rectangle_o;
 		polygon_c polygon_o;
-		static coordinates_struct coordinates_struct[$];
+		coordinates_struct points_q[$];
+		coordinates_struct points_q_copy[$];
 		static int ctr_local = 0;
-		
-		foreach(coordinates_struct[i]) ctr_local++;
-		
-		if (ctr_local == 4)
-			begin
-				
-			end
-			
-		
+		coordinates_struct point1;
+		coordinates_struct point2;
+		coordinates_struct point3;
+		coordinates_struct point4;
+		real diameter1 = 0.0;
+		real diameter2 = 0.0;
+
+		foreach(points_q[i]) ctr_local++;
+
+		point1 = points_q_copy.pop_back();
+		point2 = points_q_copy.pop_back();
+		point3 = points_q_copy.pop_back();
+		point4 = points_q_copy.pop_back();
+
+		diameter1 = ((point1.x - point3.x)**2 + (point1.y - point3.y)**2)**0.5;
+		diameter2 = ((point2.x - point4.x)**2 + (point2.y - point4.y)**2)**0.5;
+
+		//  in case of 4 points check if it's rectangle
+		if (ctr_local == 4 && diameter1 == diameter2) ctr_local = 4;
+		else                                          ctr_local = 5;
+
+
 		case (ctr_local)
-			
+
 			CIRCLE:
 			begin
 				circle_o = new("circle",points);
@@ -219,13 +231,13 @@ class shape_factory;
 				triangle_o = new("triangle",points);
 				return triangle_o;
 			end
-		
+
 			RECTANGLE:
 			begin
 				rectangle_o = new("rectangle",points);
 				return rectangle_o;
 			end
-			
+
 			default :
 			begin
 				polygon_o = new("polygon",points);
@@ -240,27 +252,52 @@ endclass : shape_factory
 
 
 //---------------------------------------------------------------------
-class animal_cage #(type T=animal);
+class shape_reporter #(type T = shape_c);
 
-	static T cage[$];
+	protected static T storage[$];
 
-	static function void cage_animal(T l);
-		cage.push_back(l);
-	endfunction : cage_animal
+	//-------------------------
+	static function void shapes_storage(T l);
 
-	static function void list_animals();
-		$display("Animals in cage:");
-		foreach (cage[i])
-			$display(cage[i].get_name());
-	endfunction : list_animals
+		storage.push_front(l);
 
-endclass : animal_cage
+	endfunction : shapes_storage
+
+	//-------------------------
+	static function void report_shapes();
+
+		foreach (storage[i])
+		begin
+			T::print();
+
+			case (storage[i])
+
+				"polygon":
+				begin
+					$display("can not be calculated for generic polygon");
+				end
+
+				"circle", "triangle", "rectangle":
+				begin
+					$display("Area is:",T::get_area());
+					//if (storage[i] == "circle") $display("radius: %0.2f", T.get_radius());
+				end
+
+				default
+				begin
+					$display("No such shape");
+				end
+			endcase
+		end
+
+	endfunction : report_shapes
+
+//if (name == "circle") $display("radius: %0.2f",circle_c.get_radius());
+
+endclass : shape_reporter
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 module top;
-
-	coordinates_struct x_y_pos;
-	coordinates_struct coordinates_q  [$];
 
 	/*
 	 * The main top module should:
@@ -269,16 +306,21 @@ module top;
 	 * - call the report_shapes() function for each object type.
 	 */
 
-// Reading the lab04part1_shapes.txt file
-//---------------------------------------------------------------------
+	coordinates_struct x_y_pos;
+	coordinates_struct coordinates_q  [$];
+	shape_c shape_o;
 
-	string filename = "/home/student/zwatroba/VDIC/lab04example/lab04part1_shapes.txt";
+	string filename = "/home/student/zwatroba/VDIC/lab04part1/lab04part1_shapes.txt";
 	string line;
 	string temp_string = "";
 	int ctr = 0;
 	int n = 0;
 	int j= 0;
 	int no_of_char_read = 0;
+
+// Reading the lab04part1_shapes.txt file
+//---------------------------------------------------------------------
+
 
 	initial
 	begin
@@ -321,8 +363,10 @@ module top;
 			end
 
 			/* - call the make_shape() function for each line of the file;*/
-			/* - call the report_shapes() function for each object type.*/
+			shape_o = shape_factory::make_shape(coordinates_q);
 
+			/* - call the report_shapes() function for each object type.*/
+			shape_reporter#(shape_c)::report_shapes();
 			ctr++;
 		end
 
