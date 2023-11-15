@@ -26,12 +26,23 @@ virtual class shape_c;
 		points = points_queue;
 
 	endfunction : new
-
+	
+	//-------------------------
+	function string get_name(); 
+		
+		string local_name;
+		
+		local_name = name;
+		
+		return local_name;
+		
+	endfunction : get_name
+	
 	//-------------------------
 	pure virtual function real get_area();
 
 	//-------------------------
-	function void print(); 
+	virtual function void print(); 
 		
 		real area = get_area();
 		
@@ -114,6 +125,7 @@ class circle_c extends rectangle_c;
 
 		points_copy = points;
 		coords1 = points_copy.pop_front();
+		coords2 = points_copy.pop_front();
 		radius = get_distance(coords1, coords2);
 
 		return radius;
@@ -121,7 +133,7 @@ class circle_c extends rectangle_c;
 	endfunction : get_radius
 
 	//-------------------------
-	function void print();
+	virtual function void print();
 		
 		$display("----------------------------------------------------------------------------------------");
 		$display("This is: %s",name);
@@ -131,7 +143,7 @@ class circle_c extends rectangle_c;
 		
 		$display("radius: %0.2f",get_radius());
 		
-		$display("Area is: ",get_area());
+		$display("Area is: %0.2f",get_area());
 		
 	endfunction : print
 
@@ -161,7 +173,7 @@ endclass : circle_c
 class triangle_c extends shape_c;
 
 	//-------------------------
-	function new(string n,coordinates_struct points[$]);
+	function new(string name,coordinates_struct points[$]);
 
 		super.new(name,points);
 
@@ -294,7 +306,20 @@ class shape_reporter #(type T = shape_c);
 	//-------------------------
 	static function void report_shapes();
 				
-		foreach (storage[i]) storage[i].print();;
+		foreach (storage[i]) 
+			begin
+				
+				circle_c circle_local;
+				
+				if (storage[i].get_name() != "circle") storage[i].print();
+				
+				else 
+					begin
+						storage[i].print();
+						//$display("radius: %0.2f", circle_local.get_radius());
+					end
+					
+			end
 		
 	endfunction : report_shapes
 	
