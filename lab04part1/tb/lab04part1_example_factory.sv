@@ -31,7 +31,7 @@ virtual class shape_c;
 	pure virtual function real get_area();
 
 	//-------------------------
-	function void print();
+	function void print(); 
 		
 		real area = get_area();
 		
@@ -39,7 +39,7 @@ virtual class shape_c;
 		$display("This is: %s",name);
 		
 		foreach (points[i]) $display("(%0.2f %0.2f)",points[i].x, points[i].y);
-		
+
 		if (area != 0.0) $display("Area is: %0.2f",area);
 		else 			 $display("Area is: can not be calculated for generic polygon");
 	endfunction : print
@@ -50,7 +50,7 @@ endclass : shape_c
 class rectangle_c extends shape_c;
 
 	//-------------------------
-	function new(string n,coordinates_struct points_queue[$]);
+	function new(string name,coordinates_struct points[$]);
 
  		super.new(name,points);
 		
@@ -72,14 +72,16 @@ class rectangle_c extends shape_c;
 		coordinates_struct r_coords2;
 		coordinates_struct r_coords3;
 		coordinates_struct r_coords4;
+		coordinates_struct points_copy[$];
 		real area   = 0.0;
 		real side1 = 0.0;
 		real side2 = 0.0;
-
-		r_coords1 = points.pop_front();
-		r_coords2 = points.pop_front();
-		r_coords3 = points.pop_front();
-		r_coords4 = points.pop_front();
+		
+		points_copy = points;
+		r_coords1 = points_copy.pop_front();
+		r_coords2 = points_copy.pop_front();
+		r_coords3 = points_copy.pop_front();
+		r_coords4 = points_copy.pop_front();
 		
 
 		side1 = get_distance(r_coords1,r_coords2);
@@ -96,7 +98,7 @@ endclass : rectangle_c
 class circle_c extends rectangle_c;
 
 	//-------------------------
-	function new(string n,coordinates_struct points_queue[$]);
+	function new(string name,coordinates_struct points[$]);
 
 		super.new(name,points);
 
@@ -159,7 +161,7 @@ endclass : circle_c
 class triangle_c extends shape_c;
 
 	//-------------------------
-	function new(string n,coordinates_struct points_queue[$]);
+	function new(string n,coordinates_struct points[$]);
 
 		super.new(name,points);
 
@@ -171,11 +173,13 @@ class triangle_c extends shape_c;
 		coordinates_struct t_coords1;
 		coordinates_struct t_coords2;
 		coordinates_struct t_coords3;
+		coordinates_struct points_copy[$];
 		real area   = 0.0;
-
-		t_coords1 = points.pop_front();
-		t_coords2 = points.pop_front();
-		t_coords3 = points.pop_front();
+		
+		points_copy = points;
+		t_coords1 = points_copy.pop_front();
+		t_coords2 = points_copy.pop_front();
+		t_coords3 = points_copy.pop_front();
 
 		area = 0.5 * (((t_coords2.x - t_coords1.x)*(t_coords3.y - t_coords1.y) - (t_coords2.y - t_coords1.y)*(t_coords3.x - t_coords1.x))**2)**0.5;
 
@@ -191,7 +195,7 @@ class polygon_c extends rectangle_c;
 	//-------------------------
 	function new(string name,coordinates_struct points[$]);
 
-		super.new(.n(name), .points_queue(points));
+		super.new(name,points);
 
 	endfunction : new
 
@@ -374,7 +378,7 @@ module top;
 				end
 
 			end
-
+			
 			/* - call the make_shape() function for each line of the file;*/
 			shape_o = shape_factory::make_shape(coordinates_q);
 
