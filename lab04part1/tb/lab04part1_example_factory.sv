@@ -31,12 +31,17 @@ virtual class shape_c;
 	pure virtual function real get_area();
 
 	//-------------------------
-	function string print();
+	function void print();
+		
+		real area = get_area();
+		
 		$display("----------------------------------------------------------------------------------------");
 		$display("This is: %s",name);
-		foreach (points[i])
-			$display("%0.2f %0.2f",points[i].x, points[i].y);
-
+		
+		foreach (points[i]) $display("(%0.2f %0.2f)",points[i].x, points[i].y);
+		
+		if (area != 0.0) $display("Area is: %0.2f",area);
+		else 			 $display("Area is: can not be calculated for generic polygon");
 	endfunction : print
 
 endclass : shape_c
@@ -45,10 +50,10 @@ endclass : shape_c
 class rectangle_c extends shape_c;
 
 	//-------------------------
-	function new(string name,coordinates_struct points[$]);
+	function new(string n,coordinates_struct points_queue[$]);
 
-		super.new(name, points);
-
+ 		super.new(name,points);
+		
 	endfunction : new
 
 	//-------------------------
@@ -75,11 +80,12 @@ class rectangle_c extends shape_c;
 		r_coords2 = points.pop_front();
 		r_coords3 = points.pop_front();
 		r_coords4 = points.pop_front();
+		
 
 		side1 = get_distance(r_coords1,r_coords2);
 		side2 = get_distance(r_coords2,r_coords3);
 		area = side1 * side2;
-
+		
 		return area;
 
 	endfunction : get_area
@@ -90,9 +96,9 @@ endclass : rectangle_c
 class circle_c extends rectangle_c;
 
 	//-------------------------
-	function new(string name,coordinates_struct points[$]);
+	function new(string n,coordinates_struct points_queue[$]);
 
-		super.new(name, points);
+		super.new(name,points);
 
 	endfunction : new
 
@@ -111,6 +117,21 @@ class circle_c extends rectangle_c;
 		return radius;
 
 	endfunction : get_radius
+
+	//-------------------------
+	function void print();
+		
+		$display("----------------------------------------------------------------------------------------");
+		$display("This is: %s",name);
+		
+		foreach (points[i])
+			$display("(%0.2f %0.2f)",points[i].x, points[i].y);
+		
+		$display("radius: %0.2f",get_radius());
+		
+		$display("Area is: ",get_area());
+		
+	endfunction : print
 
 	//-------------------------
 	function real get_area();
@@ -138,9 +159,9 @@ endclass : circle_c
 class triangle_c extends shape_c;
 
 	//-------------------------
-	function new(string name,coordinates_struct points[$]);
+	function new(string n,coordinates_struct points_queue[$]);
 
-		super.new(name, points);
+		super.new(name,points);
 
 	endfunction : new
 
@@ -156,7 +177,7 @@ class triangle_c extends shape_c;
 		t_coords2 = points.pop_front();
 		t_coords3 = points.pop_front();
 
-		area = 0.5 * ((t_coords2.x - t_coords1.x)*(t_coords3.y - t_coords1.y) - (t_coords2.y - t_coords1.y)*(t_coords3.x - t_coords1.x));
+		area = 0.5 * (((t_coords2.x - t_coords1.x)*(t_coords3.y - t_coords1.y) - (t_coords2.y - t_coords1.y)*(t_coords3.x - t_coords1.x))**2)**0.5;
 
 		return area;
 
@@ -170,7 +191,7 @@ class polygon_c extends rectangle_c;
 	//-------------------------
 	function new(string name,coordinates_struct points[$]);
 
-		super.new(name, points);
+		super.new(.n(name), .points_queue(points));
 
 	endfunction : new
 
@@ -183,7 +204,6 @@ class polygon_c extends rectangle_c;
 
 endclass : polygon_c
 //---------------------------------------------------------------------
-
 
 //---------------------------------------------------------------------
 class shape_factory;
@@ -203,9 +223,14 @@ class shape_factory;
 		coordinates_struct point4;
 		real diameter1 = 0.0;
 		real diameter2 = 0.0;
-
-		foreach(points_q[i]) ctr_local++;
-
+		
+		points_q 	  = points;
+		points_q_copy = points_q;
+		
+		ctr_local = 0;
+		
+		foreach(points[i]) ctr_local++;
+		
 		point1 = points_q_copy.pop_front();
 		point2 = points_q_copy.pop_front();
 		point3 = points_q_copy.pop_front();
@@ -215,10 +240,8 @@ class shape_factory;
 		diameter2 = ((point2.x - point4.x)**2 + (point2.y - point4.y)**2)**0.5;
 
 		//  in case of 4 points check if it's rectangle
-		if (ctr_local == 4 && diameter1 == diameter2) ctr_local = 4;
-		else                                          ctr_local = 5;
-
-
+		if (ctr_local == 4 && diameter1 != diameter2) ctr_local = 5;
+	
 		case (ctr_local)
 
 			CIRCLE:
@@ -256,7 +279,7 @@ endclass : shape_factory
 class shape_reporter #(type T = shape_c);
 
 	protected static T storage[$];
-
+	static int i = 0;
 	//-------------------------
 	static function void shapes_storage(T l);
 
@@ -266,36 +289,11 @@ class shape_reporter #(type T = shape_c);
 
 	//-------------------------
 	static function void report_shapes();
-
-		foreach (storage[i])
-		begin
-			$display(storage[i]);
-		end
-	/*
-	 case (storage[i])
-
-	 "polygon":
-	 begin
-	 $display("can not be calculated for generic polygon");
-	 end
-
-	 "circle", "triangle", "rectangle":
-	 begin
-	 $display("Area is:",storage[i].get_area());
-	 //if (storage[i] == "circle") $display("radius: %0.2f", T.get_radius());
-	 end
-
-	 default
-	 begin
-	 $display("No such shape");
-	 end
-	 endcase
-	 end
-	 */
+				
+		foreach (storage[i]) storage[i].print();;
+		
 	endfunction : report_shapes
-
-//if (name == "circle") $display("radius: %0.2f",circle_c.get_radius());
-
+	
 endclass : shape_reporter
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -345,21 +343,20 @@ module top;
 
 				j = 0;
 				coordinates_q.delete();
-				
+
 				foreach (line[n])
 				begin
-					$display("%s",line[n]);
-					
+
 					if (line[n] != " " && line[n] != 10)
 					begin
-						
+
 						temp_string = {temp_string,line[n]};
-						
+
 					end
 
 					else if (line[n] == " " || line[n] == 10)
 					begin
-						
+
 						if (j % 2 == 0)
 						begin
 							x_y_pos.x = temp_string.atoreal();
@@ -372,21 +369,23 @@ module top;
 						end
 						j++;
 						temp_string = "";
-						
+
 					end
 				end
 
 			end
 
 			/* - call the make_shape() function for each line of the file;*/
-			//shape_o = shape_factory::make_shape(coordinates_q);
+			shape_o = shape_factory::make_shape(coordinates_q);
 
 			/* - call the report_shapes() function for each object type.*/
-			//shape_reporter#(shape_c)::report_shapes();
-			foreach (coordinates_q[i]) $display("file line no: %d (x,y) = %0.2f %0.2f",ctr,coordinates_q[i].x,coordinates_q[i].y);
+			shape_reporter#(shape_c)::shapes_storage(shape_o);
+			
 			ctr++;
 		end
-
+		
+		shape_reporter#(shape_c)::report_shapes();
+		
 		$fclose(file);
 
 	end
