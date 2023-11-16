@@ -4,7 +4,7 @@ protected virtual mult_bfm bfm;
 
 	function new (virtual mult_bfm b);
 		bfm = b;
-	endfunction : new;
+	endfunction : new
 	
 //---------------------------------
 	protected function operation_t get_op();

@@ -129,7 +129,7 @@ class scoreboard;
 		end : scoreboard_fe_blk
 	endtask
 
-	task process_dut_data;
+	protected task process_dut_data;
 		forever begin : scoreboard_be_blk
 			@(negedge bfm.clk)
 
@@ -219,7 +219,7 @@ class scoreboard;
 //------------------------------------------------------------------------------
 // print the test result at the simulation end
 //------------------------------------------------------------------------------
-	function print_result();
+	protected function print_result();
 		print_test_result(tr);
 	endfunction
 

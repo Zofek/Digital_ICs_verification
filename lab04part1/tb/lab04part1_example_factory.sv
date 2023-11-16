@@ -3,7 +3,6 @@ parameter CIRCLE    = 2;
 parameter TRIANGLE  = 3;
 parameter RECTANGLE = 4;
 parameter POLYGON   = 5;
-parameter NO_OF_SHAPES = 9;
 
 typedef struct {
 
@@ -105,7 +104,7 @@ class circle_c extends rectangle_c;
 	endfunction : new
 
 	//-------------------------
-	function real get_radius();
+	protected function real get_radius();
 
 		coordinates_struct points_copy[$];
 		coordinates_struct coords1;
@@ -191,7 +190,7 @@ class triangle_c extends shape_c;
 endclass : triangle_c
 
 //---------------------------------------------------------------------
-class polygon_c extends rectangle_c;
+class polygon_c extends shape_c;
 
 	//-------------------------
 	function new(string name,coordinates_struct points[$]);
@@ -285,7 +284,7 @@ endclass : shape_factory
 class shape_reporter #(type T = shape_c);
 
 	protected static T storage[$];
-	static int i = 0;
+	protected static int i = 0;
 	//-------------------------
 	static function void shapes_storage(T l);
 
@@ -381,18 +380,14 @@ module top;
 
 			end
 
-			if (ctr < NO_OF_SHAPES)
-			begin
+			/* - call the make_shape() function for each line of the file;*/
+			shape_o = shape_factory::make_shape(coordinates_q);
 
-				/* - call the make_shape() function for each line of the file;*/
-				shape_o = shape_factory::make_shape(coordinates_q);
+			/* - call the report_shapes() function for each object type.*/
+			shape_reporter#(shape_c)::shapes_storage(shape_o);
 
-				/* - call the report_shapes() function for each object type.*/
-				shape_reporter#(shape_c)::shapes_storage(shape_o);
-				
-				coordinates_q.delete();
-				
-			end
+			coordinates_q.delete();
+
 			
 			ctr++;
 
