@@ -219,7 +219,7 @@ class scoreboard;
 //------------------------------------------------------------------------------
 // print the test result at the simulation end
 //------------------------------------------------------------------------------
-	protected function print_result();
+	function print_result();
 		print_test_result(tr);
 	endfunction
 
