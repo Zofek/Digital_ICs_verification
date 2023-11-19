@@ -1,5 +1,9 @@
-class coverage;
+class coverage extends uvm_component;
+`uvm_component_utils(coverage)
 
+//------------------------------------------------------------------------------
+// local variables
+//------------------------------------------------------------------------------
 	protected virtual mult_bfm bfm;
 
 	protected shortint              arg_a;
@@ -9,9 +13,8 @@ class coverage;
 	protected operation_t           op_set;
 
 //------------------------------------------------------------------------------
-// Coverage block
+// covergroups
 //------------------------------------------------------------------------------
-
 	// Covergroup checking the op codes and their sequences
 	covergroup op_cov;
 
@@ -34,7 +37,7 @@ class coverage;
 
 	endgroup
 
-// Covergroup checking for specific data corners on arguments of the ALU
+// Covergroup checking for specific data corners on arguments of the MULT
 	covergroup zeros_plus_and_minus_one_max_min_on_ops;
 
 		option.name = "cg_zeros_plus_and_minus_one_max_or_min_on_ops";
@@ -125,20 +128,36 @@ class coverage;
 		}
 
 	endgroup
-	
-	function new (virtual mult_bfm b);
 
+//------------------------------------------------------------------------------
+// constructor
+//------------------------------------------------------------------------------
+    function new (string name, uvm_component parent);
+	    
+        super.new(name, parent);
 		op_cov = new();
 		zeros_plus_and_minus_one_max_min_on_ops = new();
-		bfm = b;
 			
 	endfunction : new
-	
-	
-	task execute();
+
+//------------------------------------------------------------------------------
+// build phase
+//------------------------------------------------------------------------------
+    function void build_phase(uvm_phase phase);
+	    
+        if(!uvm_config_db #(virtual mult_bfm)::get(null, "*","bfm", bfm))
+            $fatal(1,"Failed to get BFM");
+        
+    endfunction : build_phase
+
+//------------------------------------------------------------------------------
+// run phase
+//------------------------------------------------------------------------------
+	task run_phase(uvm_phase phase);
+		
 		forever begin : sampling_block
 
-			@(posedge bfm.clk);
+			@(negedge bfm.clk);
 
 			arg_a        = bfm.arg_a;
 			arg_a_parity = bfm.arg_a_parity;
@@ -150,6 +169,7 @@ class coverage;
 			zeros_plus_and_minus_one_max_min_on_ops.sample();
 
 		end : sampling_block
-	endtask : execute
+		
+	endtask : run_phase
 
 endclass : coverage

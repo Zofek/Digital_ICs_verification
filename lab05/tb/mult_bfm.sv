@@ -1,6 +1,6 @@
 interface mult_bfm;
 
-	import mult_pkg::*;
+import mult_pkg::*;
 
 	bit                   clk;
 	bit                   rst_n;
@@ -17,9 +17,6 @@ interface mult_bfm;
 	wire                 arg_parity_error;
 
 	operation_t          op_set;
-
-
-	modport tlm (import reset_mult, send_op);
 
 //------------------------------------------------------------------------------
 // clock generator

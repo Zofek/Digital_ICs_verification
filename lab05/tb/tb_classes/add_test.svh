@@ -21,6 +21,5 @@ class add_test extends random_test;
 
     endfunction : build_phase
 
-
 endclass
 

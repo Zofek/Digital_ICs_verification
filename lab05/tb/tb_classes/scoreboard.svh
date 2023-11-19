@@ -1,8 +1,18 @@
-class scoreboard;
+class scoreboard extends uvm_component;
+`uvm_component_utils(scoreboard)
 
 //------------------------------------------------------------------------------
 // local typdefs
 //------------------------------------------------------------------------------
+	protected typedef struct packed {
+		shortint             arg_a;
+		shortint             arg_b;
+		operation_t          op_set;
+		int                  result;
+		bit                  result_parity;
+		bit                  arg_parity_error;
+	} data_packet_t;
+	
 	protected typedef enum bit {
 		TEST_PASSED,
 		TEST_FAILED
@@ -23,15 +33,6 @@ class scoreboard;
 
 	protected test_result   tr = TEST_PASSED; // the result of the current test
 	protected virtual mult_bfm bfm;
-	
-		protected typedef struct packed {
-		shortint             arg_a;
-		shortint             arg_b;
-		operation_t          op_set;
-		int                  result;
-		bit                  result_parity;
-		bit                  arg_parity_error;
-	} data_packet_t;
 
 	protected data_packet_t sb_data_q  [$];
 
@@ -43,8 +44,8 @@ class scoreboard;
 // constructor
 //------------------------------------------------------------------------------
 
-	function new (virtual mult_bfm b);
-		bfm = b;
+	function new (string name, uvm_component parent);
+		super.new(name, parent);
 	endfunction : new
 
 //------------------------------------------------------------------------------
@@ -166,13 +167,25 @@ class scoreboard;
 				end
 		end : scoreboard_be_blk
 	endtask
-	
-	task execute();
+
+//------------------------------------------------------------------------------
+// build phase
+//------------------------------------------------------------------------------
+    function void build_phase(uvm_phase phase);
+        if(!uvm_config_db #(virtual mult_bfm)::get(null, "*","bfm", bfm))
+            $fatal(1,"Failed to get BFM");
+    endfunction : build_phase
+
+//------------------------------------------------------------------------------
+// run phase
+//------------------------------------------------------------------------------
+    task run_phase(uvm_phase phase);
         fork
             get_results();
             process_dut_data();
         join_none
-    endtask
+    endtask : run_phase
+
 //------------------------------------------------------------------------------
 // used to modify the color printed on the terminal
 //------------------------------------------------------------------------------
@@ -217,10 +230,11 @@ class scoreboard;
 	endfunction
 
 //------------------------------------------------------------------------------
-// print the test result at the simulation end
+// report phase
 //------------------------------------------------------------------------------
-	function print_result();
-		print_test_result(tr);
-	endfunction
+    function void report_phase(uvm_phase phase);
+        super.report_phase(phase);
+        print_test_result(tr);
+    endfunction : report_phase
 
 endclass : scoreboard

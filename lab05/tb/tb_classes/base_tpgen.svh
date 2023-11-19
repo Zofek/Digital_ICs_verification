@@ -1,18 +1,3 @@
-/*
- Copyright 2013 Ray Salemi
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
 virtual class base_tpgen extends uvm_component;
 
 // The macro is not there as we never instantiate/use the base_tpgen
@@ -21,7 +6,7 @@ virtual class base_tpgen extends uvm_component;
 //------------------------------------------------------------------------------
 // local variables
 //------------------------------------------------------------------------------
-    protected virtual tinyalu_bfm bfm;
+    protected virtual mult_bfm bfm;
 
 //------------------------------------------------------------------------------
 // constructor
@@ -34,41 +19,61 @@ virtual class base_tpgen extends uvm_component;
 // function prototypes
 //------------------------------------------------------------------------------
     pure virtual protected function operation_t get_op();
-    pure virtual protected function byte get_data();
+    pure virtual protected function shortint get_data();
 
 //------------------------------------------------------------------------------
 // build phase
 //------------------------------------------------------------------------------
     function void build_phase(uvm_phase phase);
-        if(!uvm_config_db #(virtual tinyalu_bfm)::get(null, "*","bfm", bfm))
+	    
+        if(!uvm_config_db #(virtual mult_bfm)::get(null, "*","bfm", bfm))
             $fatal(1,"Failed to get BFM");
+        
     endfunction : build_phase
 
 //------------------------------------------------------------------------------
 // run phase
 //------------------------------------------------------------------------------
-    task run_phase(uvm_phase phase);
-        byte unsigned iA;
-        byte unsigned iB;
-        operation_t op_set;
-        shortint result;
+	task run_phase(uvm_phase phase);
 
-        phase.raise_objection(this);
+		shortint arg_a;
+		shortint arg_b;
 
-        bfm.reset_alu();
+		operation_t op_set;
+		
+		bit arg_a_parity;
+		bit arg_b_parity;
+		bit arg_parity_error;
+		int result;
+		bit result_parity;
+		
+		phase.raise_objection(this);
+		
+		bfm.reset_mult();
 
-        repeat (1000) begin : random_loop
-            op_set = get_op();
-            iA     = get_data();
-            iB     = get_data();
-            bfm.send_op(iA, iB, op_set, result);
-        end : random_loop
+		repeat (1000)
 
-//      #500;
+		begin : random_loop
 
-        phase.drop_objection(this);
+			op_set = get_op();
+			arg_a  = get_data();
+			arg_b  = get_data();
 
-    endtask : run_phase
+			bfm.send_op(arg_a, arg_b, op_set, arg_a_parity, arg_b_parity, arg_parity_error, result, result_parity);
+
+			bfm.req = 1'b1;
+
+			while(!bfm.ack) @(negedge bfm.clk);
+
+			bfm.req = 1'b0;
+
+			while(!bfm.result_rdy) @(negedge bfm.clk);
+
+		end : random_loop
+		
+		phase.drop_objection(this);
+
+	endtask : run_phase 
 
 
 endclass : base_tpgen
