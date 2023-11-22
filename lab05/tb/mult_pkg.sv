@@ -57,13 +57,13 @@ package mult_pkg;
 	`include "scoreboard.svh"
 	`include "base_tpgen.svh"
 	`include "random_tpgen.svh"
-	`include "add_tpgen.svh"
+	`include "corners_tpgen.svh"
 	`include "env.svh"
 
 //------------------------------------------------------------------------------
 // test classes
 //------------------------------------------------------------------------------
 `include "random_test.svh"
-`include "add_test.svh"
+`include "corners_test.svh"
 
 endpackage : mult_pkg
