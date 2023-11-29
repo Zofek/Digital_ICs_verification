@@ -2,7 +2,7 @@ class scoreboard extends uvm_component;
 `uvm_component_utils(scoreboard)
 
 //------------------------------------------------------------------------------
-// local typdefs
+// local typedefs
 //------------------------------------------------------------------------------
 	protected typedef struct packed {
 		shortint             arg_a;
