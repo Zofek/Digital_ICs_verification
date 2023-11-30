@@ -4,15 +4,6 @@ class scoreboard extends uvm_subscriber #(result_s);
 //------------------------------------------------------------------------------
 // local typedefs
 //------------------------------------------------------------------------------
-	protected typedef struct packed {
-		shortint             arg_a;
-		shortint             arg_b;
-		operation_t          op_set;
-		int                  result;
-		bit                  result_parity;
-		bit                  arg_parity_error;
-	} data_packet_t;
-
 	protected typedef enum bit {
 		TEST_PASSED,
 		TEST_FAILED
@@ -92,15 +83,13 @@ class scoreboard extends uvm_subscriber #(result_s);
 // calculate expected result
 //------------------------------------------------------------------------------
 
-	protected task get_expected(
+	protected function int get_expected_result(
 
 			input shortint   arg_a,
 			input shortint   arg_b,
-			input operation_t op_set,
+			input operation_t op_set);
 
-			output int        result,
-			output bit        result_parity,
-			output bit        arg_parity_error);
+		int result = 0;
 
 		`ifdef DEBUG
 		$display("%0t DEBUG: get_expected(%0d,%0d)",$time, arg_a, arg_b);
@@ -108,29 +97,50 @@ class scoreboard extends uvm_subscriber #(result_s);
 
 		case(op_set)
 
-			CORR_INPUT :
+			CORR_INPUT : result = arg_a * arg_b;
 
+			INCORRECT_A, INCORRECT_B, INCORRECT_A_B, RST_OP: result = 32'b0;
+
+			default
 			begin
-				result           = arg_a * arg_b;
-				arg_parity_error = 1'b0;
-				result_parity    = ^result;
+				$display("%0t INTERNAL ERROR. get_expected_result: unexpected case argument: %s", $time, op_set);
+				tr = TEST_FAILED;
 			end
 
-			INCORRECT_A, INCORRECT_B, INCORRECT_A_B:
+		endcase
 
-			begin
-				result           = 32'b0;
-				arg_parity_error = 1'b1;
-				result_parity    = ^result;
-			end
+		return result;
 
-			RST_OP :
+	endfunction : get_expected_result
 
-			begin
-				result           = 32'b0;
-				arg_parity_error = 1'b0;
-				result_parity    = 1'b0;
-			end
+	//------------------------------------------------------------------------------
+
+	protected function bit get_expected_parity(
+
+			input shortint   arg_a,
+			input shortint   arg_b);
+
+		bit result_parity = 0;
+
+		result_parity = ^(arg_a * arg_b);
+		
+		return result_parity;
+		
+	endfunction : get_expected_parity
+
+	//------------------------------------------------------------------------------
+
+	protected function bit get_expected_parity_error(
+
+			input operation_t op_set);
+
+			bit arg_parity_error = 0;
+
+		case(op_set)
+
+			CORR_INPUT : arg_parity_error = 1'b0;
+
+			INCORRECT_A, INCORRECT_B, INCORRECT_A_B: arg_parity_error = 1'b0;
 
 			default
 			begin
@@ -139,80 +149,76 @@ class scoreboard extends uvm_subscriber #(result_s);
 			end
 
 		endcase
-
-	endtask : get_expected
+		
+		return arg_parity_error;
+		
+	endfunction : get_expected_parity_error
 
 //------------------------------------------------------------------------------
 // build phase
 //------------------------------------------------------------------------------
 	function void build_phase(uvm_phase phase);
+		
 		cmd_f = new ("cmd_f", this);
+		
 	endfunction : build_phase
-
 
 //------------------------------------------------------------------------------
 // subscriber write function
 //------------------------------------------------------------------------------
 	function void write(result_s t);
-		
+
 		int result_scoreboard;
 		bit result_parity_scoreboard;
 		bit arg_parity_error_scoreboard;
-		
-		
+
+
 		command_s cmd;
-		cmd.rst_n = 0;
 		cmd.arg_a = 0;
 		cmd.arg_b = 0;
-		cmd.op    = 0;
-
-		do
-			if (!cmd_f.try_get(cmd))
-				$fatal(1, "Missing command in self checker");
-		while (cmd.rst_n == 0); // get commands until rst_n == 0
-
+		cmd.op    = RST_OP;
 
 		case(cmd.op)
 			CORR_INPUT, INCORRECT_A, INCORRECT_B, INCORRECT_A_B :
 			begin
-				get_expected(cmd.arg_a, cmd.arg_b, cmd.op,
-					result_scoreboard, result_parity_scoreboard, arg_parity_error_scoreboard);
+				result_scoreboard = get_expected_result(cmd.arg_a, cmd.arg_b, cmd.op);
+				result_parity_scoreboard = get_expected_parity(cmd.arg_a, cmd.arg_b);
+				arg_parity_error_scoreboard = get_expected_parity_error(cmd.op);
 			end
 		endcase
 
-				if (cmd.op !== RST_OP)
-				begin
-					CHK_RESULT: if  ((t.result  == result_scoreboard)          &&
-							(t.result_parity    == result_parity_scoreboard)   &&
-							(t.arg_parity_error == arg_parity_error_scoreboard))
+		if (cmd.op !== RST_OP)
+		begin
+			CHK_RESULT: if  ((t.result  == result_scoreboard)          &&
+					(t.result_parity    == result_parity_scoreboard)   &&
+					(t.arg_parity_error == arg_parity_error_scoreboard))
 
-					begin
+			begin
 		   `ifdef DEBUG
-						$display("Test passed for A=%0d A_parity=%0d, B=%0d b_parity=%0d,", cmd.arg_a, cmd.arg_a_parity,
-							cmd.arg_b, cmd.arg_b_parity);
+				$display("Test passed for A=%0d  B=%0d", cmd.arg_a, cmd.arg_b);
 		   `endif
-					end
+			end
 
-					else
+			else
 
-					begin
-						tr = TEST_FAILED;
-						$error("%0t Test FAILED for A=%0d, B=%0d, expected: result=%0d  result_parity=%0d arg_parity_error=%0d,",
-							$time, cmd.arg_a, cmd.arg_b, result_scoreboard, result_parity_scoreboard, arg_parity_error_scoreboard);
-					end;
+			begin
+				tr = TEST_FAILED;
+				$error("%0t Test FAILED for A=%0d, B=%0d, expected: result=%0d  result_parity=%0d arg_parity_error=%0d,",
+					$time, cmd.arg_a, cmd.arg_b, result_scoreboard, result_parity_scoreboard, arg_parity_error_scoreboard);
+			end;
 
-				end
+		end
 
 	endfunction : write
 
 //------------------------------------------------------------------------------
 // report phase
 //------------------------------------------------------------------------------
-function void report_phase(uvm_phase phase);
-	
-	super.report_phase(phase);
-	print_test_result(tr);
-	
-endfunction : report_phase
+	function void report_phase(uvm_phase phase);
+
+		super.report_phase(phase);
+		print_test_result(tr);
+
+	endfunction : report_phase
 
 endclass : scoreboard

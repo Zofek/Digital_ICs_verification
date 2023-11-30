@@ -7,9 +7,9 @@ class coverage extends uvm_subscriber #(command_s);
 	protected virtual mult_bfm bfm;
 
 	protected shortint              arg_a;
-	protected bit                   arg_a_parity;
 	protected shortint              arg_b;
-	protected bit                   arg_b_parity;
+	protected bit              	arg_a_parity;
+	protected bit              arg_b_parity;
 	protected operation_t           op_set;
 
 //------------------------------------------------------------------------------
@@ -146,6 +146,8 @@ class coverage extends uvm_subscriber #(command_s);
 	    
 			arg_a        = t.arg_a;
 			arg_b        = t.arg_b;
+	    	arg_a_parity = t.arg_a_parity;
+	    	arg_b_parity = t.arg_b_parity;
 			op_set       = t.op;
 
         op_cov.sample();

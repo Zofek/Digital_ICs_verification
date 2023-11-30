@@ -51,3 +51,5 @@
 ./env.svh
 ./random_test.svh
 ./corners_test.svh
+./mult_macros.svh
+../tb/tb_classes/mult_macros.svh

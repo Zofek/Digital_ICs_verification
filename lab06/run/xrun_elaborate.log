@@ -1,4 +1,4 @@
-TOOL:	xrun	21.03-s009: Started on Nov 29, 2023 at 17:14:31 CET
+TOOL:	xrun	21.03-s009: Started on Nov 30, 2023 at 01:24:57 CET
 xrun
 	-elaborate
 	-l xrun_elaborate.log
@@ -49,141 +49,114 @@ xrun
 		mult_pkg
 		$unit_0x023662df
 		top
-            bfm.send_op(command.rst_n, command.arg_a,command.arg_b);
-                      |
-xmelab: *W,FAAOP1 (../tb/tb_classes/driver.svh,41|22): task or function call does not specify all formal output arguments [10.2.2][10.3(IEEE)].
-			output bit oarg_a_parity,
-			                       |
-xmelab: *W,FAAOP2 (../tb/mult_bfm.sv,79|26): Formal output argument 'oarg_a_parity' is absent in the task or function call identified by the previous error message [10.2.2][10.3(IEEE)].
-			output bit oarg_b_parity,
-			                       |
-xmelab: *W,FAAOP2 (../tb/mult_bfm.sv,80|26): Formal output argument 'oarg_b_parity' is absent in the task or function call identified by the previous error message [10.2.2][10.3(IEEE)].
-			output bit oarg_parity_error,
-			                           |
-xmelab: *W,FAAOP2 (../tb/mult_bfm.sv,81|30): Formal output argument 'oarg_parity_error' is absent in the task or function call identified by the previous error message [10.2.2][10.3(IEEE)].
-			output int oresult,
-			                 |
-xmelab: *W,FAAOP2 (../tb/mult_bfm.sv,82|20): Formal output argument 'oresult' is absent in the task or function call identified by the previous error message [10.2.2][10.3(IEEE)].
-			output bit oresult_parity);
-			                        |
-xmelab: *W,FAAOP2 (../tb/mult_bfm.sv,83|27): Formal output argument 'oresult_parity' is absent in the task or function call identified by the previous error message [10.2.2][10.3(IEEE)].
 
 	Extracting FSMs for coverage:
 		worklib.top
 	Total FSMs extracted = 0
-            bfm.send_op(command.rst_n, command.arg_a,command.arg_b);
-                                                                 |
-xmelab: *W,ENUMERR (../tb/tb_classes/driver.svh,41|65): This assignment is a violation of SystemVerilog strong typing rules for enumeration datatypes.
-		cmd.op    = 0;
-		            |
-xmelab: *W,ENUMERR (../tb/tb_classes/scoreboard.svh,167|14): This assignment is a violation of SystemVerilog strong typing rules for enumeration datatypes.
-				get_expected(cmd.arg_a, cmd.arg_b, cmd.op,
-				           |
-xmelab: *W,NOTVFW (../tb/tb_classes/scoreboard.svh,178|15): Expecting a SystemVerilog void function name. The task 'get_expected' should be made a void function, not a task. Currently this is treated as a warning for backward compatibility but be aware that calling a task in this context is illegal SystemVerilog and can give unpredictable results. Further, this condition may be treated as an error in the future.
 	Building instance overlay tables: .................... Done
 	Enabling instrumentation for coverage types: block expression FSM toggle functional
 	Generating native compiled code:
-		worklib.vdic_dut_2023:svp <0x39f751a8>
+		worklib.vdic_dut_2023:svp <0x413e5445>
 			streams:  58, words: 25281
-		worklib.uvm_pkg:sv <0x1cd2f162>
+		worklib.uvm_pkg:sv <0x2ba575bf>
 			streams:   8, words:  7892
-		worklib.uvm_pkg:sv <0x58961fa4>
+		worklib.uvm_pkg:sv <0x445ad0ab>
 			streams:   8, words:  7580
-		worklib.uvm_pkg:sv <0x366889c3>
+		worklib.uvm_pkg:sv <0x76f01bd7>
 			streams:   7, words:  7057
-		worklib.uvm_pkg:sv <0x3703a383>
+		worklib.uvm_pkg:sv <0x6669b499>
 			streams:  29, words: 28118
-		worklib.uvm_pkg:sv <0x204a1ca3>
+		worklib.uvm_pkg:sv <0x3ec0cd09>
 			streams:   7, words:  2315
-		worklib.uvm_pkg:sv <0x53e32485>
+		worklib.uvm_pkg:sv <0x1fa7d23a>
 			streams:  26, words: 62449
-		worklib.uvm_pkg:sv <0x525f9049>
+		worklib.uvm_pkg:sv <0x3a7540e4>
 			streams:   7, words:  2309
-		worklib.uvm_pkg:sv <0x1682a7d9>
+		worklib.uvm_pkg:sv <0x6126a623>
 			streams:   7, words:  2972
-		worklib.uvm_pkg:sv <0x71619d7e>
+		worklib.uvm_pkg:sv <0x01730824>
 			streams:   7, words:  2972
-		worklib.uvm_pkg:sv <0x376d2059>
+		worklib.uvm_pkg:sv <0x35b2bfe8>
 			streams:  18, words: 18890
-		worklib.uvm_pkg:sv <0x5ab80b0e>
+		worklib.uvm_pkg:sv <0x219ea276>
 			streams:  28, words: 31934
-		worklib.uvm_pkg:sv <0x3ccca41a>
+		worklib.uvm_pkg:sv <0x27f2dbcd>
 			streams:  27, words: 30028
-		worklib.uvm_pkg:sv <0x58dde357>
+		worklib.uvm_pkg:sv <0x328b2214>
 			streams:  23, words: 28508
-		worklib.uvm_pkg:sv <0x627a2381>
+		worklib.uvm_pkg:sv <0x53ae4430>
 			streams:  17, words: 17760
-		worklib.uvm_pkg:sv <0x6d35abb4>
+		worklib.uvm_pkg:sv <0x33089842>
 			streams:  26, words: 49807
-		worklib.uvm_pkg:sv <0x06062b4c>
+		worklib.uvm_pkg:sv <0x0a30d023>
 			streams:   7, words:  2570
-		worklib.uvm_pkg:sv <0x237d80ab>
+		worklib.uvm_pkg:sv <0x65ddaa4e>
 			streams:  16, words: 22579
-		worklib.uvm_pkg:sv <0x7d02108d>
+		worklib.uvm_pkg:sv <0x7c890cfb>
 			streams:  26, words: 36999
-		worklib.uvm_pkg:sv <0x3593c0cc>
+		worklib.uvm_pkg:sv <0x7139e628>
 			streams:  25, words: 62985
-		worklib.uvm_pkg:sv <0x3c94614d>
+		worklib.uvm_pkg:sv <0x49168eb8>
 			streams:  27, words: 40179
-		worklib.uvm_pkg:sv <0x48451d35>
+		worklib.uvm_pkg:sv <0x01da2b57>
 			streams:  26, words: 56028
-		worklib.uvm_pkg:sv <0x4a898744>
+		worklib.uvm_pkg:sv <0x3db2d93c>
 			streams:  27, words: 43424
-		worklib.uvm_pkg:sv <0x3553233a>
+		worklib.uvm_pkg:sv <0x79cd6d87>
 			streams:  25, words: 61988
-		worklib.uvm_pkg:sv <0x0c71ba34>
+		worklib.uvm_pkg:sv <0x324d6c5f>
 			streams:  27, words: 45553
-		worklib.uvm_pkg:sv <0x1bb43fde>
+		worklib.uvm_pkg:sv <0x38cb5b89>
 			streams:  25, words: 66963
-		worklib.uvm_pkg:sv <0x6cf1526b>
+		worklib.uvm_pkg:sv <0x58b4f0ad>
 			streams:  27, words: 51671
-		worklib.uvm_pkg:sv <0x39c043ea>
+		worklib.uvm_pkg:sv <0x01b2f321>
 			streams:  25, words: 61311
-		worklib.uvm_pkg:sv <0x1b9d254e>
+		worklib.uvm_pkg:sv <0x16ae7e87>
 			streams:  25, words: 62868
-		worklib.uvm_pkg:sv <0x55484363>
+		worklib.uvm_pkg:sv <0x3ff8ec61>
 			streams:  27, words: 42325
-		worklib.uvm_pkg:sv <0x76489b74>
+		worklib.uvm_pkg:sv <0x3a2ee1be>
 			streams:  25, words: 58906
-		worklib.uvm_pkg:sv <0x3196a8c6>
+		worklib.uvm_pkg:sv <0x2c1af552>
 			streams:  29, words: 108740
-		worklib.uvm_pkg:sv <0x7f155339>
+		worklib.uvm_pkg:sv <0x28cfc00d>
 			streams:  72, words: 143728
-		worklib.cdns_uvm_pkg:sv <0x039a0cde>
+		worklib.cdns_uvm_pkg:sv <0x0c4d8ad5>
 			streams:   9, words:  5026
-		worklib.cdns_uvm_pkg:sv <0x1cfb2d94>
+		worklib.cdns_uvm_pkg:sv <0x7f5c992c>
 			streams:  10, words:  8472
-		worklib.uvm_pkg:sv <0x5e794c5e>
+		worklib.uvm_pkg:sv <0x2363a6c7>
 			streams:  23, words: 21994
-		worklib.mult_pkg:sv <0x4f1ec996>
-			streams:  24, words: 22686
-		worklib.uvm_pkg:sv <0x6538f902>
+		worklib.mult_pkg:sv <0x76287f94>
+			streams:  24, words: 22726
+		worklib.uvm_pkg:sv <0x0324de4a>
 			streams:   7, words:  2972
-		worklib.uvm_pkg:sv <0x5868765e>
+		worklib.uvm_pkg:sv <0x028f581b>
 			streams:  25, words: 31002
-		worklib.uvm_pkg:sv <0x194f136a>
-			streams:  33, words: 35828
-		worklib.uvm_pkg:sv <0x3cef524b>
-			streams:  40, words: 35529
-		worklib.uvm_pkg:sv <0x75dc5aa4>
-			streams: 121, words: 113434
-		worklib.uvm_pkg:sv <0x32f902cc>
+		worklib.uvm_pkg:sv <0x292c42ac>
+			streams:  33, words: 34011
+		worklib.uvm_pkg:sv <0x649b4a76>
+			streams:  40, words: 35811
+		worklib.uvm_pkg:sv <0x6fe6e555>
+			streams: 123, words: 113346
+		worklib.uvm_pkg:sv <0x500bf45d>
 			streams:  24, words: 22326
-		worklib.mult_pkg:sv <0x2b14dbd0>
+		worklib.mult_pkg:sv <0x3a4e4605>
 			streams:  24, words: 22326
-		worklib.mult_pkg:sv <0x5fe1c4a1>
-			streams:  18, words: 16784
-		worklib.mult_bfm:sv <0x7796e7d9>
-			streams: 287, words: 437379
-		worklib.mult_pkg:sv <0x750de907>
+		worklib.mult_pkg:sv <0x4a024033>
+			streams:  18, words: 16591
+		worklib.mult_bfm:sv <0x0f3ec99f>
+			streams: 285, words: 436231
+		worklib.mult_pkg:sv <0x520b44ed>
 			streams:   1, words:  3427
-		worklib.cdns_uvm_pkg:sv <0x17b2fc1a>
+		worklib.cdns_uvm_pkg:sv <0x13db5fd4>
 			streams: 232, words: 440359
-		worklib.cdns_uvmapi:svp <0x2d69fe16>
+		worklib.cdns_uvmapi:svp <0x2bd45435>
 			streams:  27, words: 36495
-		worklib.cdns_assert2uvm_pkg:sv <0x5eb2bc9c>
+		worklib.cdns_assert2uvm_pkg:sv <0x7b006f76>
 			streams:   3, words:  2676
-		worklib.uvm_pkg:sv <0x1c5e6c62>
+		worklib.uvm_pkg:sv <0x28ea8ad3>
 			streams: 5575, words: 10814908
 	Building instance specific data structures.
 	Performing constant object marking (COM) analysis.
@@ -193,7 +166,7 @@ xmelab: *W,NOTVFW (../tb/tb_classes/scoreboard.svh,178|15): Expecting a SystemVe
 		Modules:                       2       2
 		Interfaces:                    1       1
 		Verilog packages:              5       5
-		Registers:                 16403   11711
+		Registers:                 16404   11712
 		Scalar wires:                 13       -
 		Vectored wires:               10       -
 		Named events:                  4      12
@@ -209,4 +182,4 @@ xmelab: *W,NOTVFW (../tb/tb_classes/scoreboard.svh,178|15): Expecting a SystemVe
 		SV Class specializations:    442     442
 		Simulation timescale:        1ps
 	Writing initial simulation snapshot: worklib.top:sv
-TOOL:	xrun	21.03-s009: Exiting on Nov 29, 2023 at 17:14:36 CET  (total: 00:00:05)
+TOOL:	xrun	21.03-s009: Exiting on Nov 30, 2023 at 01:25:00 CET  (total: 00:00:03)

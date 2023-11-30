@@ -49,23 +49,6 @@ interface mult_bfm;
 
 	endtask : reset_mult
 
-//---------------------------------
-// Parity calculation task with parameter to return correct or incorrect parity
-//---------------------------------
-
-	task get_parity(
-
-			input shortint  data,
-			input bit       ret_incorrect_parity,
-			output bit      parity);
-
-		parity = ^data;
-
-		if (ret_incorrect_parity)
-			parity = !parity;
-
-	endtask : get_parity
-
 //------------------------------------------------------------------------------
 // send_op
 //------------------------------------------------------------------------------
@@ -75,18 +58,17 @@ interface mult_bfm;
 			input shortint iarg_a,
 			input shortint iarg_b,
 			input operation_t iop,
-
+			
 			output bit oarg_a_parity,
-			output bit oarg_b_parity,
-			output bit oarg_parity_error,
-			output int oresult,
-			output bit oresult_parity);
-
+			output bit oarg_b_parity);
+		
+		bit parity;		
+		
 		op = iop;
 		arg_a  = iarg_a;
-		arg_a_parity = oarg_a_parity;
+		oarg_a_parity = arg_a_parity;
 		arg_b  = iarg_b;
-		arg_b_parity = oarg_b_parity;
+		oarg_b_parity = arg_b_parity;
 
 		case(op)
 
@@ -97,47 +79,38 @@ interface mult_bfm;
 
 			CORR_INPUT :
 			begin
-				get_parity(arg_a, 1'b0, arg_a_parity);
-				get_parity(arg_b, 1'b0, arg_b_parity);
+				arg_a_parity = ^arg_a;
+				arg_b_parity = ^arg_b;
 			end
 
 			INCORRECT_A :
 			begin
-				get_parity(arg_a, 1'b1, arg_a_parity);
-				get_parity(arg_b, 1'b0, arg_b_parity);
+				arg_a_parity = !(^arg_a);
+				arg_b_parity = ^arg_b;
 			end
 
 			INCORRECT_B :
 			begin
-				get_parity(arg_a, 1'b0, arg_a_parity);
-				get_parity(arg_b, 1'b1, arg_b_parity);
+				arg_a_parity = ^arg_a;
+				arg_b_parity = !(^arg_b);
 			end
 
 			INCORRECT_A_B :
 			begin
-				get_parity(arg_a, 1'b1, arg_a_parity);
-				get_parity(arg_b, 1'b1, arg_b_parity);
+				arg_a_parity = !(^arg_a);
+				arg_b_parity = !(^arg_b);
 			end
 		endcase // case (op_set)
-		
+
+		req = 1'b1;
+
+		wait(ack);
+
+		req = 1'b0;
+
+		wait(result_rdy);
+
 	endtask : send_op
-
-
-//------------------------------------------------------------------------------
-// wait_result
-//------------------------------------------------------------------------------
-
-	task wait_result();
-		
-			req = 1'b1;
-
-			while(ack) @(negedge clk);
-
-			req = 1'b0;
-
-			while(result_rdy) @(negedge clk);
-			
-	endtask : wait_result
 
 //------------------------------------------------------------------------------
 // write command monitor
@@ -150,10 +123,11 @@ interface mult_bfm;
 
 		if (req)
 		begin
-			command.rst_n = rst_n;
 			command.arg_a = arg_a;
 			command.arg_b = arg_b;
-			command.op	  = op;
+			command.arg_a_parity = arg_a_parity;
+			command.arg_b_parity = arg_b_parity;
+			command.op    = op;
 			command_monitor_h.write_to_monitor(command);
 		end
 
@@ -165,7 +139,7 @@ interface mult_bfm;
 
 		command_s command;
 
-		command.rst_n = 0;
+		command.op = RST_OP;
 
 		if (command_monitor_h != null) //guard against VCS time 0 negedge
 			command_monitor_h.write_to_monitor(command);
@@ -182,14 +156,12 @@ interface mult_bfm;
 		result_s res;
 
 		forever
-			
+
 		begin
 			@(posedge clk);
 
 			if (result_rdy)
 			begin
-				res.arg_a_parity = arg_a_parity;
-				res.arg_b_parity = arg_b_parity;
 				res.arg_parity_error = arg_parity_error;
 				res.result_parity = result_parity;
 				res.result = result;
@@ -198,8 +170,8 @@ interface mult_bfm;
 
 		end
 	end : result_monitor_thread
- 
-   
+
+
 endinterface : mult_bfm
 
 

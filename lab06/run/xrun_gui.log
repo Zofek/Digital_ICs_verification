@@ -1,0 +1,2537 @@
+TOOL:	xrun	21.03-s009: Started on Nov 30, 2023 at 01:12:14 CET
+xrun
+	-F ../tb/tb.f
+		mult_pkg.sv
+		mult_bfm.sv
+		-F ../tb/../../common/vdic_dut_2023.f
+			vdic_dut_2023.svp
+		top.sv
+		+incdir+tb_classes
+		+incdir+.
+		+nowarn+DSEMEL
+		+nowarnBADPRF
+		-uvm
+		-uvmhome /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv
+		+UVM_NO_RELNOTES
+		+UVM_VERBOSITY=MEDIUM
+		-linedebug
+		-fsmdebug
+		-uvmlinedebug
+	-v93
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	+nowarnCOVUTA
+	+nowarnBADPRF
+	+nowarnXCLGNOPTM
+	+nowarnRNDXCELON
+	+nowarnSAWSTP
+	-xmlibdirname INCA_libs_gui
+	+access+r
+	+gui
+	+overwrite
+	-nocopyright
+	-coverage all
+	-covoverwrite
+	-covfile xrun_covfile.txt
+	+UVM_TESTNAME=random_test
+	-l xrun_gui.log
+
+   User defined plus("+") options:
+	+UVM_NO_RELNOTES
+	+UVM_VERBOSITY=MEDIUM
+
+SVSEED default: 1
+
+-------------------------------------
+Relinquished control to SimVision...
+xcelium> 
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/xcelium/files/xmsimrc
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/files/tcl/uvm_sim.tcl
+xcelium> database -open waves -into waves.shm -default
+Created default SHM database waves
+xcelium> probe -create -shm top.DUT.ack top.DUT.arg_a top.DUT.arg_a_parity top.DUT.arg_b top.DUT.arg_b_parity top.DUT.arg_parity_error top.DUT.clk top.DUT.req top.DUT.result top.DUT.result_parity top.DUT.result_rdy top.DUT.rst_n top.bfm.ack top.bfm.arg_a top.bfm.arg_a_parity top.bfm.arg_b top.bfm.arg_b_parity top.bfm.arg_parity_error top.bfm.clk top.bfm.command_monitor_h top.bfm.op top.bfm.req top.bfm.result top.bfm.result_monitor_h top.bfm.result_parity top.bfm.result_rdy top.bfm.rst_n -depth 2 -all
+Created probe 1
+xcelium> run
+UVM_INFO @ 0: reporter [RNTST] Running test random_test...
+[1;30m[103m*** Created tpgen type: random_tpgen ***[0m
+
+----------------------------------------------------------------
+Name                     Type                        Size  Value
+----------------------------------------------------------------
+uvm_test_top             random_test                 -     @1936
+  env_h                  env                         -     @2013
+    command_f            uvm_tlm_fifo #(T)           -     @2044
+      get_ap             uvm_analysis_port           -     @2278
+      get_peek_export    uvm_get_peek_imp            -     @2178
+      put_ap             uvm_analysis_port           -     @2228
+      put_export         uvm_put_imp                 -     @2126
+    command_monitor_h    command_monitor             -     @2508
+      ap                 uvm_analysis_port           -     @2598
+    coverage_h           coverage                    -     @2342
+      analysis_imp       uvm_analysis_imp            -     @2392
+    drive_h              driver                      -     @2311
+      command_port       uvm_get_port                -     @2654
+    result_monitor_h     result_monitor              -     @2539
+      ap                 uvm_analysis_port           -     @2708
+    scoreboard_h         scoreboard                  -     @2425
+      analysis_imp       uvm_analysis_imp            -     @2475
+      cmd_f              uvm_tlm_analysis_fifo #(T)  -     @2739
+        analysis_export  uvm_analysis_imp            -     @2988
+        get_ap           uvm_analysis_port           -     @2937
+        get_peek_export  uvm_get_peek_imp            -     @2839
+        put_ap           uvm_analysis_port           -     @2888
+        put_export       uvm_put_imp                 -     @2790
+    tpgen_h              random_tpgen                -     @2045
+      command_port       uvm_put_port                -     @3046
+----------------------------------------------------------------
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=0, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 90 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+90000 Test FAILED for A=32767, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+130000 Test FAILED for A=-26227, B=21010, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-26227, arg_b=21010, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+170000 Test FAILED for A=-3722, B=22509, expected: result=-83778498  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-3722, arg_b=22509, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 290 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+290000 Test FAILED for A=32767, B=-31547, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-31547, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+330000 Test FAILED for A=29303, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=29303, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=31464, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=22573, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-18413, arg_b=-10669, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+750000 Test FAILED for A=18946, B=-5859, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=18946, arg_b=-5859, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+830000 Test FAILED for A=1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+870000 Test FAILED for A=32767, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=5038, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+990000 Test FAILED for A=-1, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=24635, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-25615, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 1170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+1170000 Test FAILED for A=1, B=-24177, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-24177, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=22175, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 1250 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+1250000 Test FAILED for A=32767, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-943, arg_b=32524, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 1330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+1330000 Test FAILED for A=0, B=-4803, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-4803, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 1370 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+1370000 Test FAILED for A=-32403, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32403, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-30600, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 1450 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+1450000 Test FAILED for A=32767, B=-20694, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-20694, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=3214, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 1530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+1530000 Test FAILED for A=6003, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=6003, arg_b=-1, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=3396, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-9382, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 1690 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+1690000 Test FAILED for A=27866, B=-7499, expected: result=-208967134  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=27866, arg_b=-7499, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-5810, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-30152, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 2090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+2090000 Test FAILED for A=0, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 2150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+2150000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 2190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+2190000 Test FAILED for A=-18471, B=-7562, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-18471, arg_b=-7562, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 2230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+2230000 Test FAILED for A=29077, B=-25852, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=29077, arg_b=-25852, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=12487, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-22682, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-2534, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 2550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+2550000 Test FAILED for A=14230, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=14230, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-31875, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-32549, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 2730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+2730000 Test FAILED for A=30881, B=-27056, expected: result=-835516336  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=30881, arg_b=-27056, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-30167, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 2930 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+2930000 Test FAILED for A=1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3010000 Test FAILED for A=26342, B=-19158, expected: result=-504660036  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=26342, arg_b=-19158, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3130000 Test FAILED for A=-98, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-98, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3170000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3230000 Test FAILED for A=-1, B=-8778, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-8778, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3270 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3270000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3310000 Test FAILED for A=1, B=-28538, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-28538, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3350000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3430000 Test FAILED for A=32767, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=18549, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=24395, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-532, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3810 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3810000 Test FAILED for A=9281, B=-1, expected: result=-9281  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=9281, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=8795, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 3930 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+3930000 Test FAILED for A=1, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4010000 Test FAILED for A=-9055, B=-1, expected: result=9055  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-9055, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4090000 Test FAILED for A=0, B=-1631, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-1631, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-28947, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4270 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4270000 Test FAILED for A=941, B=-124, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=941, arg_b=-124, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-28487, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4430000 Test FAILED for A=32767, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4470000 Test FAILED for A=-32768, B=-32768, expected: result=1073741824  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4590000 Test FAILED for A=-3480, B=3462, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-3480, arg_b=3462, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=6853, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=0, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4770 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4770000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-4541, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 4850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+4850000 Test FAILED for A=-13531, B=32767, expected: result=-443370277  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-13531, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=31532, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5010000 Test FAILED for A=32767, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-12642, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5170000 Test FAILED for A=1, B=-4083, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-4083, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5210 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5210000 Test FAILED for A=32767, B=25853, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=25853, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5250 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5250000 Test FAILED for A=-26109, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-26109, arg_b=-1, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=5458, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-15278, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5530000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5570000 Test FAILED for A=-1, B=7717, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=7717, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5610000 Test FAILED for A=-32768, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5650000 Test FAILED for A=843, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=843, arg_b=1, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=31289, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5850000 Test FAILED for A=-1, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 5890 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+5890000 Test FAILED for A=32767, B=5332, expected: result=174713644  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=5332, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=9648, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6050000 Test FAILED for A=32767, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6110000 Test FAILED for A=-1, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-1, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6150000 Test FAILED for A=0, B=-25286, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-25286, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6190000 Test FAILED for A=-1, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6230000 Test FAILED for A=-32768, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=10647, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6390000 Test FAILED for A=13775, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=13775, arg_b=0, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6450 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6450000 Test FAILED for A=32767, B=25930, expected: result=849648310  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=25930, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-4474, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-2604, arg_b=-26762, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6690 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6690000 Test FAILED for A=-1, B=32767, expected: result=-32767  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6770 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6770000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=-9626, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=14305, arg_b=16110, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-5592, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 6970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+6970000 Test FAILED for A=32767, B=5486, expected: result=179759762  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=5486, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7090000 Test FAILED for A=-10904, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-10904, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=18673, arg_b=-27250, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7190000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-25782, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7270 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7270000 Test FAILED for A=-1, B=-1, expected: result=1  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=4249, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7370 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7370000 Test FAILED for A=32767, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7410000 Test FAILED for A=-32768, B=24409, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=24409, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=201, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-24720, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-8598, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7650000 Test FAILED for A=0, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=-12708, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7730000 Test FAILED for A=32767, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=0, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7770 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7770000 Test FAILED for A=-27533, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-27533, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7850000 Test FAILED for A=-1, B=1, expected: result=-1  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 7950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+7950000 Test FAILED for A=-1787, B=10498, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1787, arg_b=10498, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=-29009, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-28596, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8070 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8070000 Test FAILED for A=0, B=-18931, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-18931, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-10199, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8190000 Test FAILED for A=12021, B=-13219, expected: result=-158905599  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=12021, arg_b=-13219, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8310000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1786, arg_b=25607, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8470000 Test FAILED for A=-9289, B=2659, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-9289, arg_b=2659, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8510000 Test FAILED for A=30312, B=-2928, expected: result=-88753536  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=30312, arg_b=-2928, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8630000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8670 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8670000 Test FAILED for A=0, B=28120, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=28120, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=9099, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8750000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-16141, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=20634, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-11862, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 8990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+8990000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 9030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+9030000 Test FAILED for A=-1, B=-1, expected: result=1  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-1, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-16024, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-29269, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-638, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=818, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 9330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+9330000 Test FAILED for A=-4950, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-4950, arg_b=0, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 9410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+9410000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-2369, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-13182, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 9610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+9610000 Test FAILED for A=32767, B=-29170, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-29170, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 9650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+9650000 Test FAILED for A=17157, B=1, expected: result=17157  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=17157, arg_b=1, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=13827, arg_b=-8963, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=19730, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=3382, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 9970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+9970000 Test FAILED for A=-1, B=13839, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=13839, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10010000 Test FAILED for A=-32768, B=9940, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=9940, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10050000 Test FAILED for A=-1, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10090000 Test FAILED for A=28897, B=29881, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=28897, arg_b=29881, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10130000 Test FAILED for A=0, B=-13508, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-13508, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-28025, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10430000 Test FAILED for A=-32768, B=1, expected: result=-32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1856, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10550000 Test FAILED for A=0, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-1, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10590000 Test FAILED for A=-6436, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-6436, arg_b=0, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=23331, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=8903, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10750000 Test FAILED for A=-1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=0, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=29210, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10830000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 10870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+10870000 Test FAILED for A=1, B=6122, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=6122, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-3080, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 11090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+11090000 Test FAILED for A=21424, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=21424, arg_b=-1, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=3937, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=20491, arg_b=11475, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 11410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+11410000 Test FAILED for A=-25130, B=17539, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-25130, arg_b=17539, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-9403, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=4213, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 11590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+11590000 Test FAILED for A=1, B=1, expected: result=1  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=26217, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=4010, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 11730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+11730000 Test FAILED for A=-32768, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-1, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 11770 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+11770000 Test FAILED for A=-1, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 11810 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+11810000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 11930 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+11930000 Test FAILED for A=29524, B=32767, expected: result=967412908  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=29524, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12050000 Test FAILED for A=-20700, B=-1, expected: result=20700  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-20700, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12130000 Test FAILED for A=32767, B=19063, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=19063, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12170000 Test FAILED for A=-20817, B=1, expected: result=-20817  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-20817, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12250 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12250000 Test FAILED for A=1, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-1, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12290 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12290000 Test FAILED for A=22210, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=22210, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12330000 Test FAILED for A=0, B=27508, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=27508, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12370 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12370000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-13552, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12450 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12450000 Test FAILED for A=10155, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=10155, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12490000 Test FAILED for A=32767, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12530000 Test FAILED for A=7995, B=-29393, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=7995, arg_b=-29393, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12570000 Test FAILED for A=700, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=700, arg_b=-32768, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12650000 Test FAILED for A=32767, B=-32768, expected: result=-1073709056  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-31051, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12790 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12790000 Test FAILED for A=-32768, B=7598, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=7598, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12870000 Test FAILED for A=1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12910 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12910000 Test FAILED for A=-9495, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-9495, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 12950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+12950000 Test FAILED for A=24158, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=24158, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=1997, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13110000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13150000 Test FAILED for A=-1, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13190000 Test FAILED for A=-29348, B=-14100, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-29348, arg_b=-14100, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-31368, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13310000 Test FAILED for A=-1, B=14921, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=14921, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13350000 Test FAILED for A=-32768, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-11075, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=9589, arg_b=-27243, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13550000 Test FAILED for A=1, B=19657, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=19657, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13590000 Test FAILED for A=1, B=-32768, expected: result=-32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-7411, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 13710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+13710000 Test FAILED for A=32767, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=15050, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-18543, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 14050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+14050000 Test FAILED for A=-32768, B=25422, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=25422, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=27485, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 14170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+14170000 Test FAILED for A=32767, B=4749, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=4749, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=8536, arg_b=12183, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=4941, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=26041, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 14510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+14510000 Test FAILED for A=32767, B=32767, expected: result=1073676289  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-4003, arg_b=-13517, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 14750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+14750000 Test FAILED for A=21146, B=1, expected: result=21146  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=21146, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 14830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+14830000 Test FAILED for A=-1, B=-32768, expected: result=32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=26668, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15010000 Test FAILED for A=-32768, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15050000 Test FAILED for A=0, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=20433, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15190000 Test FAILED for A=32767, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15230000 Test FAILED for A=26547, B=-14720, expected: result=-390771840  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=26547, arg_b=-14720, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15350000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15390000 Test FAILED for A=-637, B=-28416, expected: result=18100992  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-637, arg_b=-28416, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15490000 Test FAILED for A=-8207, B=19870, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-8207, arg_b=19870, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=23171, arg_b=-9260, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15790 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15790000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-20927, arg_b=14358, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15870000 Test FAILED for A=-32768, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15910 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15910000 Test FAILED for A=-1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 15950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+15950000 Test FAILED for A=-1, B=-30351, expected: result=30351  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-30351, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=22197, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16070 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16070000 Test FAILED for A=-3408, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-3408, arg_b=1, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16110000 Test FAILED for A=-1186, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1186, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=14793, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16250 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16250000 Test FAILED for A=1, B=14644, expected: result=14644  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=14644, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16330000 Test FAILED for A=28977, B=10164, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=28977, arg_b=10164, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16510000 Test FAILED for A=9433, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=9433, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=13853, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-6135, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16630000 Test FAILED for A=0, B=20901, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=20901, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-7345, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=25414, arg_b=-15970, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16790 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16790000 Test FAILED for A=4944, B=-9082, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=4944, arg_b=-9082, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 16830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+16830000 Test FAILED for A=0, B=22432, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=22432, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-9032, arg_b=-6442, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-2763, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-31499, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17030000 Test FAILED for A=24615, B=1, expected: result=24615  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=24615, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17110000 Test FAILED for A=-27736, B=32767, expected: result=-908825512  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-27736, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=26739, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=-3759, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17310000 Test FAILED for A=1, B=-7500, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-7500, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-3751, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=18624, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17470000 Test FAILED for A=-1, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17510000 Test FAILED for A=32767, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17550000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17590000 Test FAILED for A=25070, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=25070, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17630000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-17034, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17710000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17750000 Test FAILED for A=32767, B=11410, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=11410, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-13347, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17870000 Test FAILED for A=-32768, B=-1, expected: result=32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17950000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 17990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+17990000 Test FAILED for A=3744, B=-30859, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=3744, arg_b=-30859, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18030000 Test FAILED for A=12583, B=1, expected: result=12583  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=12583, arg_b=1, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18110000 Test FAILED for A=-3489, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-3489, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18190000 Test FAILED for A=6995, B=-20755, expected: result=-145181225  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=6995, arg_b=-20755, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18310000 Test FAILED for A=1, B=32767, expected: result=32767  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-4361, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=16544, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18630000 Test FAILED for A=-1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=0, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18670 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18670000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=24023, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18830000 Test FAILED for A=0, B=-8847, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-8847, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=3439, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 18970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+18970000 Test FAILED for A=-1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=0, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=6256, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=21455, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19210 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19210000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=11256, arg_b=-19765, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19350000 Test FAILED for A=1, B=32767, expected: result=32767  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19430000 Test FAILED for A=-6421, B=-1, expected: result=6421  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-6421, arg_b=-1, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=-31712, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19550000 Test FAILED for A=10797, B=-24569, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=10797, arg_b=-24569, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-26286, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19710000 Test FAILED for A=-29327, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-29327, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19750000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19790 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19790000 Test FAILED for A=0, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=1, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 19830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+19830000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=19585, arg_b=-53, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=13885, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-15981, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20030000 Test FAILED for A=1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20070 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20070000 Test FAILED for A=32767, B=18339, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=18339, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20110000 Test FAILED for A=-16335, B=11863, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-16335, arg_b=11863, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20190000 Test FAILED for A=32767, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=22989, arg_b=19927, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20350000 Test FAILED for A=-29802, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-29802, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-25812, arg_b=32034, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20510000 Test FAILED for A=-1, B=26032, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=26032, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20550000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=4092, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-4328, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-31850, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20870000 Test FAILED for A=32767, B=10303, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=10303, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 20910 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+20910000 Test FAILED for A=-1, B=32453, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32453, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-6454, arg_b=-22723, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21150000 Test FAILED for A=32767, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=10454, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-25874, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=20589, arg_b=-28668, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21310000 Test FAILED for A=32767, B=-15219, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-15219, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-30644, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21430000 Test FAILED for A=-17128, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-17128, arg_b=-1, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21470000 Test FAILED for A=-9893, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-9893, arg_b=0, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-22752, arg_b=21541, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21550000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=1198, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21710000 Test FAILED for A=1, B=-32768, expected: result=-32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-31916, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21830000 Test FAILED for A=-32768, B=21579, expected: result=-707100672  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=21579, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-28202, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 21970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+21970000 Test FAILED for A=4554, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=4554, arg_b=-1, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-21519, arg_b=32767, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=31426, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-13032, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-17903, arg_b=5133, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-18366, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 22350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+22350000 Test FAILED for A=-12836, B=-2895, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-12836, arg_b=-2895, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=17458, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=19042, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 22470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+22470000 Test FAILED for A=29512, B=-19214, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=29512, arg_b=-19214, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-12199, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 22550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+22550000 Test FAILED for A=-18794, B=-1, expected: result=18794  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-18794, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 22730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+22730000 Test FAILED for A=8712, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=8712, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=-11189, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 22850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+22850000 Test FAILED for A=-12803, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-12803, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 22890 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+22890000 Test FAILED for A=12053, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=12053, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=10233, arg_b=24787, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23050000 Test FAILED for A=0, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=5305, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23170000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23210 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23210000 Test FAILED for A=32767, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23250 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23250000 Test FAILED for A=-1, B=19280, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=19280, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23290 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23290000 Test FAILED for A=16344, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=16344, arg_b=-1, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=23004, arg_b=-11230, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23410000 Test FAILED for A=0, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=17258, arg_b=-5119, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23570000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23610000 Test FAILED for A=-32768, B=32417, expected: result=-1062240256  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32417, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-11292, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23830000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23870000 Test FAILED for A=1, B=13717, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=13717, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=8551, arg_b=6862, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 23990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+23990000 Test FAILED for A=-32768, B=14667, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=14667, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-26596, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=7276, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24230000 Test FAILED for A=11913, B=-13141, expected: result=-156548733  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=11913, arg_b=-13141, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24350000 Test FAILED for A=-1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=0, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=18051, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24430000 Test FAILED for A=-1, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-8108, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24590000 Test FAILED for A=18163, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=18163, arg_b=0, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24630000 Test FAILED for A=-160, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-160, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24670 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24670000 Test FAILED for A=32767, B=30126, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=30126, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=3591, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24790 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24790000 Test FAILED for A=20127, B=-24331, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=20127, arg_b=-24331, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=23719, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 24950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+24950000 Test FAILED for A=32767, B=-32768, expected: result=-1073709056  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25050000 Test FAILED for A=-16753, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-16753, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-29834, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25130000 Test FAILED for A=20206, B=30376, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=20206, arg_b=30376, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25170 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25170000 Test FAILED for A=-30928, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-30928, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25270 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25270000 Test FAILED for A=3126, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=3126, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=3983, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25350000 Test FAILED for A=-1, B=1, expected: result=-1  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-30843, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-4236, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=26817, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25610000 Test FAILED for A=-1, B=-32768, expected: result=32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25690 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25690000 Test FAILED for A=0, B=-20267, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-20267, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-23014, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25810 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25810000 Test FAILED for A=-21456, B=13961, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-21456, arg_b=13961, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25850000 Test FAILED for A=3931, B=32767, expected: result=128807077  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=3931, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 25970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+25970000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-845, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26090000 Test FAILED for A=-32768, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=2469, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=22511, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-8565, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26410000 Test FAILED for A=0, B=-28628, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-28628, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26450 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26450000 Test FAILED for A=-1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26490000 Test FAILED for A=15168, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=15168, arg_b=0, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26530000 Test FAILED for A=20411, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=20411, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-19716, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26610000 Test FAILED for A=-1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1652, arg_b=0, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=30443, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26810 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26810000 Test FAILED for A=22117, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=22117, arg_b=32767, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 26850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+26850000 Test FAILED for A=-32768, B=1, expected: result=-32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27230000 Test FAILED for A=-1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=-370, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27350000 Test FAILED for A=-32768, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-1, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27390000 Test FAILED for A=-5325, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-5325, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27430000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27470000 Test FAILED for A=-32768, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-1, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27510000 Test FAILED for A=24256, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=24256, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27550000 Test FAILED for A=-28476, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-28476, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27590000 Test FAILED for A=-550, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-550, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-15436, arg_b=-22303, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27710000 Test FAILED for A=-32224, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32224, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 27750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+27750000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-19583, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-23037, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28010000 Test FAILED for A=-31507, B=28022, expected: result=-882889154  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-31507, arg_b=28022, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28130000 Test FAILED for A=-11122, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-11122, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28210 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28210000 Test FAILED for A=-1, B=19719, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=19719, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-8720, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28290 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28290000 Test FAILED for A=1, B=28741, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=28741, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28330000 Test FAILED for A=1, B=22791, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=22791, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28370 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28370000 Test FAILED for A=-32768, B=-24276, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-24276, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28410000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28450 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28450000 Test FAILED for A=-32768, B=32321, expected: result=-1059094528  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32321, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=17060, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28670 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28670000 Test FAILED for A=-22775, B=7001, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-22775, arg_b=7001, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-12951, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 28750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+28750000 Test FAILED for A=-28000, B=-32768, expected: result=917504000  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-28000, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=28377, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=7482, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-5406, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 29050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+29050000 Test FAILED for A=-29173, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-29173, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=28997, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 29130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+29130000 Test FAILED for A=32392, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32392, arg_b=0, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=17512, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 29230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+29230000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-21596, arg_b=23632, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 29390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+29390000 Test FAILED for A=27676, B=2887, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=27676, arg_b=2887, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=20618, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=29394, arg_b=-10148, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-21288, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 29670 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+29670000 Test FAILED for A=-26222, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-26222, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 29710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+29710000 Test FAILED for A=-4177, B=-18733, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-4177, arg_b=-18733, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-23163, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=22845, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-31063, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 29970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+29970000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30010000 Test FAILED for A=27295, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=27295, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30050000 Test FAILED for A=-21117, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-21117, arg_b=-32768, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30090000 Test FAILED for A=1, B=5548, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=5548, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30210 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30210000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=17970, arg_b=0, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30350000 Test FAILED for A=0, B=-31733, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-31733, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30390000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32447, arg_b=-29124, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30550000 Test FAILED for A=21, B=-1, expected: result=-21  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=21, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30610000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30650000 Test FAILED for A=-32768, B=17702, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=17702, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30730000 Test FAILED for A=15538, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=15538, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 30870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+30870000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=7289, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-12456, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 31070 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+31070000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 31150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+31150000 Test FAILED for A=-32768, B=-7835, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-7835, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-20372, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=19734, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 31270 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+31270000 Test FAILED for A=0, B=16010, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=16010, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-18410, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=6575, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=11470, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-25934, arg_b=-18387, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 31570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+31570000 Test FAILED for A=-19097, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-19097, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=5037, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=-20160, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=856, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 31830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+31830000 Test FAILED for A=1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-18932, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-17376, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 31990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+31990000 Test FAILED for A=-22244, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-22244, arg_b=-32768, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32030000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-17775, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32150000 Test FAILED for A=32767, B=32767, expected: result=1073676289  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-7121, arg_b=27291, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32390000 Test FAILED for A=-32768, B=32767, expected: result=-1073709056  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32490000 Test FAILED for A=-4716, B=-14452, expected: result=68155632  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-4716, arg_b=-14452, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32610000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32650000 Test FAILED for A=0, B=-26069, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-26069, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32770 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32770000 Test FAILED for A=7029, B=-25324, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=7029, arg_b=-25324, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32810 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32810000 Test FAILED for A=28510, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=28510, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-2358, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=7477, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 32970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+32970000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33010000 Test FAILED for A=32767, B=-24428, expected: result=-800432276  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-24428, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-13275, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33410000 Test FAILED for A=-27426, B=-25875, expected: result=709647750  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-27426, arg_b=-25875, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33570000 Test FAILED for A=32767, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-20157, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-22335, arg_b=-17880, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33750000 Test FAILED for A=1, B=27192, expected: result=27192  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=27192, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33830000 Test FAILED for A=0, B=-19009, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-19009, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33870000 Test FAILED for A=32767, B=-1, expected: result=-32767  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33950000 Test FAILED for A=4931, B=15803, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=4931, arg_b=15803, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 33990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+33990000 Test FAILED for A=32767, B=30188, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=30188, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34030000 Test FAILED for A=-32768, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34070 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34070000 Test FAILED for A=32767, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34110000 Test FAILED for A=-26792, B=-9299, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-26792, arg_b=-9299, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34150000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34190000 Test FAILED for A=-1, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32767, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34230000 Test FAILED for A=-32768, B=32767, expected: result=-1073709056  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34330000 Test FAILED for A=32767, B=15577, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=15577, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34370 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34370000 Test FAILED for A=-32768, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34410000 Test FAILED for A=32767, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-30957, arg_b=23880, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=6274, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=29465, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34710000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=-6583, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34850000 Test FAILED for A=-1807, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1807, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 34890 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+34890000 Test FAILED for A=-32768, B=-24823, expected: result=813400064  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-24823, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-17742, arg_b=24718, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-11961, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35190000 Test FAILED for A=1, B=25927, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=25927, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35230000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=28647, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-7595, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35410000 Test FAILED for A=4889, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=4889, arg_b=32767, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=28711, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-20489, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1239, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35750000 Test FAILED for A=-1, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35830000 Test FAILED for A=19944, B=14715, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=19944, arg_b=14715, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35870000 Test FAILED for A=0, B=19540, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=19540, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35910 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35910000 Test FAILED for A=-1, B=-6077, expected: result=6077  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-6077, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 35990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+35990000 Test FAILED for A=13145, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=13145, arg_b=0, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36030000 Test FAILED for A=22810, B=32767, expected: result=747415270  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=22810, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36490000 Test FAILED for A=32767, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36530000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36570000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36610000 Test FAILED for A=8488, B=-3437, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=8488, arg_b=-3437, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36650000 Test FAILED for A=32654, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32654, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-18206, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36730000 Test FAILED for A=-32768, B=-1, expected: result=32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-1, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 36810 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+36810000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=4411, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=18551, arg_b=2873, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=8443, arg_b=26688, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 37050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+37050000 Test FAILED for A=0, B=4036, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=4036, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=4364, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=-15536, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-6637, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 37230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+37230000 Test FAILED for A=7197, B=-32768, expected: result=-235831296  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=7197, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 37330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+37330000 Test FAILED for A=-32768, B=-1, expected: result=32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-1, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=3394, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 37510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+37510000 Test FAILED for A=-8855, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-8855, arg_b=-1, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-8512, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=26018, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=13903, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=10115, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=23506, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 37850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+37850000 Test FAILED for A=1, B=-74, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-74, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 37890 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+37890000 Test FAILED for A=19656, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=19656, arg_b=-1, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=2892, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38010000 Test FAILED for A=0, B=-18326, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-18326, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38090000 Test FAILED for A=-32768, B=1, expected: result=-32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-14388, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38330000 Test FAILED for A=-1, B=1, expected: result=-1  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38430000 Test FAILED for A=-32768, B=12074, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=12074, op=2 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38470000 Test FAILED for A=0, B=-30949, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-30949, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38510000 Test FAILED for A=25192, B=-1141, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=25192, arg_b=-1141, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-499, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38590000 Test FAILED for A=-32768, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32706, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-20040, arg_b=5415, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38830000 Test FAILED for A=-32768, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32261, arg_b=-19294, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38930 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38930000 Test FAILED for A=20090, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=20090, arg_b=-1, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 38970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+38970000 Test FAILED for A=10719, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=10719, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39010000 Test FAILED for A=-1733, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1733, arg_b=32767, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39050000 Test FAILED for A=12089, B=-32768, expected: result=-396132352  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=12089, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39190000 Test FAILED for A=32767, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39230000 Test FAILED for A=-12824, B=-22784, expected: result=292182016  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-12824, arg_b=-22784, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39370 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39370000 Test FAILED for A=-32768, B=21132, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=21132, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39410000 Test FAILED for A=16597, B=32767, expected: result=543833899  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=16597, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39530000 Test FAILED for A=17178, B=32767, expected: result=562871526  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=17178, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1328, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39690 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39690000 Test FAILED for A=-18794, B=-32768, expected: result=615841792  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-18794, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=9631, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39870000 Test FAILED for A=-1, B=11847, expected: result=-11847  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=11847, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 39950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+39950000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-19453, arg_b=27211, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-23840, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=266, arg_b=-1347, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=31680, arg_b=24433, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 40490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+40490000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 40590 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+40590000 Test FAILED for A=32767, B=-23162, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-23162, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 40630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+40630000 Test FAILED for A=-1, B=-26573, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-26573, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-11115, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 40710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+40710000 Test FAILED for A=0, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 40790 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+40790000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 40890 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+40890000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=22523, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=22482, arg_b=-30743, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-11715, arg_b=-30211, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41310000 Test FAILED for A=-1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41350000 Test FAILED for A=-9356, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-9356, arg_b=32767, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41390000 Test FAILED for A=0, B=6205, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=6205, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41430000 Test FAILED for A=1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=0, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41490000 Test FAILED for A=1735, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1735, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=8364, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41610000 Test FAILED for A=-32768, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=710, arg_b=-20816, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=23096, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41830000 Test FAILED for A=24890, B=32767, expected: result=815570630  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=24890, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 41950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+41950000 Test FAILED for A=1214, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1214, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42010 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42010000 Test FAILED for A=-32768, B=1, expected: result=-32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-3931, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=14163, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-15213, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42270 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42270000 Test FAILED for A=11068, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=11068, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42310000 Test FAILED for A=0, B=-6492, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-6492, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-30742, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42390000 Test FAILED for A=-13775, B=-13859, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-13775, arg_b=-13859, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-12787, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-30405, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-1821, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=32611, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42650000 Test FAILED for A=-32768, B=14008, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=14008, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42690 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42690000 Test FAILED for A=0, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42730000 Test FAILED for A=1, B=-24286, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-24286, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42770 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42770000 Test FAILED for A=15511, B=28547, expected: result=442792517  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=15511, arg_b=28547, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=-28784, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 42970 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+42970000 Test FAILED for A=32767, B=32767, expected: result=1073676289  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=8327, arg_b=27022, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43130 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43130000 Test FAILED for A=1, B=1, expected: result=1  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=1 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43230000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43290 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43290000 Test FAILED for A=-32768, B=-17225, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-17225, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43330000 Test FAILED for A=-9540, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-9540, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1465, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=13099, arg_b=29644, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43450 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43450000 Test FAILED for A=1, B=32767, expected: result=32767  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43530000 Test FAILED for A=-32768, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=0, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-6448, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43750000 Test FAILED for A=-1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43830 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43830000 Test FAILED for A=-1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1, arg_b=-14290, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 43950 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+43950000 Test FAILED for A=-32768, B=32767, expected: result=-1073709056  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44050000 Test FAILED for A=32767, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44090000 Test FAILED for A=-1, B=-1, expected: result=1  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-1, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44190000 Test FAILED for A=12032, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=12032, arg_b=-1, op=2 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44230000 Test FAILED for A=-7306, B=32767, expected: result=-239395702  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-7306, arg_b=32767, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44350000 Test FAILED for A=1, B=1, expected: result=1  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-30901, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44450 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44450000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=19335, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-3111, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44570000 Test FAILED for A=22923, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=22923, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-27205, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 44650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+44650000 Test FAILED for A=1, B=-3909, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-3909, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=9949, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=-23114, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=26231, arg_b=-24984, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-5218, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-30540, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45110000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=-3258, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-8593, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45270 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45270000 Test FAILED for A=0, B=32767, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45310000 Test FAILED for A=-32768, B=-24611, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-24611, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45350000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45390000 Test FAILED for A=32767, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45490000 Test FAILED for A=-22753, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-22753, arg_b=-1, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=24213, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-3640, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45630000 Test FAILED for A=26754, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=26754, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45670 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45670000 Test FAILED for A=-1, B=-20329, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-20329, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45750000 Test FAILED for A=-11812, B=-1128, expected: result=13323936  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-11812, arg_b=-1128, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=19040, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 45910 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+45910000 Test FAILED for A=29155, B=-457, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=29155, arg_b=-457, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-8837, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=28473, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-8957, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-3646, arg_b=-18388, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46230000 Test FAILED for A=5125, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=5125, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-18393, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46310 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46310000 Test FAILED for A=32767, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=32767, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=19352, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46390000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46430000 Test FAILED for A=-1, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=0, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-3106, arg_b=-32768, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-30624, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46610000 Test FAILED for A=0, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-32768, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=15722, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46770 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46770000 Test FAILED for A=29942, B=-32768, expected: result=-981139456  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=29942, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46870000 Test FAILED for A=-1, B=-1, expected: result=1  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 46930 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+46930000 Test FAILED for A=0, B=16529, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=16529, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47150000 Test FAILED for A=32767, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47190000 Test FAILED for A=0, B=-30688, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-30688, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47230000 Test FAILED for A=-11842, B=32767, expected: result=-388026814  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-11842, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47350000 Test FAILED for A=32767, B=7615, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=7615, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=5188, arg_b=2554, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-31407, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47550000 Test FAILED for A=-32768, B=-32768, expected: result=1073741824  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47630000 Test FAILED for A=16235, B=-6019, expected: result=-97718465  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=16235, arg_b=-6019, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47750 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47750000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=3 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=14108, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47870000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 47910 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+47910000 Test FAILED for A=27195, B=-7475, expected: result=-203282625  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=27195, arg_b=-7475, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-18279, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48070 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48070000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48110000 Test FAILED for A=10398, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=10398, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48150000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=1, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48230000 Test FAILED for A=-1, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=4 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=0, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=17028, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-10977, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48390000 Test FAILED for A=-32768, B=22224, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=22224, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48430 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48430000 Test FAILED for A=1, B=-1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-1, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48470 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48470000 Test FAILED for A=-1, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48510 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48510000 Test FAILED for A=1, B=-7341, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-7341, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=23452, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-1, arg_b=-24549, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48630 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48630000 Test FAILED for A=32767, B=-1, expected: result=-32767  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=-1, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48710 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48710000 Test FAILED for A=-1, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-32427, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=32767, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=10989, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48870 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48870000 Test FAILED for A=-1, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48910 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48910000 Test FAILED for A=0, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=1, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 48990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+48990000 Test FAILED for A=1, B=-1, expected: result=-1  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-1, op=1 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49050 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49050000 Test FAILED for A=-1, B=28978, expected: result=-28978  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=28978, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=0, arg_b=-5026, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49210 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49210000 Test FAILED for A=-32768, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49250 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49250000 Test FAILED for A=-32768, B=32767, expected: result=-1073709056  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=32767, op=1 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49350 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49350000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49390 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49390000 Test FAILED for A=-28612, B=-7641, expected: result=218624292  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-28612, arg_b=-7641, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49550 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49550000 Test FAILED for A=-31250, B=-32768, expected: result=1024000000  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-31250, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=-20899, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49810 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49810000 Test FAILED for A=-32768, B=21273, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=21273, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49850 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49850000 Test FAILED for A=0, B=-18339, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-18339, op=4 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49890 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49890000 Test FAILED for A=0, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=0, op=1 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-24630, arg_b=28772, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 49990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+49990000 Test FAILED for A=30509, B=17017, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=30509, arg_b=17017, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 50030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+50030000 Test FAILED for A=19701, B=25028, expected: result=493076628  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=19701, arg_b=25028, op=1 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=10923, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 50230 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+50230000 Test FAILED for A=-1, B=-1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-1, op=4 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=1, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=32767, arg_b=19729, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=3583, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=30064, arg_b=0, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 50490 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+50490000 Test FAILED for A=1, B=32767, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=32767, op=3 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-9665, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 50570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+50570000 Test FAILED for A=1, B=3667, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=3667, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-20744, arg_b=-9931, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 50730 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+50730000 Test FAILED for A=1, B=-7417, expected: result=-7417  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-7417, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=32767, arg_b=-3801, op=0 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=1, op=0 wait_result=1, parity_a=1, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 50890 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+50890000 Test FAILED for A=1, B=29679, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=29679, op=2 wait_result=1, parity_a=1, parity_b=0
+DRIVER: arg_a=-1, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 50990 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+50990000 Test FAILED for A=-1, B=-32768, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-1, arg_b=-32768, op=3 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51030 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51030000 Test FAILED for A=1, B=-32768, expected: result=-32768  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=-32768, op=1 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51110 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51110000 Test FAILED for A=32767, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=0, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51150 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51150000 Test FAILED for A=-32768, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=-32768, op=2 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51190 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51190000 Test FAILED for A=-32768, B=8269, expected: result=-270958592  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=8269, op=1 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51290 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51290000 Test FAILED for A=32767, B=31262, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=31262, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51330 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51330000 Test FAILED for A=-4631, B=-29897, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-4631, arg_b=-29897, op=4 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51370 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51370000 Test FAILED for A=32767, B=0, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=0, op=3 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=5340, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-16072, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=1239, arg_b=25407, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51610 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51610000 Test FAILED for A=32767, B=7532, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=32767, arg_b=7532, op=4 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 51650 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+51650000 Test FAILED for A=-7375, B=1, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=-7375, arg_b=1, op=3 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-26091, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=1, arg_b=-6791, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=-31915, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=0, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-32768, arg_b=-26753, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-6772, arg_b=-1, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=-20321, arg_b=6086, op=0 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=32767, arg_b=32767, op=0 wait_result=1, parity_a=0, parity_b=0
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 52090 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+52090000 Test FAILED for A=31892, B=-32768, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=31892, arg_b=-32768, op=2 wait_result=1, parity_a=0, parity_b=0
+DRIVER: arg_a=0, arg_b=21424, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=3288, arg_b=-32768, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 52250 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+52250000 Test FAILED for A=-32768, B=12653, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-32768, arg_b=12653, op=4 wait_result=1, parity_a=1, parity_b=1
+DRIVER: arg_a=30078, arg_b=1, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=15336, arg_b=22759, op=0 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=-32768, arg_b=-15610, op=0 wait_result=1, parity_a=0, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 52410 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+52410000 Test FAILED for A=-7946, B=1, expected: result=-7946  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=-7946, arg_b=1, op=1 wait_result=1, parity_a=0, parity_b=1
+DRIVER: arg_a=17671, arg_b=-1, op=0 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 52530 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+52530000 Test FAILED for A=1, B=1, expected: result=0  result_parity=1 arg_parity_error=0,
+DRIVER: arg_a=1, arg_b=1, op=3 wait_result=1, parity_a=1, parity_b=1
+xmsim: *E,ERRSEV (../tb/tb_classes/scoreboard.svh,210): (time 52570 NS).
+mult_pkg::scoreboard.write.CHK_RESULT
+52570000 Test FAILED for A=0, B=-24775, expected: result=0  result_parity=0 arg_parity_error=0,
+DRIVER: arg_a=0, arg_b=-24775, op=3 wait_result=1, parity_a=1, parity_b=0
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_objection.svh(1271) @ 52590000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+[1;30m[101m-----------------------------------
+----------- Test FAILED -----------
+-----------------------------------[0m
+
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_catcher.svh(705) @ 52590000: reporter [UVM/REPORT/CATCHER] 
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_server.svh(847) @ 52590000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :    3
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[RNTST]     1
+[TEST_DONE]     1
+[UVM/REPORT/CATCHER]     1
+
+Simulation complete via $finish(1) at time 52590 NS + 62
+/eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_root.svh:543     $finish;
+xcelium> probe -create -shm top.bfm.result_monitor_thread.res top.bfm.send_op.parity
+Created probe 2
+xcelium> run
+xmsim: *E,RNFNSH: Cannot continue simulation due to a previous $finish.
+xcelium> run
+xmsim: *E,RNFNSH: Cannot continue simulation due to a previous $finish.
+xcelium> ^C
+xcelium> exit
+See ./cov_work/scope/test/icc.com file for message(s) on coverage constant object marking
+
+coverage setup:
+  workdir  :  ./cov_work
+  dutinst  :  top(top)
+  scope    :  scope
+  testname :  test
+
+coverage files:
+  model(design data) :  ./cov_work/scope/icc_2f4d1882_5cb1f1f5.ucm
+  data               :  ./cov_work/scope/test/icc_2f4d1882_5cb1f1f5.ucd
+TOOL:	xrun	21.03-s009: Exiting on Nov 30, 2023 at 01:19:43 CET  (total: 00:07:29)

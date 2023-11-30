@@ -32,26 +32,19 @@ class driver extends uvm_component;
     task run_phase(uvm_phase phase);
 	    
         command_s command;
-
+	    
         forever 
 	        begin : command_loop
 		        
             command_port.get(command);
 		        
-            bfm.send_op(command.rst_n, command.arg_a,command.arg_b);
+            bfm.send_op(command.arg_a,command.arg_b, command.op, command.arg_a_parity, command.arg_b_parity);
 	        
-	        $display("DRIVER: arg_a=%0d, arg_b=%0d, rst_n=%0d wait_result=%0d", command.arg_a, command.arg_b, command.rst_n, command.wait_result);
-	       
-	        if(command.wait_result == 1) 
-	        begin
-	        	bfm.wait_result();
-	        end
-	        
-	        else begin
-		       $display("Couldn't get data in driver!!!"); 
-		    end
+	        //$display("DRIVER: arg_a=%0d, arg_b=%0d, op=%0d wait_result=%0d, parity_a=%0d, parity_b=%0d", 
+		    //   command.arg_a, command.arg_b, command.op, command.wait_result, command.arg_a_parity, command.arg_b_parity);
+       
         end : command_loop
     endtask : run_phase
-    
+  
 
 endclass : driver

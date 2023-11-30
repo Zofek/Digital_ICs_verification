@@ -30,9 +30,10 @@ package mult_pkg;
     // WRITE COMMAND data packet
     typedef struct packed 
     {	
-    	bit 		rst_n;
 		shortint 	arg_a;
 	    shortint 	arg_b;
+		bit 		arg_a_parity;
+		bit 		arg_b_parity;
 	    bit 		wait_result;
 	    operation_t op;
     } command_s;
@@ -40,8 +41,6 @@ package mult_pkg;
 	// WRITE RESULT data packet
 	typedef struct packed 
 	{
-		bit 	arg_a_parity;
-		bit 	arg_b_parity;
 		bit 	arg_parity_error;
 		int 	result;
 		bit 	result_parity; 					
@@ -88,7 +87,7 @@ package mult_pkg;
 //------------------------------------------------------------------------------
 // test classes
 //------------------------------------------------------------------------------
-`include "random_test.svh"
-`include "corners_test.svh"
+	`include "random_test.svh"
+	`include "corners_test.svh"
 
 endpackage : mult_pkg

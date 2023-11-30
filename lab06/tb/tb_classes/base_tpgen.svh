@@ -36,9 +36,8 @@ virtual class base_tpgen extends uvm_component;
 		
 		phase.raise_objection(this);
 		
-        command.rst_n = 1;
+        command.op = RST_OP;
         command_port.put(command);
-		command.rst_n = 0;
 
 		repeat (1000)
 		begin : random_loop
@@ -54,12 +53,11 @@ virtual class base_tpgen extends uvm_component;
 		
 		command.wait_result = 0;
 		command_port.put(command);
-		command.rst_n = 1;
+		command.op = RST_OP;
 		command_port.put(command);
 		
 		phase.drop_objection(this);
 
 	endtask : run_phase 
-
 
 endclass : base_tpgen
