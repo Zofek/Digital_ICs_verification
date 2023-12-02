@@ -1,4 +1,4 @@
-class scoreboard extends uvm_subscriber #(result_s);
+class scoreboard extends uvm_subscriber #(result_transaction);
 	`uvm_component_utils(scoreboard)
 
 //------------------------------------------------------------------------------
@@ -21,9 +21,9 @@ class scoreboard extends uvm_subscriber #(result_s);
 //------------------------------------------------------------------------------
 // local variables
 //------------------------------------------------------------------------------
-	uvm_tlm_analysis_fifo #(command_s) cmd_f;
+	uvm_tlm_analysis_fifo #(random_command_transaction) cmd_f;
 
-	protected test_result   tr = TEST_PASSED; // the result of the current test
+	local test_result   tr = TEST_PASSED; // the result of the current test
 
 //------------------------------------------------------------------------------
 // constructor
@@ -39,7 +39,7 @@ class scoreboard extends uvm_subscriber #(result_s);
 // used to modify the color printed on the terminal
 //------------------------------------------------------------------------------
 
-	protected function void set_print_color ( print_color c );
+	local function void set_print_color ( print_color c );
 		string ctl;
 		case(c)
 			COLOR_BOLD_BLACK_ON_GREEN : ctl  = "\033\[1;30m\033\[102m";
@@ -59,7 +59,7 @@ class scoreboard extends uvm_subscriber #(result_s);
 //------------------------------------------------------------------------------
 // print the PASSED/FAILED in color
 //------------------------------------------------------------------------------
-	protected function void print_test_result (test_result r);
+	local function void print_test_result (test_result r);
 		if(tr == TEST_PASSED) begin
 			set_print_color(COLOR_BOLD_BLACK_ON_GREEN);
 			$write ("-----------------------------------\n");
@@ -78,135 +78,93 @@ class scoreboard extends uvm_subscriber #(result_s);
 		end
 	endfunction
 
-
-//------------------------------------------------------------------------------
-// calculate expected result
-//------------------------------------------------------------------------------
-
-	protected function int get_expected_result(
-
-			input shortint   arg_a,
-			input shortint   arg_b,
-			input operation_t op_set);
-
-		int result = 0;
-
-		`ifdef DEBUG
-		$display("%0t DEBUG: get_expected(%0d,%0d)",$time, arg_a, arg_b);
-		`endif
-
-		case(op_set)
-
-			CORR_INPUT : result = arg_a * arg_b;
-
-			INCORRECT_A, INCORRECT_B, INCORRECT_A_B, RST_OP: result = 32'b0;
-
-			default
-			begin
-				$display("%0t INTERNAL ERROR. get_expected_result: unexpected case argument: %s", $time, op_set);
-				tr = TEST_FAILED;
-			end
-
-		endcase
-
-		return result;
-
-	endfunction : get_expected_result
-
-	//------------------------------------------------------------------------------
-
-	protected function bit get_expected_parity(
-
-			input shortint   arg_a,
-			input shortint   arg_b);
-
-		bit result_parity = 0;
-
-		result_parity = ^(arg_a * arg_b);
-		
-		return result_parity;
-		
-	endfunction : get_expected_parity
-
-	//------------------------------------------------------------------------------
-
-	protected function bit get_expected_parity_error(
-
-			input operation_t op_set);
-
-			bit arg_parity_error = 0;
-
-		case(op_set)
-
-			CORR_INPUT : arg_parity_error = 1'b0;
-
-			INCORRECT_A, INCORRECT_B, INCORRECT_A_B: arg_parity_error = 1'b0;
-
-			default
-			begin
-				$display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %s", $time, op_set);
-				tr = TEST_FAILED;
-			end
-
-		endcase
-		
-		return arg_parity_error;
-		
-	endfunction : get_expected_parity_error
-
 //------------------------------------------------------------------------------
 // build phase
 //------------------------------------------------------------------------------
 	function void build_phase(uvm_phase phase);
-		
+
 		cmd_f = new ("cmd_f", this);
-		
+
 	endfunction : build_phase
+
+//------------------------------------------------------------------------------
+// calculate expected result
+//------------------------------------------------------------------------------
+	local function result_transaction predict_result(random_command_transaction cmd);
+
+		result_transaction predicted;
+
+		predicted = new("predicted");
+
+		case(cmd.op)
+
+			CORR_INPUT :
+
+			begin
+				predicted.result           = cmd.arg_a * cmd.arg_b;
+				predicted.arg_parity_error = 1'b0;
+				predicted.result_parity    = ^cmd.arg_a * cmd.arg_b;
+			end
+
+			INCORRECT_A, INCORRECT_B, INCORRECT_A_B:
+
+			begin
+				predicted.result           = 32'b0;
+				predicted.arg_parity_error = 1'b1;
+				predicted.result_parity    = ^32'b0;
+			end
+
+			RST_OP :
+
+			begin
+				predicted.result           = 32'b0;
+				predicted.arg_parity_error = 1'b0;
+				predicted.result_parity    = 1'b0;
+			end
+
+		endcase
+
+		return predicted;
+
+	endfunction : predict_result
 
 //------------------------------------------------------------------------------
 // subscriber write function
 //------------------------------------------------------------------------------
-	function void write(result_s t);
+	function void write(result_transaction t);
 
 		int result_scoreboard;
 		bit result_parity_scoreboard;
 		bit arg_parity_error_scoreboard;
 
-
-		command_s cmd;
-		cmd.arg_a = 0;
-		cmd.arg_b = 0;
-		cmd.op    = RST_OP;
+		string data_str;
+		random_command_transaction cmd;
+		result_transaction predicted;
 
 		case(cmd.op)
 			CORR_INPUT, INCORRECT_A, INCORRECT_B, INCORRECT_A_B :
 			begin
-				result_scoreboard = get_expected_result(cmd.arg_a, cmd.arg_b, cmd.op);
-				result_parity_scoreboard = get_expected_parity(cmd.arg_a, cmd.arg_b);
-				arg_parity_error_scoreboard = get_expected_parity_error(cmd.op);
+				predicted = predict_result(cmd);
 			end
 		endcase
 
 		if (cmd.op !== RST_OP)
+			
+			data_str  = { cmd.convert2string(),
+						" ==>  Actual " , t.convert2string(),
+						"/Predicted ",predicted.convert2string()};
+					
+		if (!predicted.compare(t))
+			
 		begin
-			CHK_RESULT: if  ((t.result  == result_scoreboard)          &&
-					(t.result_parity    == result_parity_scoreboard)   &&
-					(t.arg_parity_error == arg_parity_error_scoreboard))
-
-			begin
-		   `ifdef DEBUG
-				$display("Test passed for A=%0d  B=%0d", cmd.arg_a, cmd.arg_b);
-		   `endif
-			end
-
-			else
-
-			begin
-				tr = TEST_FAILED;
-				$error("%0t Test FAILED for A=%0d, B=%0d, expected: result=%0d  result_parity=%0d arg_parity_error=%0d,",
-					$time, cmd.arg_a, cmd.arg_b, result_scoreboard, result_parity_scoreboard, arg_parity_error_scoreboard);
-			end;
-
+			`uvm_error("SELF CHECKER", {"FAIL: ",data_str})
+			tr = TEST_FAILED;
+		end
+		
+		else
+			
+		begin
+			`uvm_info ("SELF CHECKER", {"PASS: ", data_str}, UVM_HIGH)
 		end
 
 	endfunction : write

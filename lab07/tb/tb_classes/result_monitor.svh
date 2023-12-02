@@ -5,7 +5,7 @@ class result_monitor extends uvm_component;
 // local variables
 //------------------------------------------------------------------------------
     protected virtual mult_bfm bfm;
-    uvm_analysis_port #(result_s) ap;
+    uvm_analysis_port #(result_transaction) ap;
 
 //------------------------------------------------------------------------------
 // constructor
@@ -19,7 +19,7 @@ class result_monitor extends uvm_component;
 //------------------------------------------------------------------------------
 // monitoring function called from BFM
 //------------------------------------------------------------------------------
-    function void write_to_monitor(result_s res);
+    function void write_to_monitor(result_transaction res);
 	    
         `ifdef DEBUG
         $display ("RESULT MONITOR: arg_parity_error=%0d, result=%0d, result_parity=%0d", res.arg_parity_error, res.result, res.result_parity);

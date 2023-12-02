@@ -1,0 +1,99 @@
+TOOL:	xrun	21.03-s009: Started on Dec 02, 2023 at 15:49:43 CET
+xrun
+	-F ../tb/tb.f
+		mult_pkg.sv
+		mult_bfm.sv
+		-F ../tb/../../common/vdic_dut_2023.f
+			vdic_dut_2023.svp
+		top.sv
+		+incdir+tb_classes
+		+incdir+.
+		+nowarn+DSEMEL
+		+nowarnBADPRF
+		-uvm
+		-uvmhome /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv
+		+UVM_NO_RELNOTES
+		+UVM_VERBOSITY=MEDIUM
+		-linedebug
+		-fsmdebug
+		-uvmlinedebug
+	-v93
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	+nowarnCOVUTA
+	+nowarnBADPRF
+	+nowarnXCLGNOPTM
+	+nowarnRNDXCELON
+	+nowarnSAWSTP
+	-xmlibdirname INCA_libs
+	+overwrite
+	-nocopyright
+	-coverage all
+	-covoverwrite
+	-covfile xrun_covfile.txt
+	-covtest minmax_test
+	+UVM_TESTNAME=minmax_test
+	-l xrun_test_minmax_test.log
+
+   User defined plus("+") options:
+	+UVM_NO_RELNOTES
+	+UVM_VERBOSITY=MEDIUM
+
+Loading snapshot worklib.top:sv .................... Done
+SVSEED default: 1
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/xcelium/files/xmsimrc
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/files/tcl/uvm_sim.tcl
+xcelium> run
+UVM_INFO @ 0: reporter [RNTST] Running test minmax_test...
+[0;34m[107m----------------------------------------------------------------
+Name                     Type                        Size  Value
+----------------------------------------------------------------
+uvm_test_top             minmax_test                 -     @1942
+  env_h                  env                         -     @2019
+    command_f            uvm_tlm_fifo #(T)           -     @2049
+      get_ap             uvm_analysis_port           -     @2255
+      get_peek_export    uvm_get_peek_imp            -     @2155
+      put_ap             uvm_analysis_port           -     @2205
+      put_export         uvm_put_imp                 -     @2103
+    command_monitor_h    command_monitor             -     @2516
+      ap                 uvm_analysis_port           -     @2606
+    coverage_h           coverage                    -     @2350
+      analysis_imp       uvm_analysis_imp            -     @2400
+    driver_h             driver                      -     @2319
+      command_port       uvm_get_port                -     @2662
+    result_monitor_h     result_monitor              -     @2547
+      ap                 uvm_analysis_port           -     @2716
+    scoreboard_h         scoreboard                  -     @2433
+      analysis_imp       uvm_analysis_imp            -     @2483
+      cmd_f              uvm_tlm_analysis_fifo #(T)  -     @2747
+        analysis_export  uvm_analysis_imp            -     @2996
+        get_ap           uvm_analysis_port           -     @2945
+        get_peek_export  uvm_get_peek_imp            -     @2847
+        put_ap           uvm_analysis_port           -     @2896
+        put_export       uvm_put_imp                 -     @2798
+    tpgen_h              tpgen                       -     @2288
+      command_port       uvm_put_port                -     @3054
+----------------------------------------------------------------
+[0m
+[1;30m[103mUVM_INFO ../tb/tb_classes/random_test.svh(42) @ 0: uvm_test_top [COMMAND TRANSACTION] minmax_command_transaction
+[0m
+xmsim: *E,TRNULLID: NULL pointer dereference.
+          File: ../tb/mult_bfm.sv, line = 162, pos = 6
+         Scope: top.bfm
+          Time: 90 NS + 0
+
+../tb/mult_bfm.sv:162 				res.arg_parity_error = arg_parity_error;
+xcelium> exit
+See ./cov_work/scope/minmax_test/icc.com file for message(s) on coverage constant object marking
+
+coverage setup:
+  workdir  :  ./cov_work
+  dutinst  :  top(top)
+  scope    :  scope
+  testname :  minmax_test
+
+coverage files:
+  model(design data) :  ./cov_work/scope/icc_028b1daa_5cb1f1f5.ucm (reused)
+  data               :  ./cov_work/scope/minmax_test/icc_028b1daa_5cb1f1f5.ucd
+TOOL:	xrun	21.03-s009: Exiting on Dec 02, 2023 at 15:49:44 CET  (total: 00:00:01)

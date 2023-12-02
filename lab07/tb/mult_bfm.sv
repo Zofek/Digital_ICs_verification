@@ -1,6 +1,9 @@
 import mult_pkg::*;
 
 interface mult_bfm;
+	
+//dut connections
+//--------------------------------
 
 	bit                   clk;
 	bit                   rst_n;
@@ -16,6 +19,8 @@ interface mult_bfm;
 	wire                 result_rdy;
 	wire                 arg_parity_error;
 
+//local variables
+//--------------------------------
 	operation_t          op;
 
 	command_monitor command_monitor_h;
@@ -50,7 +55,7 @@ interface mult_bfm;
 	endtask : reset_mult
 
 //------------------------------------------------------------------------------
-// send_op
+// send transaction to DUT
 //------------------------------------------------------------------------------
 
 	task send_op(
@@ -61,9 +66,7 @@ interface mult_bfm;
 			
 			output bit oarg_a_parity,
 			output bit oarg_b_parity);
-		
-		bit parity;		
-		
+
 		op = iop;
 		arg_a  = iarg_a;
 		oarg_a_parity = arg_a_parity;
@@ -117,32 +120,26 @@ interface mult_bfm;
 //------------------------------------------------------------------------------
 	always @(posedge clk)
 
-	begin
+	begin : op_monitor
 
-		command_s command;
+		random_command_transaction command;
 
 		if (req)
 		begin
-			command.arg_a = arg_a;
-			command.arg_b = arg_b;
-			command.arg_a_parity = arg_a_parity;
-			command.arg_b_parity = arg_b_parity;
-			command.op    = op;
-			command_monitor_h.write_to_monitor(command);
+			command_monitor_h.write_to_monitor(arg_a, arg_b, arg_a_parity, arg_a_parity, op);
 		end
 
-	end
+	end : op_monitor
 
+//--------------------------------
 	always @(negedge rst_n)
 
 	begin : rst_monitor
 
-		command_s command;
-
-		command.op = RST_OP;
+		random_command_transaction command;
 
 		if (command_monitor_h != null) //guard against VCS time 0 negedge
-			command_monitor_h.write_to_monitor(command);
+			command_monitor_h.write_to_monitor(arg_a, arg_b, arg_a_parity, arg_b_parity, RST_OP);
 
 	end : rst_monitor
 
@@ -153,7 +150,7 @@ interface mult_bfm;
 
 	begin : result_monitor_thread
 
-		result_s res;
+		result_transaction res;
 
 		forever
 

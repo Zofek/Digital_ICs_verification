@@ -1,10 +1,9 @@
 module top;
 	
 import uvm_pkg::*;
-`include "uvm_macros.svh"
-
 import mult_pkg::*;
 `include "mult_macros.svh"
+`include "uvm_macros.svh"
 
 mult_bfm bfm();
 
