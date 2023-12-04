@@ -83,7 +83,7 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 				predicted.arg_parity_error = 1'b1;
 				predicted.result_parity    = ^(32'b0);
 			end
-			
+
 			default:
 				tr = TEST_FAILED;
 
@@ -99,31 +99,39 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 	function void write(result_transaction t);
 
 		string data_str;
-		random_command_transaction cmd;
 		result_transaction predicted;
-	
-        do
-            if (!cmd_f.try_get(cmd))
-                $fatal(1, "Missing command in self checker");
-        while (cmd.op == RST_OP);
-		
-		predicted = predict_result(cmd);
+		random_command_transaction cmd;
+		predicted = new("predicted");
+		cmd = new("cmd");
+//
+//        do
+//            if (!cmd_f.try_get(cmd))
+//                $fatal(1, "Missing command in self checker");
+//        while (cmd.op == RST_OP);
+		case(cmd.op)
+			CORR_INPUT, INCORRECT_A, INCORRECT_B, INCORRECT_A_B :
+			begin
+				predicted = predict_result(cmd);
+			end
+		endcase
 
-		data_str  = { cmd.convert2string(),
-					" ==>  Actual " , t.convert2string(),
-					"/Predicted ",predicted.convert2string()};
-					
-		if (!predicted.compare(t))
+		if (cmd.op !== RST_OP)
 		begin
-			`uvm_error("SELF CHECKER", {"FAIL: ",data_str})
-			tr = TEST_FAILED;
-		end
-		
-		else
-		begin
-			`uvm_info ("SELF CHECKER", {"PASS: ", data_str}, UVM_HIGH)
-		end
+			data_str  = { cmd.convert2string(),
+				" ==>  Actual " , t.convert2string(),
+				"/Predicted ",predicted.convert2string()};
 
+			if (!predicted.compare(t))
+			begin
+				`uvm_error("SELF CHECKER", {"FAIL: ",data_str})
+				tr = TEST_FAILED;
+			end
+
+			else
+			begin
+				`uvm_info ("SELF CHECKER", {"PASS: ", data_str}, UVM_HIGH)
+			end
+		end
 	endfunction : write
 
 //------------------------------------------------------------------------------

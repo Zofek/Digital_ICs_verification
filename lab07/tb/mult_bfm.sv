@@ -72,7 +72,7 @@ interface mult_bfm;
 		oarg_a_parity = arg_a_parity;
 		arg_b  = iarg_b;
 		oarg_b_parity = arg_b_parity;
-
+		
 		case(op)
 
 			RST_OP :
@@ -104,15 +104,17 @@ interface mult_bfm;
 				arg_b_parity = !(^arg_b);
 			end
 		endcase // case (op_set)
-
-		req = 1'b1;
-
+				
+		@(negedge clk);
+		
+		req = 1;
+		
 		wait(ack);
-
-		req = 1'b0;
-
+		
+		req = 0;
+		
 		wait(result_rdy);
-
+		
 	endtask : send_op
 
 //------------------------------------------------------------------------------

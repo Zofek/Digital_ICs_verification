@@ -1,4 +1,4 @@
-TOOL:	xrun	21.03-s009: Started on Dec 04, 2023 at 23:08:26 CET
+TOOL:	xrun	21.03-s009: Started on Dec 05, 2023 at 00:10:38 CET
 xrun
 	-elaborate
 	-l xrun_elaborate.log
@@ -139,26 +139,26 @@ xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,15|74): Value
 			streams:   9, words:  5026
 		worklib.cdns_uvm_pkg:sv <0x4c137e6f>
 			streams:  10, words:  8472
-		worklib.uvm_pkg:sv <0x14d97b25>
+		worklib.uvm_pkg:sv <0x4c049fee>
 			streams:  23, words: 21994
-		worklib.mult_pkg:sv <0x3c6765f2>
+		worklib.mult_pkg:sv <0x531d1947>
 			streams:  24, words: 24988
 		worklib.uvm_pkg:sv <0x357df593>
 			streams:   7, words:  2972
-		worklib.uvm_pkg:sv <0x2d0edc0f>
+		worklib.uvm_pkg:sv <0x4ad3c13f>
 			streams:  24, words: 28843
-		worklib.uvm_pkg:sv <0x3f921251>
+		worklib.uvm_pkg:sv <0x5b73dc20>
 			streams:  33, words: 35940
-		worklib.uvm_pkg:sv <0x66095e26>
+		worklib.uvm_pkg:sv <0x61245ffc>
 			streams:  33, words: 35182
-		worklib.uvm_pkg:sv <0x4ca3bb46>
+		worklib.uvm_pkg:sv <0x66af66fe>
 			streams:  40, words: 35970
-		worklib.uvm_pkg:sv <0x721f45f1>
-			streams: 120, words: 112744
+		worklib.uvm_pkg:sv <0x2720896a>
+			streams: 120, words: 112360
 		worklib.uvm_pkg:sv <0x0ebd9033>
 			streams:  24, words: 25007
-		worklib.mult_bfm:sv <0x24b5a54f>
-			streams: 285, words: 444476
+		worklib.mult_bfm:sv <0x12fbc981>
+			streams: 285, words: 445383
 		worklib.mult_pkg:sv <0x7fd310b2>
 			streams:  28, words: 34860
 		worklib.mult_pkg:sv <0x72ce6867>
@@ -197,4 +197,4 @@ xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,15|74): Value
 		SV Class specializations:    444     444
 		Simulation timescale:        1ps
 	Writing initial simulation snapshot: worklib.top:sv
-TOOL:	xrun	21.03-s009: Exiting on Dec 04, 2023 at 23:08:29 CET  (total: 00:00:03)
+TOOL:	xrun	21.03-s009: Exiting on Dec 05, 2023 at 00:10:42 CET  (total: 00:00:04)
