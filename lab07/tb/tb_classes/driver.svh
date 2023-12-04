@@ -31,17 +31,13 @@ class driver extends uvm_component;
 //------------------------------------------------------------------------------
 	task run_phase(uvm_phase phase);
 
-		shortint              arg_a;
-		bit                   arg_a_parity;
-		shortint              arg_b;
-		bit                   arg_b_parity;
 		random_command_transaction   command;
-
+		
 		forever
 		begin : command_loop
 
 			command_port.get(command);
-
+			
 			bfm.send_op(command.arg_a,command.arg_b, command.op, command.arg_a_parity, command.arg_b_parity);
 
 		end : command_loop

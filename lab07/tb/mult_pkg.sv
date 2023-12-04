@@ -27,25 +27,6 @@ package mult_pkg;
         COLOR_DEFAULT
     } print_color;
 
-//    // WRITE COMMAND data packet
-//    typedef struct packed 
-//    {	
-//		shortint 	arg_a;
-//	    shortint 	arg_b;
-//		bit 		arg_a_parity;
-//		bit 		arg_b_parity;
-//	    operation_t op;
-//    } command_s;
-	
-	// WRITE RESULT data packet
-//	typedef struct packed 
-//	{
-//		bit 	arg_parity_error;
-//		int 	result;
-//		bit 	result_parity; 					
-//
-//	} result_s;
-
 //------------------------------------------------------------------------------
 // package functions
 //------------------------------------------------------------------------------

@@ -122,11 +122,9 @@ interface mult_bfm;
 
 	begin : op_monitor
 
-		random_command_transaction command;
-
 		if (req)
 		begin
-			command_monitor_h.write_to_monitor(arg_a, arg_b, arg_a_parity, arg_a_parity, op);
+			command_monitor_h.write_to_monitor(arg_a, arg_b, arg_a_parity, arg_b_parity, op);
 		end
 
 	end : op_monitor
@@ -135,8 +133,6 @@ interface mult_bfm;
 	always @(negedge rst_n)
 
 	begin : rst_monitor
-
-		random_command_transaction command;
 
 		if (command_monitor_h != null) //guard against VCS time 0 negedge
 			command_monitor_h.write_to_monitor(arg_a, arg_b, arg_a_parity, arg_b_parity, RST_OP);
@@ -150,8 +146,6 @@ interface mult_bfm;
 
 	begin : result_monitor_thread
 
-		result_transaction res;
-
 		forever
 
 		begin
@@ -159,15 +153,11 @@ interface mult_bfm;
 
 			if (result_rdy)
 			begin
-				res.arg_parity_error = arg_parity_error;
-				res.result_parity = result_parity;
-				res.result = result;
-				result_monitor_h.write_to_monitor(res);
+				result_monitor_h.write_to_monitor(result, result_parity, arg_parity_error);
 			end
 
 		end
 	end : result_monitor_thread
-
 
 endinterface : mult_bfm
 

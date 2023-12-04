@@ -28,5 +28,5 @@ SAWSTP
 all
 -COVOVERWRITE
 -COVTEST
-minmax_test
+random_test
 -UPDATE

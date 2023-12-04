@@ -1,5 +1,6 @@
 class tpgen extends uvm_component;
 	`uvm_component_utils(tpgen)
+	
 //------------------------------------------------------------------------------
 // port for sending the transactions
 //------------------------------------------------------------------------------
@@ -37,10 +38,11 @@ class tpgen extends uvm_component;
         command_port.put(command);
 		
 		command = random_command_transaction::type_id::create("command");
-		repeat (1000)
+		
+		repeat (5000)
 		begin : random_loop
-
-			if(command.randomize())
+	
+			assert(command.randomize());
 			command_port.put(command);
 			
 		end : random_loop

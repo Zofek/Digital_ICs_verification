@@ -47,19 +47,4 @@ class env extends uvm_env;
     
     endfunction : connect_phase
 
-//------------------------------------------------------------------------------
-// end-of-elaboration phase
-//------------------------------------------------------------------------------
-//    function void end_of_elaboration_phase(uvm_phase phase);
-//	    
-//        super.end_of_elaboration_phase(phase);
-//
-//        // display created tpgen type
-//        set_print_color(COLOR_BOLD_BLACK_ON_YELLOW);
-//        $write("*** Created tpgen type: %s ***", tpgen_h.get_type_name());
-//        set_print_color(COLOR_DEFAULT);
-//        $write("\n");
-//
-//    endfunction : end_of_elaboration_phase
-
 endclass

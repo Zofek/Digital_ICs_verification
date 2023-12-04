@@ -4,19 +4,10 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 //------------------------------------------------------------------------------
 // local typedefs
 //------------------------------------------------------------------------------
-	protected typedef enum bit {
+	typedef enum bit {
 		TEST_PASSED,
 		TEST_FAILED
 	} test_result;
-
-	protected typedef enum {
-		COLOR_BOLD_BLACK_ON_GREEN,
-		COLOR_BOLD_BLACK_ON_RED,
-		COLOR_BOLD_BLACK_ON_YELLOW,
-		COLOR_BOLD_BLUE_ON_WHITE,
-		COLOR_BLUE_ON_WHITE,
-		COLOR_DEFAULT
-	} print_color;
 
 //------------------------------------------------------------------------------
 // local variables
@@ -34,27 +25,6 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 		super.new(name, parent);
 
 	endfunction : new
-
-//------------------------------------------------------------------------------
-// used to modify the color printed on the terminal
-//------------------------------------------------------------------------------
-
-	local function void set_print_color ( print_color c );
-		string ctl;
-		case(c)
-			COLOR_BOLD_BLACK_ON_GREEN : ctl  = "\033\[1;30m\033\[102m";
-			COLOR_BOLD_BLACK_ON_RED : ctl    = "\033\[1;30m\033\[101m";
-			COLOR_BOLD_BLACK_ON_YELLOW : ctl = "\033\[1;30m\033\[103m";
-			COLOR_BOLD_BLUE_ON_WHITE : ctl   = "\033\[1;34m\033\[107m";
-			COLOR_BLUE_ON_WHITE : ctl        = "\033\[0;34m\033\[107m";
-			COLOR_DEFAULT : ctl              = "\033\[0m\n";
-			default : begin
-				$error("set_print_color: bad argument");
-				ctl                          = "";
-			end
-		endcase
-		$write(ctl);
-	endfunction
 
 //------------------------------------------------------------------------------
 // print the PASSED/FAILED in color
@@ -103,7 +73,7 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 			begin
 				predicted.result           = cmd.arg_a * cmd.arg_b;
 				predicted.arg_parity_error = 1'b0;
-				predicted.result_parity    = ^cmd.arg_a * cmd.arg_b;
+				predicted.result_parity    = ^(cmd.arg_a * cmd.arg_b);
 			end
 
 			INCORRECT_A, INCORRECT_B, INCORRECT_A_B:
@@ -111,16 +81,11 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 			begin
 				predicted.result           = 32'b0;
 				predicted.arg_parity_error = 1'b1;
-				predicted.result_parity    = ^32'b0;
+				predicted.result_parity    = ^(32'b0);
 			end
-
-			RST_OP :
-
-			begin
-				predicted.result           = 32'b0;
-				predicted.arg_parity_error = 1'b0;
-				predicted.result_parity    = 1'b0;
-			end
+			
+			default:
+				tr = TEST_FAILED;
 
 		endcase
 
@@ -133,36 +98,28 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 //------------------------------------------------------------------------------
 	function void write(result_transaction t);
 
-		int result_scoreboard;
-		bit result_parity_scoreboard;
-		bit arg_parity_error_scoreboard;
-
 		string data_str;
 		random_command_transaction cmd;
 		result_transaction predicted;
+	
+        do
+            if (!cmd_f.try_get(cmd))
+                $fatal(1, "Missing command in self checker");
+        while (cmd.op == RST_OP);
+		
+		predicted = predict_result(cmd);
 
-		case(cmd.op)
-			CORR_INPUT, INCORRECT_A, INCORRECT_B, INCORRECT_A_B :
-			begin
-				predicted = predict_result(cmd);
-			end
-		endcase
-
-		if (cmd.op !== RST_OP)
-			
-			data_str  = { cmd.convert2string(),
-						" ==>  Actual " , t.convert2string(),
-						"/Predicted ",predicted.convert2string()};
+		data_str  = { cmd.convert2string(),
+					" ==>  Actual " , t.convert2string(),
+					"/Predicted ",predicted.convert2string()};
 					
 		if (!predicted.compare(t))
-			
 		begin
 			`uvm_error("SELF CHECKER", {"FAIL: ",data_str})
 			tr = TEST_FAILED;
 		end
 		
 		else
-			
 		begin
 			`uvm_info ("SELF CHECKER", {"PASS: ", data_str}, UVM_HIGH)
 		end

@@ -7,8 +7,8 @@ class random_command_transaction extends uvm_transaction;
 
 	rand shortint 	arg_a;
     rand shortint 	arg_b;
-	rand bit 		arg_a_parity;
-	rand bit 		arg_b_parity;
+	bit 		arg_a_parity;
+	bit 		arg_b_parity;
     rand operation_t op;
 
 //------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ class random_command_transaction extends uvm_transaction;
             `uvm_fatal("COMMAND TRANSACTION", "Tried to copy wrong type.")
 
         arg_a  = copied_transaction_h.arg_a;
-        arg_b  = copied_transaction_h.arg_a;
+        arg_b  = copied_transaction_h.arg_b;
         arg_a_parity  = copied_transaction_h.arg_a_parity;
         arg_b_parity  = copied_transaction_h.arg_b_parity;
         op = copied_transaction_h.op;

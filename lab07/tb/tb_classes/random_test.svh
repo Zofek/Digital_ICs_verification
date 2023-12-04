@@ -20,7 +20,7 @@ class random_test extends uvm_test;
 //------------------------------------------------------------------------------
     function void build_phase(uvm_phase phase);
 	    
-        env_h = env::type_id::create("env_h",this);
+        env_h = env::type_id::create("env",this);
 	    
     endfunction : build_phase
 

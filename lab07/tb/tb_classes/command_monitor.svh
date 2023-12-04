@@ -11,7 +11,9 @@ class command_monitor extends uvm_component;
 // constructor
 //------------------------------------------------------------------------------
 	function new (string name, uvm_component parent);
+		
 		super.new(name,parent);
+		
 	endfunction
 
 //------------------------------------------------------------------------------
@@ -42,7 +44,7 @@ class command_monitor extends uvm_component;
 		random_command_transaction cmd;
 
 		`uvm_info("COMMAND MONITOR",$sformatf("MONITOR: arg_a=%0d, arg_b=%0d, arg_a_parity=%0d, arg_b_parity=%0d, operation=%0d",
-				cmd.arg_a, cmd.arg_b, cmd.arg_a_parity, cmd.arg_b_parity, cmd.op), UVM_HIGH);
+				arg_a, arg_b, arg_a_parity, arg_b_parity, op), UVM_HIGH);
 
 		cmd    = new("cmd");
 		cmd.arg_a  		 = arg_a;
@@ -53,7 +55,6 @@ class command_monitor extends uvm_component;
 		ap.write(cmd);
 
 	endfunction : write_to_monitor
-
 
 	endclass : command_monitor
 

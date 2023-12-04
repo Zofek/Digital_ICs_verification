@@ -19,13 +19,19 @@ class result_monitor extends uvm_component;
 //------------------------------------------------------------------------------
 // monitoring function called from BFM
 //------------------------------------------------------------------------------
-    function void write_to_monitor(result_transaction res);
-	    
+    function void write_to_monitor(int result, bit result_parity, bit arg_parity_error);
+    	
+    	result_transaction result_t;
+    	
         `ifdef DEBUG
-        $display ("RESULT MONITOR: arg_parity_error=%0d, result=%0d, result_parity=%0d", res.arg_parity_error, res.result, res.result_parity);
+        $display ("RESULT MONITOR: arg_parity_error=%0d, result=%0d, result_parity=%0d", arg_parity_error, result, result_parity);
         `endif
+        result_t = new("result_t");
+        result_t.result = result;
+	    result_t.arg_parity_error = arg_parity_error;
+	    result_t.result_parity = result_parity;
         
-        ap.write(res);
+        ap.write(result_t);
 	    
     endfunction : write_to_monitor
 

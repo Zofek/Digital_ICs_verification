@@ -4,12 +4,10 @@ class coverage extends uvm_subscriber #(random_command_transaction);
 //------------------------------------------------------------------------------
 // local variables
 //------------------------------------------------------------------------------
-	protected virtual mult_bfm bfm;
-
 	protected shortint              arg_a;
 	protected shortint              arg_b;
-	protected bit              	arg_a_parity;
-	protected bit              arg_b_parity;
+	protected bit              		arg_a_parity;
+	protected bit              		arg_b_parity;
 	protected operation_t           op_set;
 
 //------------------------------------------------------------------------------
