@@ -1,0 +1,150 @@
+TOOL:	xrun	21.03-s009: Started on Dec 10, 2023 at 16:24:12 CET
+xrun
+	-F ../tb/tb.f
+		mult_pkg.sv
+		mult_tpgen_module.sv
+		mult_bfm.sv
+		-F ../tb/../../common/vdic_dut_2023.f
+			vdic_dut_2023.svp
+		top.sv
+		+incdir+tb_classes
+		+incdir+.
+		+nowarnDSEMEL
+		+nowarnBADPRF
+		-uvm
+		-uvmhome /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv
+		+UVM_NO_RELNOTES
+		+UVM_VERBOSITY=MEDIUM
+		-linedebug
+		-fsmdebug
+		-uvmlinedebug
+	-v93
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	+nowarnCOVUTA
+	+nowarnBADPRF
+	+nowarnXCLGNOPTM
+	+nowarnRNDXCELON
+	+nowarnSAWSTP
+	-xmlibdirname INCA_libs
+	+overwrite
+	-nocopyright
+	-coverage all
+	-covoverwrite
+	-covfile xrun_covfile.txt
+	-covtest dual_test
+	+UVM_TESTNAME=dual_test
+	-l xrun_test_dual_test.log
+
+   User defined plus("+") options:
+	+UVM_NO_RELNOTES
+	+UVM_VERBOSITY=MEDIUM
+
+Loading snapshot worklib.top:sv .................... Done
+SVSEED default: 1
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/xcelium/files/xmsimrc
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/files/tcl/uvm_sim.tcl
+xcelium> run
+UVM_INFO @ 0: reporter [RNTST] Running test dual_test...
+[0;34m[107m------------------------------------------------------------------
+Name                       Type                        Size  Value
+------------------------------------------------------------------
+uvm_test_top               dual_test                   -     @1964
+  env_h                    env                         -     @2060
+    class_mult_agent_h     mult_agent                  -     @2111
+      cmd_mon_ap           uvm_analysis_port           -     @2719
+      command_f            uvm_tlm_fifo #(T)           -     @2176
+        get_ap             uvm_analysis_port           -     @2378
+        get_peek_export    uvm_get_peek_imp            -     @2278
+        put_ap             uvm_analysis_port           -     @2328
+        put_export         uvm_put_imp                 -     @2226
+      command_monitor_h    command_monitor             -     @2473
+        ap                 uvm_analysis_port           -     @2827
+      coverage_h           coverage                    -     @2535
+        analysis_imp       uvm_analysis_imp            -     @2585
+      driver_h             driver                      -     @2442
+        command_port       uvm_get_port                -     @2882
+      result_ap            uvm_analysis_port           -     @2769
+      result_monitor_h     result_monitor              -     @2504
+        ap                 uvm_analysis_port           -     @2936
+      scoreboard_h         scoreboard                  -     @2618
+        analysis_imp       uvm_analysis_imp            -     @2668
+        cmd_f              uvm_tlm_analysis_fifo #(T)  -     @2967
+          analysis_export  uvm_analysis_imp            -     @3216
+          get_ap           uvm_analysis_port           -     @3165
+          get_peek_export  uvm_get_peek_imp            -     @3067
+          put_ap           uvm_analysis_port           -     @3116
+          put_export       uvm_put_imp                 -     @3018
+      tpgen_h              tpgen                       -     @2411
+        command_port       uvm_put_port                -     @3274
+    module_mult_agent_h    mult_agent                  -     @2143
+      cmd_mon_ap           uvm_analysis_port           -     @3545
+      command_monitor_h    command_monitor             -     @3307
+        ap                 uvm_analysis_port           -     @3645
+      coverage_h           coverage                    -     @3337
+        analysis_imp       uvm_analysis_imp            -     @3416
+      result_ap            uvm_analysis_port           -     @3594
+      result_monitor_h     result_monitor              -     @3254
+        ap                 uvm_analysis_port           -     @3699
+      scoreboard_h         scoreboard                  -     @3397
+        analysis_imp       uvm_analysis_imp            -     @3497
+        cmd_f              uvm_tlm_analysis_fifo #(T)  -     @3730
+          analysis_export  uvm_analysis_imp            -     @3977
+          get_ap           uvm_analysis_port           -     @3927
+          get_peek_export  uvm_get_peek_imp            -     @3829
+          put_ap           uvm_analysis_port           -     @3878
+          put_export       uvm_put_imp                 -     @3780
+------------------------------------------------------------------
+[0m
+[1;30m[103mUVM_INFO ../tb/tb_classes/tpgen.svh(43) @ 0: uvm_test_top.env_h.class_mult_agent_h.tpgen_h [TPGEN] *** Created transaction type: random_command_transaction
+[0m
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_objection.svh(1271) @ 64570000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+[1;30m[102m-----------------------------------
+----------- Test PASSED -----------
+-----------------------------------[0m
+
+[1;30m[102m-----------------------------------
+----------- Test PASSED -----------
+-----------------------------------[0m
+
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_catcher.svh(705) @ 64570000: reporter [UVM/REPORT/CATCHER] 
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_server.svh(847) @ 64570000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :    4
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[RNTST]     1
+[TEST_DONE]     1
+[TPGEN]     1
+[UVM/REPORT/CATCHER]     1
+
+Simulation complete via $finish(1) at time 64570 NS + 59
+/eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_root.svh:543     $finish;
+xcelium> exit
+See ./cov_work/scope/dual_test/icc.com file for message(s) on coverage constant object marking
+
+coverage setup:
+  workdir  :  ./cov_work
+  dutinst  :  top(top)
+  scope    :  scope
+  testname :  dual_test
+
+coverage files:
+  model(design data) :  ./cov_work/scope/icc_75157fe4_6cb80f9e.ucm
+  data               :  ./cov_work/scope/dual_test/icc_75157fe4_6cb80f9e.ucd
+TOOL:	xrun	21.03-s009: Exiting on Dec 10, 2023 at 16:24:14 CET  (total: 00:00:02)
