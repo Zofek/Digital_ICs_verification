@@ -103,6 +103,7 @@ interface mult_bfm;
 				arg_a_parity = !(^arg_a);
 				arg_b_parity = !(^arg_b);
 			end
+			
 		endcase // case (op_set)
 				
 		@(negedge clk);

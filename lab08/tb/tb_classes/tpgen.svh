@@ -43,7 +43,7 @@ class tpgen extends uvm_component;
         `uvm_info("TPGEN", $sformatf("*** Created transaction type: %s",command.get_type_name()), UVM_MEDIUM);
         set_print_color(COLOR_DEFAULT);
 		
-		repeat (1000)
+		repeat (30000)
 		begin : random_loop
 	
 			assert(command.randomize());

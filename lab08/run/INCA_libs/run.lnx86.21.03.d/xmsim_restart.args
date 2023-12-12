@@ -56,7 +56,7 @@ dual_test
 +EMGRLOG
 xrun_test_dual_test.log
 -XLSTIME
-1702221852
+1702400042
 -XLKEEP
 -XLMODE
 ./INCA_libs/run.lnx86.21.03.d
@@ -70,4 +70,4 @@ xrun
 -XLVERSION
 "TOOL:	xrun	21.03-s009"
 -XLNAME
-./INCA_libs/run.lnx86.21.03.d/cadence30_16969
+./INCA_libs/run.lnx86.21.03.d/cadence30_3199

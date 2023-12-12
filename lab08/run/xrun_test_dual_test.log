@@ -1,4 +1,4 @@
-TOOL:	xrun	21.03-s009: Started on Dec 10, 2023 at 16:24:12 CET
+TOOL:	xrun	21.03-s009: Started on Dec 12, 2023 at 17:54:02 CET
 xrun
 	-F ../tb/tb.f
 		mult_pkg.sv
@@ -99,7 +99,7 @@ uvm_test_top               dual_test                   -     @1964
 [0m
 [1;30m[103mUVM_INFO ../tb/tb_classes/tpgen.svh(43) @ 0: uvm_test_top.env_h.class_mult_agent_h.tpgen_h [TPGEN] *** Created transaction type: random_command_transaction
 [0m
-UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_objection.svh(1271) @ 64570000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_objection.svh(1271) @ 1910890000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
 [1;30m[102m-----------------------------------
 ----------- Test PASSED -----------
 -----------------------------------[0m
@@ -108,7 +108,7 @@ UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CD
 ----------- Test PASSED -----------
 -----------------------------------[0m
 
-UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_catcher.svh(705) @ 64570000: reporter [UVM/REPORT/CATCHER] 
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_catcher.svh(705) @ 1910890000: reporter [UVM/REPORT/CATCHER] 
 --- UVM Report catcher Summary ---
 
 
@@ -119,7 +119,7 @@ Number of caught UVM_FATAL reports   :    0
 Number of caught UVM_ERROR reports   :    0
 Number of caught UVM_WARNING reports :    0
 
-UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_server.svh(847) @ 64570000: reporter [UVM/REPORT/SERVER] 
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_server.svh(847) @ 1910890000: reporter [UVM/REPORT/SERVER] 
 --- UVM Report Summary ---
 
 ** Report counts by severity
@@ -133,7 +133,7 @@ UVM_FATAL :    0
 [TPGEN]     1
 [UVM/REPORT/CATCHER]     1
 
-Simulation complete via $finish(1) at time 64570 NS + 59
+Simulation complete via $finish(1) at time 1910890 NS + 59
 /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_root.svh:543     $finish;
 xcelium> exit
 See ./cov_work/scope/dual_test/icc.com file for message(s) on coverage constant object marking
@@ -147,4 +147,4 @@ coverage setup:
 coverage files:
   model(design data) :  ./cov_work/scope/icc_75157fe4_6cb80f9e.ucm
   data               :  ./cov_work/scope/dual_test/icc_75157fe4_6cb80f9e.ucd
-TOOL:	xrun	21.03-s009: Exiting on Dec 10, 2023 at 16:24:14 CET  (total: 00:00:02)
+TOOL:	xrun	21.03-s009: Exiting on Dec 12, 2023 at 17:54:04 CET  (total: 00:00:02)

@@ -1,4 +1,4 @@
-TOOL:	xrun	21.03-s009: Started on Dec 10, 2023 at 16:24:04 CET
+TOOL:	xrun	21.03-s009: Started on Dec 12, 2023 at 17:53:58 CET
 xrun
 	-elaborate
 	-l xrun_elaborate.log
@@ -55,23 +55,42 @@ xrun
 		worklib.mult_tpgen_module
 		worklib.top
 	Total FSMs extracted = 0
-	Building instance overlay tables: ...............
-        arg_a dist {16'h0000:=2, 16'h0001:=2, 16'h7FFF:=2,  16'hFFFF:=2, 16'h8000:=2};
-                                                             |
-xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,14|61): Value will not fit in the random variable.
-        arg_a dist {16'h0000:=2, 16'h0001:=2, 16'h7FFF:=2,  16'hFFFF:=2, 16'h8000:=2};
-                                                                          |
-xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,14|74): Value will not fit in the random variable.
-        arg_b dist {16'h0000:=2, 16'h0001:=2, 16'h7FFF:=2,  16'hFFFF:=2, 16'h8000:=2};
-                                                             |
-xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,15|61): Value will not fit in the random variable.
-        arg_b dist {16'h0000:=2, 16'h0001:=2, 16'h7FFF:=2,  16'hFFFF:=2, 16'h8000:=2};
-                                                                          |
-xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,15|74): Value will not fit in the random variable.
+	Building instance overlay tables: ..........
+        arg_a dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,19|64): Value will not fit in the random variable.
+        arg_a dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                              |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,19|78): Value will not fit in the random variable.
+        arg_a dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                                                                       |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,19|119): Value will not fit in the random variable.
+        arg_a dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                                                                                 |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,19|129): Value will not fit in the random variable.
+        arg_b dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,20|64): Value will not fit in the random variable.
+        arg_b dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                              |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,20|78): Value will not fit in the random variable.
+        arg_b dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                                                                       |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,20|119): Value will not fit in the random variable.
+        arg_b dist {16'sh0000:=1, 16'sh0001:=4, 16'sh7FFF:=3,  16'shFFFF:=1, 16'sh8000:=3, [16'sh0002:16'sh7FFE]:=1, [16'sh8001:16'shFFFE]:=1};
+                                                                                                                                 |
+xmelab: *W,VALFIT (../tb/tb_classes/random_command_transaction.svh,20|129): Value will not fit in the random variable.
+.....
+        arg_a dist {16'h7FFF:=2, 16'h8000:=2};
+                                  |
+xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,14|34): Value will not fit in the random variable.
+        arg_b dist {16'h7FFF:=2, 16'h8000:=2};
+                                  |
+xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,15|34): Value will not fit in the random variable.
 ..... Done
 	Enabling instrumentation for coverage types: block expression FSM toggle functional
 	Generating native compiled code:
-		worklib.mult_tpgen_module:sv <0x3a3a9f27>
+		worklib.mult_tpgen_module:sv <0x0d77cbeb>
 			streams:   3, words:  7416
 		worklib.vdic_dut_2023:svp <0x780d04ef>
 			streams:  58, words: 25285
@@ -141,31 +160,31 @@ xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,15|74): Value
 			streams:   9, words:  5026
 		worklib.cdns_uvm_pkg:sv <0x2a9c575b>
 			streams:  10, words:  8472
-		worklib.uvm_pkg:sv <0x08624a5e>
+		worklib.uvm_pkg:sv <0x028b2d58>
 			streams:  24, words: 25007
-		worklib.uvm_pkg:sv <0x6973e402>
+		worklib.uvm_pkg:sv <0x4febc657>
 			streams:  24, words: 28434
 		worklib.uvm_pkg:sv <0x56d3e710>
 			streams:   7, words:  2972
-		worklib.uvm_pkg:sv <0x392f4931>
+		worklib.uvm_pkg:sv <0x1282ef5e>
 			streams:  91, words: 141693
-		worklib.mult_pkg:sv <0x123cdd1b>
+		worklib.mult_pkg:sv <0x29e3125b>
 			streams:   7, words:  3393
-		worklib.uvm_pkg:sv <0x20de8190>
+		worklib.uvm_pkg:sv <0x3f1a548d>
 			streams:  24, words: 33810
 		worklib.uvm_pkg:sv <0x1ff83135>
 			streams:  18, words: 18890
-		worklib.uvm_pkg:sv <0x7f78f9b2>
+		worklib.uvm_pkg:sv <0x7b89fbca>
 			streams:  33, words: 38450
-		worklib.uvm_pkg:sv <0x4fa39b27>
+		worklib.uvm_pkg:sv <0x330d32a4>
 			streams:  33, words: 35148
-		worklib.uvm_pkg:sv <0x181d6332>
+		worklib.uvm_pkg:sv <0x3cbf1e53>
 			streams:  40, words: 35970
-		worklib.uvm_pkg:sv <0x4028f5af>
+		worklib.uvm_pkg:sv <0x50031f4f>
 			streams: 120, words: 112360
-		worklib.top:sv <0x16e202b2>
+		worklib.top:sv <0x48814feb>
 			streams:  85, words: 120385
-		worklib.mult_bfm:sv <0x5bdca037>
+		worklib.mult_bfm:sv <0x5f884a12>
 			streams: 284, words: 445151
 		worklib.mult_pkg:sv <0x1ab6c842>
 			streams:   8, words: 12399
@@ -205,4 +224,4 @@ xmelab: *W,VALFIT (../tb/tb_classes/minmax_command_transaction.svh,15|74): Value
 		SV Class specializations:    454     454
 		Simulation timescale:        1ps
 	Writing initial simulation snapshot: worklib.top:sv
-TOOL:	xrun	21.03-s009: Exiting on Dec 10, 2023 at 16:24:12 CET  (total: 00:00:08)
+TOOL:	xrun	21.03-s009: Exiting on Dec 12, 2023 at 17:54:02 CET  (total: 00:00:04)
