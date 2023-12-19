@@ -1,0 +1,146 @@
+TOOL:	xrun	21.03-s009: Started on Dec 19, 2023 at 14:15:29 CET
+xrun
+	-F ../tb/tb.f
+		mult_pkg.sv
+		mult_bfm.sv
+		-F ../tb/../../common/vdic_dut_2023.f
+			vdic_dut_2023.svp
+		top.sv
+		+incdir+tb_classes
+		+incdir+.
+		+nowarn+DSEMEL
+		+nowarnBADPRF
+		-uvm
+		-uvmhome /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv
+		+UVM_NO_RELNOTES
+		+UVM_VERBOSITY=MEDIUM
+		-linedebug
+		-fsmdebug
+		-uvmlinedebug
+	-v93
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	+nowarnCOVUTA
+	+nowarnBADPRF
+	+nowarnXCLGNOPTM
+	+nowarnRNDXCELON
+	+nowarnSAWSTP
+	-xmlibdirname INCA_libs
+	+overwrite
+	-nocopyright
+	-coverage all
+	-covoverwrite
+	-covfile xrun_covfile.txt
+	-covtest parallel_test
+	+UVM_TESTNAME=parallel_test
+	-l xrun_test_parallel_test.log
+
+   User defined plus("+") options:
+	+UVM_NO_RELNOTES
+	+UVM_VERBOSITY=MEDIUM
+
+Loading snapshot worklib.top:sv .................... Done
+SVSEED default: 1
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/xcelium/files/xmsimrc
+xcelium> source /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/files/tcl/uvm_sim.tcl
+xcelium> run
+UVM_INFO @ 0: reporter [RNTST] Running test parallel_test...
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_root.svh(605) @ 0: reporter [UVMTOP] UVM testbench topology:
+----------------------------------------------------------------
+Name                     Type                        Size  Value
+----------------------------------------------------------------
+uvm_test_top             parallel_test               -     @1969
+  env_h                  env                         -     @2107
+    command_monitor_h    command_monitor             -     @2927
+      ap                 uvm_analysis_port           -     @3178
+    coverage_h           coverage                    -     @2989
+      analysis_imp       uvm_analysis_imp            -     @3039
+    driver_h             driver                      -     @2796
+      rsp_port           uvm_analysis_port           -     @2896
+      seq_item_port      uvm_seq_item_pull_port      -     @2846
+    result_monitor       result_monitor              -     @2958
+      ap                 uvm_analysis_port           -     @3239
+    scoreboard           scoreboard                  -     @3072
+      analysis_imp       uvm_analysis_imp            -     @3122
+      cmd_f              uvm_tlm_analysis_fifo #(T)  -     @3270
+        analysis_export  uvm_analysis_imp            -     @3519
+        get_ap           uvm_analysis_port           -     @3468
+        get_peek_export  uvm_get_peek_imp            -     @3370
+        put_ap           uvm_analysis_port           -     @3419
+        put_export       uvm_put_imp                 -     @3321
+    sequencer_h          uvm_sequencer               -     @2139
+      rsp_export         uvm_analysis_export         -     @2201
+      seq_item_export    uvm_seq_item_pull_imp       -     @2763
+      arbitration_queue  array                       0     -    
+      lock_queue         array                       0     -    
+      num_last_reqs      integral                    32    'd1  
+      num_last_rsps      integral                    32    'd1  
+----------------------------------------------------------------
+
+UVM_INFO ../tb/tb_classes/parallel_sequence.svh(31) @ 0: uvm_test_top.env_h.sequencer_h@@parallel_h [SEQ_PARALLEL] 
+UVM_INFO ../tb/tb_classes/reset_sequence.svh(27) @ 0: uvm_test_top.env_h.sequencer_h@@parallel_h.reset [SEQ_RESET] 
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 110000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-1558, arg_b=-29987, arg_a_parity=0, arg_b_parity=0, operation=3
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 150000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-6376, arg_b=-16774, arg_a_parity=1, arg_b_parity=0, operation=4
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 190000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=7634, arg_b=-18072, arg_a_parity=1, arg_b_parity=0, operation=3
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 230000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-20810, arg_b=-1102, arg_a_parity=0, arg_b_parity=1, operation=3
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 270000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-17764, arg_b=-2362, arg_a_parity=0, arg_b_parity=0, operation=4
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 310000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-14570, arg_b=26600, arg_a_parity=0, arg_b_parity=1, operation=2
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 350000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=17567, arg_b=27495, arg_a_parity=1, arg_b_parity=1, operation=3
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 390000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-11203, arg_b=-4155, arg_a_parity=0, arg_b_parity=1, operation=2
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 430000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=15037, arg_b=-3498, arg_a_parity=0, arg_b_parity=1, operation=4
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 470000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-30811, arg_b=18980, arg_a_parity=1, arg_b_parity=0, operation=3
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 590000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=-30344, arg_b=4878, arg_a_parity=0, arg_b_parity=0, operation=1
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 710000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=6660, arg_b=-28647, arg_a_parity=1, arg_b_parity=0, operation=1
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 830000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=17543, arg_b=20133, arg_a_parity=0, arg_b_parity=1, operation=1
+UVM_INFO ../tb/tb_classes/short_random_sequence.svh(34) @ 950000: uvm_test_top.env_h.sequencer_h@@parallel_h.short_random [SEQ_SHORT_RANDOM] random req: Arg_a=261, arg_b=-3380, arg_a_parity=0, arg_b_parity=0, operation=1
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_objection.svh(1271) @ 950000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO ../tb/tb_classes/scoreboard.svh(68) @ 950000: uvm_test_top.env_h.scoreboard [SELF CHECKTER] Reporting test result below
+[1;30m[102m-----------------------------------
+----------- Test PASSED -----------
+-----------------------------------[0m
+
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_catcher.svh(705) @ 950000: reporter [UVM/REPORT/CATCHER] 
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+UVM_INFO /eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_server.svh(847) @ 950000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   21
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[RNTST]     1
+[SELF CHECKTER]     1
+[SEQ_PARALLEL]     1
+[SEQ_RESET]     1
+[SEQ_SHORT_RANDOM]    14
+[TEST_DONE]     1
+[UVM/REPORT/CATCHER]     1
+[UVMTOP]     1
+
+Simulation complete via $finish(1) at time 950 NS + 71
+/eda/cadence/2021-22/RHELx86/XCELIUM_21.03.009/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_root.svh:543     $finish;
+xcelium> exit
+See ./cov_work/scope/parallel_test/icc.com file for message(s) on coverage constant object marking
+
+coverage setup:
+  workdir  :  ./cov_work
+  dutinst  :  top(top)
+  scope    :  scope
+  testname :  parallel_test
+
+coverage files:
+  model(design data) :  ./cov_work/scope/icc_477e86b8_5cb1f1f5.ucm (reused)
+  data               :  ./cov_work/scope/parallel_test/icc_477e86b8_5cb1f1f5.ucd
+TOOL:	xrun	21.03-s009: Exiting on Dec 19, 2023 at 14:15:29 CET  (total: 00:00:00)
